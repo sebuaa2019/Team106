@@ -3,7 +3,10 @@
 //
 
 #include "sensor.h"
-
+#define  infraredErrorThreshold  99
+#define  smokeErrorThreshold   86  
+int  infraredIndex = 0;
+int  smokeIndex = 0;
 
 int infraredSensorStatusValue[100] = {
         7, 49, 73, 58, 30, 72, 44, 78, 23, 9,
@@ -21,8 +24,8 @@ int infraredSensorStatusValue[100] = {
 
 int smokeSensorStatusValue[100] = {
         61, 9, 66, 52, 20, 40, 68, 44, 4, 50,
-        40, 5, 28, 78, 7, 86, 1, 56, 0, 92,
-        7, 30, 48, 61, 80, 75, 24, 6, 48, 65,
+        40, 5, 28, 78, 7, 86, 86, 86, 86, 86,
+        86, 86, 48, 61, 80, 75, 24, 6, 48, 65,
         54, 58, 8, 95, 70, 71, 52, 10, 10, 32,
         65, 40, 28, 28, 15, 0, 28, 82, 76, 28,
         7, 77, 72, 40, 16, 80, 12, 40, 80, 51,
@@ -35,17 +38,17 @@ int smokeSensorStatusValue[100] = {
 
 void Sensor()
 {
-
+       
 }
 
 
 int getInfraredSensorStatus()
 {
-
+      return infraredSensorStatusValue[infraredIndex++] >= infraredErrorThreshold;
 }
 
 
 int getSmokeSensorStatus()
 {
-
+     return  smokeSensorStatusValue[smokeIndex++] >= smokeErrorThreshold;
 }
