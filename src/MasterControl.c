@@ -127,10 +127,12 @@ void * smokeSensorMonitor()
                     warningStatus = 0;      //reset warning status
                     normalTime = 0;         //and normalTime
                 }
+                warningSmoke();
             }
             else if(sensorStatus == 1) {        //if get an abnormal value
                 warningStatus = 2;                  //go back to status 2
                 normalTime = 0;                     //reset normalTime
+                warningSmoke();
             }
         }
         usleep(SMOKE_READ_INTERVAL);
