@@ -9,6 +9,8 @@
 
 
 void Sensor();
+int getInfraredSensorStatus();
+int getSmokeSensorStatus();
 
 
 
