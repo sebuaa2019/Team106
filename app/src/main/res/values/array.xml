@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mode_array">
+        <item>抗干扰模式</item>
+        <item>敏感模式</item>
+    </string-array>
+
+    <string-array name="pos_array">
+        <item>客厅</item>
+        <item>卧室</item>
+    </string-array>
+</resources>
