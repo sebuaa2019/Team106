@@ -9,35 +9,62 @@
 #include "MasterControl.h"
 
 
+int warningStop = 0;
+
 
 pthread_t ** MasterControl()
 {
     Sensor();       //init sensor
 
-    pthread_t * pthread1 = (pthread_t*)malloc(sizeof(pthread_t));
-    if(pthread_create(pthread1, NULL, sensorMonitor, NULL) == -1) {
-        printf("create thread1 failed\n");
+    //create thread for infrared sensor
+    pthread_t * pthread_infrared = (pthread_t*)malloc(sizeof(pthread_t));
+    if(pthread_create(pthread_infrared, NULL, infraredSensorMonitor, NULL) == -1) {
+        printf("create thread infrared failed\n");
     }
 
-    pthread_t * pthread2 = (pthread_t*)malloc(sizeof(pthread_t));
-    if(pthread_create(pthread2, NULL, serverMonitor, NULL) == -1) {
-        printf("create thread2 failed\n");
+    //create thread for smoke sensor
+    pthread_t * pthread_smoke = (pthread_t*)malloc(sizeof(pthread_t));
+    if(pthread_create(pthread_smoke, NULL, smokeSensorMonitor, NULL) == -1) {
+        printf("create thread smoke failed\n");
     }
 
-//    pthread_join(*pthread1, NULL);
-//    pthread_join(*pthread2, NULL);
+    pthread_t * pthread_server = (pthread_t*)malloc(sizeof(pthread_t));
+    if(pthread_create(pthread_server, NULL, serverMonitor, NULL) == -1) {
+        printf("create thread server failed\n");
+    }
 
-    pthread_t ** pthreadArray = (pthread_t**)malloc(sizeof(pthread_t*));
-    pthreadArray[0] = pthread1;
-    pthreadArray[1] = pthread2;
+
+    pthread_t ** pthreadArray = (pthread_t**)malloc(THREAD_NUMBER * sizeof(pthread_t*));
+    pthreadArray[0] = pthread_infrared;
+    pthreadArray[1] = pthread_smoke;
+    pthreadArray[2] = pthread_server;
+
     return pthreadArray;
 }
 
 
-void * sensorMonitor()
+void * infraredSensorMonitor()
 {
     while(1) {
-        printf("1\n");
+        int sensorStatus = getSensorStatus(1);
+        if(sensorStatus == 0) {
+            ;
+        }
+        else if(sensorStatus == 1) {
+            warning();
+        }
+        else if(sensorStatus == -1) {
+            break;
+        }
+        sleep(1);
+    }
+    return NULL;
+}
+
+void * smokeSensorMonitor()
+{
+    while(1) {
+        int sensorStatus = getSensorStatus(2);
         sleep(1);
     }
     return NULL;
@@ -46,8 +73,37 @@ void * sensorMonitor()
 void * serverMonitor()
 {
     while(1) {
-        printf("2\n");
         sleep(1);
     }
     return NULL;
+}
+
+
+/*
+ * warn function
+ */
+void warning()
+{
+    int i = 0;
+    while(i<10) {
+        printf("warning\n");
+        sleep(1);
+        i++;
+    }
+}
+
+/*
+ * sensorNumber: 1 for infrared, 2 for smoke
+ */
+int getSensorStatus(int sensorNumber)
+{
+    if(sensorNumber == 1) {
+        return getInfraredSensorStatus();
+    }
+    else if(sensorNumber == 2) {
+        return getSmokeSensorStatus();
+    }
+    else {      //error
+        return -1;
+    }
 }

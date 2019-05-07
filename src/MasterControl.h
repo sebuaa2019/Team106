@@ -5,10 +5,14 @@
 #ifndef SOFTWARE_ENGINEERING_MASTERCONTROL_H
 #define SOFTWARE_ENGINEERING_MASTERCONTROL_H
 
+
 #include <pthread.h>
 
 
-int getSensorStatus(int sensorNumber);
+#define THREAD_NUMBER 3
+
+
+int getSensorStatus(int sensorNumber);      //1 for infrared, 2 for smoke
 int turnOnSensor(int sensorNumber);
 int turnOffSensor(int sensorNumber);
 int getSensorSwitchStatus(int sensorNumber);
@@ -17,7 +21,8 @@ int turnOnSystem();
 int turnOffSystem();
 int getInstrFromServer();
 
-void * sensorMonitor();
+void * infraredSensorMonitor();
+void * smokeSensorMonitor();
 void * serverMonitor();
 
 void warning();
