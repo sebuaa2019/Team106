@@ -10,6 +10,9 @@
 
 
 #define THREAD_NUMBER 3
+#define ALARM_INTERVAL 1000000        //10^6 usec
+#define INFRARED_READ_INTERVAL 1000000   //10^6 usec
+#define SMOKE_READ_INTERVAL 1000000   //10^6 usec
 
 
 int getSensorStatus(int sensorNumber);      //1 for infrared, 2 for smoke

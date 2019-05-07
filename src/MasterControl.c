@@ -56,7 +56,7 @@ void * infraredSensorMonitor()
         else if(sensorStatus == -1) {
             break;
         }
-        sleep(1);
+        usleep(INFRARED_READ_INTERVAL);
     }
     return NULL;
 }
@@ -65,7 +65,7 @@ void * smokeSensorMonitor()
 {
     while(1) {
         int sensorStatus = getSensorStatus(2);
-        sleep(1);
+        usleep(SMOKE_READ_INTERVAL);
     }
     return NULL;
 }
