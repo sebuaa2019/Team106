@@ -23,16 +23,16 @@ int infraredSensorStatusValue[100] = {
 //because there is no sensor now, use this instead of the return value of the sensor
 
 int smokeSensorStatusValue[100] = {
-        61, 9, 66, 52, 20, 40, 68, 44, 4, 50,
-        40, 5, 28, 78, 7, 86, 86, 86, 86, 86,
-        86, 86, 48, 61, 80, 75, 24, 6, 48, 65,
-        54, 58, 8, 95, 70, 71, 52, 10, 10, 32,
-        65, 40, 28, 28, 15, 0, 28, 82, 76, 28,
-        7, 77, 72, 40, 16, 80, 12, 40, 80, 51,
-        94, 48, 72, 84, 42, 26, 88, 60, 16, 51,
-        0, 12, 20, 89, 75, 84, 91, 88, 75, 9,
-        45, 16, 14, 66, 39, 55, 50, 88, 72, 54,
-        0, 71, 90, 60, 12, 46, 28, 8, 68, 84
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+        1,  10, 30, 50, 70, 80, 90, 95, 98, 99,
+        99, 99, 99, 99, 99, 99, 99, 99, 99, 95,
+        90, 88, 86, 80, 50, 40, 30, 30, 30, 30,
+        30, 30, 30, 30, 30, 30, 30, 30, 30, 30,
+        30, 10, 30, 50, 70, 80, 90, 90, 95, 96,
+        99, 99, 99, 99, 99, 99, 99, 99, 99, 99,
+        99, 99, 99, 90, 85, 80, 50, 30, 20, 10,
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 };
 
 
@@ -44,11 +44,15 @@ void Sensor()
 
 int getInfraredSensorStatus()
 {
-      return infraredSensorStatusValue[infraredIndex++] >= infraredErrorThreshold;
+    infraredIndex++;
+    infraredIndex %= 100;
+    return infraredSensorStatusValue[infraredIndex] >= infraredErrorThreshold;
 }
 
 
 int getSmokeSensorStatus()
 {
-     return  smokeSensorStatusValue[smokeIndex++] >= smokeErrorThreshold;
+    smokeIndex++;
+    smokeIndex %= 100;
+    return smokeSensorStatusValue[smokeIndex] >= smokeErrorThreshold;
 }
