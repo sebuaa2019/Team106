@@ -87,7 +87,7 @@ void warning()
     int i = 0;
     while(i<10) {
         printf("warning\n");
-        sleep(1);
+        sleep(ALARM_INTERVAL);
         i++;
     }
 }
