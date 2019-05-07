@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:id="@+id/user_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="@dimen/user_img_horizontal_margin"
+        android:layout_marginLeft="@dimen/user_img_horizontal_margin"
+        android:layout_marginTop="@dimen/user_img_vertical_margin"
+        android:contentDescription="@string/user_image_description"
+        android:background="#6699FF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/user_default" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/user_name_horizontal_margin"
+        android:layout_marginLeft="@dimen/user_name_horizontal_margin"
+        android:layout_marginTop="@dimen/user_name_vertical_margin"
+        android:text="@string/user_name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <TextView
+        android:id="@+id/user_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/user_phone_horizontal_margin"
+        android:layout_marginLeft="@dimen/user_phone_horizontal_margin"
+        android:layout_marginTop="@dimen/user_phone_vertical_margin"
+        android:text="@string/user_phone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <ToggleButton
+        android:id="@+id/onoff_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/on_off_button_bottom_margin"
+        android:textOff="@string/on_button"
+        android:textOn="@string/off_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/mode_spinner"
+        android:layout_width="@dimen/spinner_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/mode_spinner_horizontal_margin"
+        android:layout_marginLeft="@dimen/mode_spinner_horizontal_margin"
+        android:layout_marginTop="@dimen/mode_spinner_vertical_margin"
+        android:entries="@array/mode_array"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <Spinner
+        android:id="@+id/pos_spinner"
+        android:layout_width="@dimen/spinner_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/pos_spinner_horizontal_margin"
+        android:layout_marginLeft="@dimen/pos_spinner_horizontal_margin"
+        android:layout_marginTop="@dimen/pos_spinner_vertical_margin"
+        android:entries="@array/pos_array"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+</android.support.constraint.ConstraintLayout>

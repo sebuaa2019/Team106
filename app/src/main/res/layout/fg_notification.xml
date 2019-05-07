@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_notification"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/user_name_horizontal_margin"
+        android:layout_marginLeft="@dimen/user_name_horizontal_margin"
+        android:layout_marginTop="@dimen/user_name_vertical_margin"
+        android:text="@string/user_name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+
+    <Spinner
+        android:id="@+id/mode_spinner"
+        android:layout_width="@dimen/spinner_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/mode_spinner_horizontal_margin"
+        android:layout_marginLeft="@dimen/mode_spinner_horizontal_margin"
+        android:layout_marginTop="@dimen/mode_spinner_vertical_margin"
+        android:entries="@array/mode_array"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <Spinner
+        android:id="@+id/pos_spinner"
+        android:layout_width="@dimen/spinner_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/pos_spinner_horizontal_margin"
+        android:layout_marginLeft="@dimen/pos_spinner_horizontal_margin"
+        android:layout_marginTop="@dimen/pos_spinner_vertical_margin"
+        android:entries="@array/pos_array"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+</android.support.constraint.ConstraintLayout>
