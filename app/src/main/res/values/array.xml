@@ -9,4 +9,9 @@
         <item>客厅</item>
         <item>卧室</item>
     </string-array>
+
+    <string-array name="sensor_array">
+        <item>红外传感器</item>
+        <item>烟雾传感器</item>
+    </string-array>
 </resources>

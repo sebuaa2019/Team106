@@ -6,42 +6,51 @@
     android:layout_height="match_parent"
     >
 
-
-    <TextView
-        android:id="@+id/user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/user_name_horizontal_margin"
-        android:layout_marginLeft="@dimen/user_name_horizontal_margin"
-        android:layout_marginTop="@dimen/user_name_vertical_margin"
-        android:text="@string/user_name"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        />
-
-
     <Spinner
-        android:id="@+id/mode_spinner"
+        android:id="@+id/n_sensor_spinner"
         android:layout_width="@dimen/spinner_width"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/mode_spinner_horizontal_margin"
         android:layout_marginLeft="@dimen/mode_spinner_horizontal_margin"
-        android:layout_marginTop="@dimen/mode_spinner_vertical_margin"
-        android:entries="@array/mode_array"
+        android:layout_marginTop="@dimen/notification_spinner_vertical_margin"
+        android:entries="@array/sensor_array"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
         />
 
     <Spinner
-        android:id="@+id/pos_spinner"
+        android:id="@+id/n_pos_spinner"
         android:layout_width="@dimen/spinner_width"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/pos_spinner_horizontal_margin"
         android:layout_marginLeft="@dimen/pos_spinner_horizontal_margin"
-        android:layout_marginTop="@dimen/pos_spinner_vertical_margin"
+        android:layout_marginTop="@dimen/notification_spinner_vertical_margin"
         android:entries="@array/pos_array"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <Button
+        android:id="@+id/select_date_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="200dp"
+        android:text="@string/set_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="150dp"
+        android:text="日期："
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />

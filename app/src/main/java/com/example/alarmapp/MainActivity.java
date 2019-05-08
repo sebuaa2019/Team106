@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_page);
+        setContentView(R.layout.main_layout);
         navView = findViewById(R.id.nav_view);
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.vpager);
