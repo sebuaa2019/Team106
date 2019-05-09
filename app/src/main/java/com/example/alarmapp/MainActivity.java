@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
-import com.example.alarmapp.Fragment.MyFragmentPagerAdapter;
+import com.example.alarmapp.Adapter.MyFragmentPagerAdapter;
 
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     public static final int PAGE_HOME = 0;

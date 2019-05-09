@@ -1,10 +1,13 @@
-package com.example.alarmapp.Fragment;
+package com.example.alarmapp.Adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
+import com.example.alarmapp.Fragment.FragmentHome;
+import com.example.alarmapp.Fragment.FragmentNotification;
+import com.example.alarmapp.Fragment.FragmentSettings;
 import com.example.alarmapp.MainActivity;
 
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
