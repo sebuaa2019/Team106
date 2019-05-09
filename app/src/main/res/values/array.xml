@@ -14,4 +14,13 @@
         <item>红外传感器</item>
         <item>烟雾传感器</item>
     </string-array>
+
+    <string-array name="time_internal_array">
+        <item>30s</item>
+        <item>1min</item>
+        <item>3min</item>
+        <item>5min</item>
+        <item>10min</item>
+        <item>20min</item>
+    </string-array>
 </resources>

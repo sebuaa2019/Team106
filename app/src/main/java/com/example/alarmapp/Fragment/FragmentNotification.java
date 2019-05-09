@@ -31,7 +31,6 @@ public class FragmentNotification extends Fragment {
         Log.i("Fragment2", "notification");
         button = view.findViewById(R.id.select_date_button);
         date_text = view.findViewById(R.id.date_text);
-        datePicker = view.findViewById(R.id.date_picker);
         initEvent();
         return view;
     }
