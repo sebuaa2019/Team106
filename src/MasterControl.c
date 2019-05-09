@@ -117,6 +117,7 @@ void * smokeSensorMonitor()
                 warningSmoke();         //warning
             }
             else if(sensorStatus == 1) {        //if get an abnormal value
+            	normalTime = 0;    //reset  normalTime
                 warningSmoke();     //warning
             }
         }
