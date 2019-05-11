@@ -154,11 +154,11 @@ void * smokeSensorMonitor()
 }
 
 /*
- * stopinf: stop infrared sensor
- * startinf:
- * stopsmo: stop smoke sensor
- * startsmo:
- * exit: exit the program
+ * pi: pause infrared sensor
+ * ri: restart
+ * ps: pause smoke sensor
+ * rs: restart
+ * q: exit the program
  */
 void * serverMonitor()
 {
@@ -166,19 +166,19 @@ void * serverMonitor()
     while(1) {
         char string[100];
         fgets(string, 99, stdin);
-        if(strcmp(string, "stopinf") == 0) {
+        if(strcmp(string, "pi\n") == 0) {
             infraredStatus = 0;
         }
-        else if(strcmp(string, "stopsmo") == 0) {
+        else if(strcmp(string, "ps\n") == 0) {
             smokeStatus = 0;
         }
-        else if(strcmp(string, "startinf") == 0) {
+        else if(strcmp(string, "ri\n") == 0) {
             infraredStatus = 1;
         }
-        else if(strcmp(string, "startsmo") == 0) {
+        else if(strcmp(string, "rs\n") == 0) {
             smokeStatus = 1;
         }
-        else if(strcmp(string, "exit") == 0) {
+        else if(strcmp(string, "q\n") == 0) {
             programEnd = 1;
         }
         else {
