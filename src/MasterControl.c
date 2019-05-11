@@ -1,7 +1,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <pthread.h>
+#include <unistd.h>
+#include <loglib.h>
+#include <stddef.h>
+#include <time.h>
+#include <tasklib.h>
 #include "sensor.h"
 #include "MasterControl.h"
 
@@ -9,41 +13,52 @@
 int warningStop = 0;
 
 
-pthread_t ** MasterControl()
+int * MasterControl()
 {
 
 
     /*create thread for infrared sensor*/
-    pthread_t * pthread_infrared = (pthread_t*)malloc(sizeof(pthread_t));
+    /* pthread_t * pthread_infrared = (pthread_t*)malloc(sizeof(pthread_t)); */
 
     /*create thread for smoke sensor*/
-    pthread_t * pthread_smoke = (pthread_t*)malloc(sizeof(pthread_t));
+    /* pthread_t * pthread_smoke = (pthread_t*)malloc(sizeof(pthread_t)); */
 
     /*create thread for server*/
-    pthread_t * pthread_server = (pthread_t*)malloc(sizeof(pthread_t));
+    /* pthread_t * pthread_server = (pthread_t*)malloc(sizeof(pthread_t)); */
 
     /*create return array*/
-    pthread_t ** pthreadArray = (pthread_t**)malloc(THREAD_NUMBER * sizeof(pthread_t*));
+    /* pthread_t ** pthreadArray = (pthread_t**)malloc(THREAD_NUMBER * sizeof(pthread_t*)); */
+    int * retThread = (int*)malloc(sizeof(int) * THREAD_NUMBER);
+
 
     Sensor();       /*init sensor*/
 
+    /*
     if(pthread_create(pthread_infrared, NULL, infraredSensorMonitor, NULL) == -1) {
+        printf("create thread infrared failed\n");
+    }*/
+    if((retThread[0] = taskSpawn("infrared", 200, 0, 100000, infraredSensorMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
         printf("create thread infrared failed\n");
     }
 
+    /*
     if(pthread_create(pthread_smoke, NULL, smokeSensorMonitor, NULL) == -1) {
+        printf("create thread smoke failed\n");
+    }*/
+    if((retThread[1] = taskSpawn("smoke", 200, 0, 100000, smokeSensorMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
         printf("create thread smoke failed\n");
     }
 
+    /*
     if(pthread_create(pthread_server, NULL, serverMonitor, NULL) == -1) {
+        printf("create thread server failed\n");
+    }*/
+    if((retThread[2] = taskSpawn("server", 200, 0, 100000, serverMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
         printf("create thread server failed\n");
     }
 
-    pthreadArray[0] = pthread_infrared;
-    pthreadArray[1] = pthread_smoke;
-    pthreadArray[2] = pthread_server;
 
-    return pthreadArray;
+    return retThread;
 }
 
 
@@ -60,7 +75,7 @@ void * infraredSensorMonitor()
         else if(sensorStatus == -1) {
             break;
         }
-        usleep(INFRARED_READ_INTERVAL);
+        vxsleep(INFRARED_READ_INTERVAL);
     }
     return NULL;
 }
@@ -141,7 +156,7 @@ void * smokeSensorMonitor()
                 warningSmoke();
             }
         }
-        usleep(SMOKE_READ_INTERVAL);
+        vxsleep(SMOKE_READ_INTERVAL);
     }
     return NULL;
 }
@@ -149,7 +164,7 @@ void * smokeSensorMonitor()
 void * serverMonitor()
 {
     while(1) {
-        sleep(1);
+        vxsleep(1000);
     }
     return NULL;
 }
@@ -163,7 +178,7 @@ void warningInfrared()
     int i = 0;
     while(i<10) {
         printf("warning infrared\n");
-        usleep(ALARM_INTERVAL);
+        vxsleep(ALARM_INTERVAL);
         i++;
     }
 }
@@ -187,4 +202,19 @@ int getSensorStatus(int sensorNumber)
     else {      /* error */
         return -1;
     }
+}
+
+
+
+
+
+
+
+
+void vxsleep(long int ms)
+{
+    int m = sysClkRateGet();   /*get core frequency*/
+    m = 1000/m;
+    m = ms/m + 1;    /* taskDelay(n) in fact delay (n-1)tick~n*tick*/
+    taskDelay(m);
 }

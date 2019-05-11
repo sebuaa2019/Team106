@@ -8,9 +8,9 @@
 
 
 #define THREAD_NUMBER 3
-#define ALARM_INTERVAL 1000000        /* 10^6 usec       //Alarm interval */
-#define INFRARED_READ_INTERVAL 1000000   /* 10^6 usec            //Read infrared sensor interval */
-#define SMOKE_READ_INTERVAL 1000000   /* 10^6 usec               //Read smoke sensor interval */
+#define ALARM_INTERVAL 1000        /* 10^3 msec       //Alarm interval */
+#define INFRARED_READ_INTERVAL 1000   /* 10^3 msec            //Read infrared sensor interval */
+#define SMOKE_READ_INTERVAL 1000   /* 10^3 msec               //Read smoke sensor interval */
 #define MAX_SMOKE_ABNORMAL_VALUE_CONTINUOUS_TIME  8         /* Alarm after reading MAX_SMOKE_ABNORMAL_VALUE_CONTINUOUS_TIME abnormal values from smoke sensor continuously */
 #define MAX_SMOKE_NORMAL_VALUE_CONTINUOUS_TIME  8         /* stop alarm after reading MAX_SMOKE_NORMAL_VALUE_CONTINUOUS_TIME normal values from smoke sensor continuously */
 
@@ -31,8 +31,8 @@ void * serverMonitor();
 void warningInfrared();
 void warningSmoke();
 void sendMessageToServer(int ip, int message);
-pthread_t ** MasterControl();
+int * MasterControl();
 
-
+void sleep(int ms);         /* sleep ms milliseconds */
 
 #endif /* SOFTWARE_ENGINEERING_MASTERCONTROL_H */

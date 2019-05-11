@@ -6,12 +6,10 @@
 
 int main()
 {
-    pthread_t ** pthreadRetArray = MasterControl();
-
-    pthread_join(*pthreadRetArray[0], NULL);
-    pthread_join(*pthreadRetArray[1], NULL);
-    pthread_join(*pthreadRetArray[2], NULL);
+    int * retThread = MasterControl();
 
 
+
+    printf("program exit\n");
     return 0;
 }
