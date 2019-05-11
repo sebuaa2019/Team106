@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <loglib.h>
 #include <stddef.h>
@@ -11,24 +12,17 @@
 
 
 int warningStop = 0;
+int * retThread;
 
+int infraredStatus = 1;         /* 0 for closed, 1 for open */
+int smokeStatus = 1;            /* 0 for closed, 1 for open */
+
+int programEnd = 0;
 
 int * MasterControl()
 {
-
-
-    /*create thread for infrared sensor*/
-    /* pthread_t * pthread_infrared = (pthread_t*)malloc(sizeof(pthread_t)); */
-
-    /*create thread for smoke sensor*/
-    /* pthread_t * pthread_smoke = (pthread_t*)malloc(sizeof(pthread_t)); */
-
-    /*create thread for server*/
-    /* pthread_t * pthread_server = (pthread_t*)malloc(sizeof(pthread_t)); */
-
     /*create return array*/
-    /* pthread_t ** pthreadArray = (pthread_t**)malloc(THREAD_NUMBER * sizeof(pthread_t*)); */
-    int * retThread = (int*)malloc(sizeof(int) * THREAD_NUMBER);
+    retThread = (int*)malloc(sizeof(int) * THREAD_NUMBER);
 
 
     Sensor();       /*init sensor*/
@@ -37,7 +31,7 @@ int * MasterControl()
     if(pthread_create(pthread_infrared, NULL, infraredSensorMonitor, NULL) == -1) {
         printf("create thread infrared failed\n");
     }*/
-    if((retThread[0] = taskSpawn("infrared", 200, 0, 100000, infraredSensorMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
+    if((retThread[0] = taskSpawn("infrared", 200, 0, 100000, (FUNCPTR)infraredSensorMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
         printf("create thread infrared failed\n");
     }
 
@@ -45,7 +39,7 @@ int * MasterControl()
     if(pthread_create(pthread_smoke, NULL, smokeSensorMonitor, NULL) == -1) {
         printf("create thread smoke failed\n");
     }*/
-    if((retThread[1] = taskSpawn("smoke", 200, 0, 100000, smokeSensorMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
+    if((retThread[1] = taskSpawn("smoke", 200, 0, 100000, (FUNCPTR)smokeSensorMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
         printf("create thread smoke failed\n");
     }
 
@@ -53,7 +47,7 @@ int * MasterControl()
     if(pthread_create(pthread_server, NULL, serverMonitor, NULL) == -1) {
         printf("create thread server failed\n");
     }*/
-    if((retThread[2] = taskSpawn("server", 200, 0, 100000, serverMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
+    if((retThread[2] = taskSpawn("server", 200, 0, 100000, (FUNCPTR)serverMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
         printf("create thread server failed\n");
     }
 
@@ -65,15 +59,17 @@ int * MasterControl()
 void * infraredSensorMonitor()
 {
     while(1) {
-        int sensorStatus = getSensorStatus(1);
-        if(sensorStatus == 0) {
-            ;
-        }
-        else if(sensorStatus == 1) {
-            warningInfrared();
-        }
-        else if(sensorStatus == -1) {
-            break;
+        if(infraredStatus == 1) {
+            int sensorStatus = getSensorStatus(1);
+            if (sensorStatus == 0) {
+                ;
+            }
+            else if (sensorStatus == 1) {
+                warningInfrared();
+            }
+            else if (sensorStatus == -1) {
+                break;
+            }
         }
         vxsleep(INFRARED_READ_INTERVAL);
     }
@@ -104,56 +100,52 @@ void * smokeSensorMonitor()
     int normalTime = 0;         /*times of get normal value continuously*/
 
     while(1) {
-        int sensorStatus = getSensorStatus(2);
-        if(sensorStatus == -1) {
-            break;
-            /*error*/
-        }
-        if(warningStatus == 0) {
-            if(sensorStatus == 0) {     /*do nothing*/
-                ;   /*do nothing*/
+        if(smokeStatus == 1) {
+            int sensorStatus = getSensorStatus(2);
+            if (sensorStatus == -1) {
+                break;
+                /*error*/
             }
-            else if(sensorStatus == 1) {        /* warning status goto 1, abnotmalTime add 1 */
-                warningStatus = 1;
-                abnormalTime++;
-            }
-        }
-        else if(warningStatus == 1) {
-            if(sensorStatus == 0) {     /* if get a normal value when warning status is 1,*/
-                warningStatus = 0;          /*reset warning status */
-                abnormalTime = 0;           /* and abnormalTime */
-            }
-            else if(sensorStatus == 1) {    /* if get an abnormal value when warning status is 1, */
-                abnormalTime++;
-                if(abnormalTime >= MAX_SMOKE_ABNORMAL_VALUE_CONTINUOUS_TIME) {      /* if get enough abnormal value */
-                    warningStatus = 2;          /* set warning status to 2 */
-                    abnormalTime = 0;       /* reset abnormalTime */
+            if (warningStatus == 0) {
+                if (sensorStatus == 0) {     /*do nothing*/
+                    ;   /*do nothing*/
+                } else if (sensorStatus == 1) {        /* warning status goto 1, abnotmalTime add 1 */
+                    warningStatus = 1;
+                    abnormalTime++;
                 }
-            }
-        }
-        else if(warningStatus == 2) {
-            if(sensorStatus == 0) {     /* if get a normal value in warningStatus 2 */
-                warningStatus = 3;              /* goto  warning status 3 */
-                normalTime++;                   /* normalTime add 1 */
-                warningSmoke();         /* warning */
-            }
-            else if(sensorStatus == 1) {        /* if get an abnormal value */
-                warningSmoke();     /* warning */
-            }
-        }
-        else if(warningStatus == 3) {
-            if(sensorStatus == 0) {
-                normalTime++;
-                if(normalTime >= MAX_SMOKE_NORMAL_VALUE_CONTINUOUS_TIME) {  /* if get enough normal value */
-                    warningStatus = 0;      /* reset warning status */
-                    normalTime = 0;         /* and normalTime */
+            } else if (warningStatus == 1) {
+                if (sensorStatus == 0) {     /* if get a normal value when warning status is 1,*/
+                    warningStatus = 0;          /*reset warning status */
+                    abnormalTime = 0;           /* and abnormalTime */
+                } else if (sensorStatus == 1) {    /* if get an abnormal value when warning status is 1, */
+                    abnormalTime++;
+                    if (abnormalTime >=
+                        MAX_SMOKE_ABNORMAL_VALUE_CONTINUOUS_TIME) {      /* if get enough abnormal value */
+                        warningStatus = 2;          /* set warning status to 2 */
+                        abnormalTime = 0;       /* reset abnormalTime */
+                    }
                 }
-                warningSmoke();
-            }
-            else if(sensorStatus == 1) {        /* if get an abnormal value */
-                warningStatus = 2;                  /* go back to status 2 */
-                normalTime = 0;                     /* reset normalTime */
-                warningSmoke();
+            } else if (warningStatus == 2) {
+                if (sensorStatus == 0) {     /* if get a normal value in warningStatus 2 */
+                    warningStatus = 3;              /* goto  warning status 3 */
+                    normalTime++;                   /* normalTime add 1 */
+                    warningSmoke();         /* warning */
+                } else if (sensorStatus == 1) {        /* if get an abnormal value */
+                    warningSmoke();     /* warning */
+                }
+            } else if (warningStatus == 3) {
+                if (sensorStatus == 0) {
+                    normalTime++;
+                    if (normalTime >= MAX_SMOKE_NORMAL_VALUE_CONTINUOUS_TIME) {  /* if get enough normal value */
+                        warningStatus = 0;      /* reset warning status */
+                        normalTime = 0;         /* and normalTime */
+                    }
+                    warningSmoke();
+                } else if (sensorStatus == 1) {        /* if get an abnormal value */
+                    warningStatus = 2;                  /* go back to status 2 */
+                    normalTime = 0;                     /* reset normalTime */
+                    warningSmoke();
+                }
             }
         }
         vxsleep(SMOKE_READ_INTERVAL);
@@ -161,10 +153,37 @@ void * smokeSensorMonitor()
     return NULL;
 }
 
+/*
+ * stopinf: stop infrared sensor
+ * startinf:
+ * stopsmo: stop smoke sensor
+ * startsmo:
+ * exit: exit the program
+ */
 void * serverMonitor()
 {
+    vxsleep(100);
     while(1) {
-        vxsleep(1000);
+        char string[100];
+        fgets(string, 99, stdin);
+        if(strcmp(string, "stopinf") == 0) {
+            infraredStatus = 0;
+        }
+        else if(strcmp(string, "stopsmo") == 0) {
+            smokeStatus = 0;
+        }
+        else if(strcmp(string, "startinf") == 0) {
+            infraredStatus = 1;
+        }
+        else if(strcmp(string, "startsmo") == 0) {
+            smokeStatus = 1;
+        }
+        else if(strcmp(string, "exit") == 0) {
+            programEnd = 1;
+        }
+        else {
+            printf("undefined command\n");
+        }
     }
     return NULL;
 }

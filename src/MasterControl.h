@@ -33,6 +33,6 @@ void warningSmoke();
 void sendMessageToServer(int ip, int message);
 int * MasterControl();
 
-void sleep(int ms);         /* sleep ms milliseconds */
+void vxsleep(long int ms);         /* sleep ms milliseconds */
 
 #endif /* SOFTWARE_ENGINEERING_MASTERCONTROL_H */
