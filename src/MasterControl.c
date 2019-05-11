@@ -1,10 +1,7 @@
-//
-// Created by noname on 2019-04-26.
-//
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
-#include <zconf.h>
 #include "sensor.h"
 #include "MasterControl.h"
 
@@ -14,15 +11,15 @@ int warningStop = 0;
 
 pthread_t ** MasterControl()
 {
-    Sensor();       //init sensor
+    Sensor();       /*init sensor*/
 
-    //create thread for infrared sensor
+    /*create thread for infrared sensor*/
     pthread_t * pthread_infrared = (pthread_t*)malloc(sizeof(pthread_t));
     if(pthread_create(pthread_infrared, NULL, infraredSensorMonitor, NULL) == -1) {
         printf("create thread infrared failed\n");
     }
 
-    //create thread for smoke sensor
+    /*create thread for smoke sensor*/
     pthread_t * pthread_smoke = (pthread_t*)malloc(sizeof(pthread_t));
     if(pthread_create(pthread_smoke, NULL, smokeSensorMonitor, NULL) == -1) {
         printf("create thread smoke failed\n");
@@ -75,63 +72,64 @@ void * infraredSensorMonitor()
 void * smokeSensorMonitor()
 {
     int warningStatus = 0;
-    // 0 for waiting,
-    // 1 for get first abnormal value, if continue to get abnormal values, show warning
-    // 2 for warning status
-    // 3 for warning status but get several normal values, in this status, if continuously get normal status, will go back to 0
+    /* 0 for waiting,
+     * 1 for get first abnormal value, if continue to get abnormal values, show warning
+     * 2 for warning status
+     * 3 for warning status but get several normal values, in this status, if continuously get normal status, will go back to 0
+     */
 
-    int abnormalTime = 0;       //times of get abnormal value continuously
-    int normalTime = 0;         //time of get abnormal value continuously
+    int abnormalTime = 0;       /*times of get abnormal value continuously*/
+    int normalTime = 0;         /*times of get normal value continuously*/
     while(1) {
         int sensorStatus = getSensorStatus(2);
         if(sensorStatus == -1) {
             break;
-            //error
+            /*error*/
         }
         if(warningStatus == 0) {
-            if(sensorStatus == 0) {     //do nothing
-                ;   //do nothing
+            if(sensorStatus == 0) {     /*do nothing*/
+                ;   /*do nothing*/
             }
-            else if(sensorStatus == 1) {        // warning status goto 1, abnotmalTime add 1
+            else if(sensorStatus == 1) {        /* warning status goto 1, abnotmalTime add 1 */
                 warningStatus = 1;
                 abnormalTime++;
             }
         }
         else if(warningStatus == 1) {
-            if(sensorStatus == 0) {     // if get a normal value when warning status is 1,
-                warningStatus = 0;          //reset warning status
-                abnormalTime = 0;           // and abnormalTime
+            if(sensorStatus == 0) {     /* if get a normal value when warning status is 1,*/
+                warningStatus = 0;          /*reset warning status */
+                abnormalTime = 0;           /* and abnormalTime */
             }
-            else if(sensorStatus == 1) {    // if get an abnormal value when warning status is 1,
+            else if(sensorStatus == 1) {    /* if get an abnormal value when warning status is 1, */
                 abnormalTime++;
-                if(abnormalTime >= MAX_SMOKE_ABNORMAL_VALUE_CONTINUOUS_TIME) {      //if get enough abnormal value
-                    warningStatus = 2;          //set warning status to 2
-                    abnormalTime = 0;       //reset abnormalTime
+                if(abnormalTime >= MAX_SMOKE_ABNORMAL_VALUE_CONTINUOUS_TIME) {      /* if get enough abnormal value */
+                    warningStatus = 2;          /* set warning status to 2 */
+                    abnormalTime = 0;       /* reset abnormalTime */
                 }
             }
         }
         else if(warningStatus == 2) {
-            if(sensorStatus == 0) {     //if get a normal value in warningStatus 2
-                warningStatus = 3;              //goto  warning status 3
-                normalTime++;                   //normalTime add 1
-                warningSmoke();         //warning
+            if(sensorStatus == 0) {     /* if get a normal value in warningStatus 2 */
+                warningStatus = 3;              /* goto  warning status 3 */
+                normalTime++;                   /* normalTime add 1 */
+                warningSmoke();         /* warning */
             }
-            else if(sensorStatus == 1) {        //if get an abnormal value
-                warningSmoke();     //warning
+            else if(sensorStatus == 1) {        /* if get an abnormal value */
+                warningSmoke();     /* warning */
             }
         }
         else if(warningStatus == 3) {
             if(sensorStatus == 0) {
                 normalTime++;
-                if(normalTime >= MAX_SMOKE_NORMAL_VALUE_CONTINUOUS_TIME) {  //if get enough normal value
-                    warningStatus = 0;      //reset warning status
-                    normalTime = 0;         //and normalTime
+                if(normalTime >= MAX_SMOKE_NORMAL_VALUE_CONTINUOUS_TIME) {  /* if get enough normal value */
+                    warningStatus = 0;      /* reset warning status */
+                    normalTime = 0;         /* and normalTime */
                 }
                 warningSmoke();
             }
-            else if(sensorStatus == 1) {        //if get an abnormal value
-                warningStatus = 2;                  //go back to status 2
-                normalTime = 0;                     //reset normalTime
+            else if(sensorStatus == 1) {        /* if get an abnormal value */
+                warningStatus = 2;                  /* go back to status 2 */
+                normalTime = 0;                     /* reset normalTime */
                 warningSmoke();
             }
         }
@@ -178,7 +176,7 @@ int getSensorStatus(int sensorNumber)
     else if(sensorNumber == 2) {
         return getSmokeSensorStatus();
     }
-    else {      //error
+    else {      /* error */
         return -1;
     }
 }

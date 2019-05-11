@@ -1,6 +1,3 @@
-//
-// Created by noname on 2019-04-26.
-//
 
 #include "sensor.h"
 #define  infraredErrorThreshold  99
@@ -20,7 +17,7 @@ int infraredSensorStatusValue[100] = {
         15, 94, 29, 1, 17, 95, 5, 4, 51, 98,
         88, 23, 5, 82, 52, 66, 16, 37, 38, 44
 };
-//because there is no sensor now, use this instead of the return value of the sensor
+/*because there is no sensor now, use this instead of the return value of the sensor*/
 
 int smokeSensorStatusValue[100] = {
         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,

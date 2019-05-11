@@ -10,6 +10,7 @@ int main()
 
     pthread_join(*pthreadRetArray[0], NULL);
     pthread_join(*pthreadRetArray[1], NULL);
+    pthread_join(*pthreadRetArray[2], NULL);
 
 
     return 0;
