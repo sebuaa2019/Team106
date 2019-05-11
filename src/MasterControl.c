@@ -11,27 +11,34 @@ int warningStop = 0;
 
 pthread_t ** MasterControl()
 {
-    Sensor();       /*init sensor*/
+
 
     /*create thread for infrared sensor*/
     pthread_t * pthread_infrared = (pthread_t*)malloc(sizeof(pthread_t));
+
+    /*create thread for smoke sensor*/
+    pthread_t * pthread_smoke = (pthread_t*)malloc(sizeof(pthread_t));
+
+    /*create thread for server*/
+    pthread_t * pthread_server = (pthread_t*)malloc(sizeof(pthread_t));
+
+    /*create return array*/
+    pthread_t ** pthreadArray = (pthread_t**)malloc(THREAD_NUMBER * sizeof(pthread_t*));
+
+    Sensor();       /*init sensor*/
+
     if(pthread_create(pthread_infrared, NULL, infraredSensorMonitor, NULL) == -1) {
         printf("create thread infrared failed\n");
     }
 
-    /*create thread for smoke sensor*/
-    pthread_t * pthread_smoke = (pthread_t*)malloc(sizeof(pthread_t));
     if(pthread_create(pthread_smoke, NULL, smokeSensorMonitor, NULL) == -1) {
         printf("create thread smoke failed\n");
     }
 
-    pthread_t * pthread_server = (pthread_t*)malloc(sizeof(pthread_t));
     if(pthread_create(pthread_server, NULL, serverMonitor, NULL) == -1) {
         printf("create thread server failed\n");
     }
 
-
-    pthread_t ** pthreadArray = (pthread_t**)malloc(THREAD_NUMBER * sizeof(pthread_t*));
     pthreadArray[0] = pthread_infrared;
     pthreadArray[1] = pthread_smoke;
     pthreadArray[2] = pthread_server;
@@ -80,6 +87,7 @@ void * smokeSensorMonitor()
 
     int abnormalTime = 0;       /*times of get abnormal value continuously*/
     int normalTime = 0;         /*times of get normal value continuously*/
+
     while(1) {
         int sensorStatus = getSensorStatus(2);
         if(sensorStatus == -1) {
