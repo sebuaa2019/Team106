@@ -3,9 +3,11 @@ package com.example.alarmapp;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.example.alarmapp.Adapter.MyFragmentPagerAdapter;
 
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         setContentView(R.layout.main_layout);
         navView = findViewById(R.id.nav_view);
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
