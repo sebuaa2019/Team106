@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_notification"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <Spinner
+        android:id="@+id/n_sensor_spinner"
+        android:layout_width="@dimen/spinner_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/mode_spinner_horizontal_margin"
+        android:layout_marginLeft="@dimen/mode_spinner_horizontal_margin"
+        android:layout_marginTop="@dimen/notification_spinner_vertical_margin"
+        android:entries="@array/sensor_array"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <Spinner
+        android:id="@+id/n_pos_spinner"
+        android:layout_width="@dimen/spinner_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/pos_spinner_horizontal_margin"
+        android:layout_marginLeft="@dimen/pos_spinner_horizontal_margin"
+        android:layout_marginTop="@dimen/notification_spinner_vertical_margin"
+        android:entries="@array/pos_array"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <Button
+        android:id="@+id/select_date_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="200dp"
+        android:text="@string/set_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="150dp"
+        android:text="日期："
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/card_list"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="300dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+</android.support.constraint.ConstraintLayout>
