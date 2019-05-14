@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Alarmpp import views
-from rest_framework import routers
+from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,5 +31,6 @@ urlpatterns = [
     path('api/control/onoff/', views.onoff.as_view()),
     path('api/control/settime', views.settime.as_view()),
     path('api/control/feedback/', views.feedback.as_view()),
-    path('api/control/record/', views.record.as_view())
+    path('api/control/record/', views.record.as_view()),
+    path('api/control/cancelalarm', views.cancelalarm.as_view()),
 ]
