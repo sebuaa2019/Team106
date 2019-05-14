@@ -27,7 +27,7 @@
         android:layout_marginStart="@dimen/text_horizontal_margin"
         android:layout_marginLeft="@dimen/text_horizontal_margin"
         android:layout_marginTop="@dimen/user_name_vertical_margin"
-        android:text="@string/user_name"
+        android:text="@string/name"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
@@ -40,19 +40,18 @@
         android:layout_marginStart="@dimen/text_horizontal_margin"
         android:layout_marginLeft="@dimen/text_horizontal_margin"
         android:layout_marginTop="@dimen/user_phone_vertical_margin"
-        android:text="@string/user_phone"
+        android:text="@string/phone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
         />
 
-    <ToggleButton
+    <!--考虑换成ImageButton，点击更换状态和background-->
+    <Button
         android:id="@+id/onoff_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/on_off_button_bottom_margin"
-        android:textOff="@string/on_button"
-        android:textOn="@string/off_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

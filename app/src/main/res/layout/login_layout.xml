@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="登录"
+        android:text="@string/login"
         android:textColor="#000"
         android:textSize="40sp"
         android:typeface="monospace" />
@@ -53,7 +53,7 @@
             android:layout_toRightOf="@id/viewName"
             android:background="@null"
             android:ems="19"
-            android:hint="  用户名"
+            android:hint="@string/username"
             android:textColorHint="@color/colorCursor"
             android:textSize="15sp" />
 
@@ -96,7 +96,7 @@
             android:background="@null"
             android:drawablePadding="5dp"
             android:ems="19"
-            android:hint=" 密码"
+            android:hint="@string/passwd"
             android:inputType="textPassword"
             android:textColorHint="@color/colorCursor"
             android:textSize="15sp" />
@@ -108,7 +108,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl_userPassword"
-        android:text="没有账号？"
+        android:text="@string/no_account"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentRight="true"
@@ -124,7 +124,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:padding="10dp"
-        android:text="登录"
+        android:text="@string/login"
         android:textColor="#fff"
         android:textSize="18sp" />
 

@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 username = editable.toString();
                 //TODO： 加上userbname和passwd都有值按钮才能点击
-                Toast.makeText(getApplicationContext(), "hello", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "hello", Toast.LENGTH_LONG).show();
             }
         });
         et_pwd.addTextChangedListener(new TextWatcher() {
@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 passwd = editable.toString();
-                Toast.makeText(getApplicationContext(), "hello", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "hello", Toast.LENGTH_LONG).show();
             }
         });
         btn_signup.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +101,10 @@ public class LoginActivity extends AppCompatActivity {
         //验证
         String info = "username"+ username + "passwd" + passwd;
         Toast.makeText(getApplicationContext(), info, Toast.LENGTH_LONG).show();
+        Intent intent = new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setClass(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
 }

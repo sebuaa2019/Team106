@@ -12,20 +12,55 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:alpha="0.8"
         android:background="#fafafa">
 
         <TextView
             android:id="@+id/position"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#eceff1"
             android:paddingLeft="5dp"
-            android:text="postion: "
+            android:text="@string/postion"
             android:textColor="#000000"
             android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#eceff1"
+            android:paddingLeft="120dp"
+            android:layout_toRightOf="@+id/position"
+            android:text="@string/time"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#eceff1"
+            android:paddingLeft="5dp"
+            android:layout_below="@+id/position"
+            android:paddingTop="12dp"
+            android:text="@string/type"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/time"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/type"
+            android:text="@string/cancel_alarm"
+            />
 
     </RelativeLayout>
 

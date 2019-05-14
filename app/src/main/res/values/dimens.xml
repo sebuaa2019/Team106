@@ -9,12 +9,12 @@
     <dimen name="text_horizontal_margin">220dp</dimen>
     <dimen name="user_name_vertical_margin">125dp</dimen>
     <dimen name="user_phone_vertical_margin">175dp</dimen>
-    <dimen name="on_off_button_bottom_margin">250dp</dimen>
+    <dimen name="on_off_button_bottom_margin">200dp</dimen>
     <dimen name="mode_spinner_horizontal_margin">40dp</dimen>
     <dimen name="home_spinner_vertical_margin">300dp</dimen>
     <dimen name="pos_spinner_horizontal_margin">240dp</dimen>
     <dimen name="spinner_width">150dp</dimen>
 
     <!--fg_notification中的dimen-->
-    <dimen name="notification_spinner_vertical_margin">40dp</dimen>
+    <dimen name="notification_spinner_vertical_margin">80dp</dimen>
 </resources>

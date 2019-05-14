@@ -21,6 +21,9 @@ public class FragmentSettings extends Fragment {
     private Spinner spinner = null;
     private String text;
 
+    //TODO: 增加修改头像入口
+    //TODO: 增加修改信息入口
+    //TODO: 缺少feedback功能，使用最简单的dialog提交
     public FragmentSettings(){
 
     }

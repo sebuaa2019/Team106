@@ -1,17 +1,33 @@
 <resources>
+    <!--nav_view-->
     <string name="app_name">家庭报警装置</string>
     <string name="title_home">主页</string>
     <string name="title_settings">设置</string>
     <string name="title_notifications">通知</string>
+    <!--home_page-->
     <string name="user_image_description">用户头像图片</string>
-    <string name="user_name">紧急联系人</string>
-    <string name="user_phone">联系人电话</string>
+    <string name="name">紧急联系人</string>
+    <string name="phone">联系人电话</string>
     <string name="on_button">打开</string>
     <string name="off_button">关闭</string>
+    <!--settings_page-->
     <string name="set_date">设置日期</string>
     <string name="set_time">设置报警间隔</string>
     <string name="log_out">退出登录</string>
+    <!--dialog-->
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
+    <!--login and signup-->
+    <string name="login">登陆</string>
+    <string name="signup">注册</string>
+    <string name="username">  用户名</string>
+    <string name="passwd"> 密码</string>
+    <string name="confirm_passwd"> 确认密码</string>
+    <string name="no_account">没有账户？</string>
+    <!--card_view-->
+    <string name="postion">位置：</string>
+    <string name="type">类型：</string>
+    <string name="time">时间：</string>
+    <string name="cancel_alarm">解除警报</string>
 
 </resources>

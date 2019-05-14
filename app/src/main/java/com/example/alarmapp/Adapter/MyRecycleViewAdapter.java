@@ -1,9 +1,11 @@
 package com.example.alarmapp.Adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.alarmapp.R;
@@ -30,7 +32,14 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
     @Override
     public void onBindViewHolder(ContactViewHolder holder, int position) {
         AlarmInfo ai = alarmInfoList.get(position);
-        holder.position.setText("postion: "+ai.getPosition());
+        holder.pos.setText("位置："+ai.getPos());
+        holder.time.setText("时间："+ai.getTime());
+        holder.type.setText("类别："+ai.getType());
+        if(ai.isIs_alarm()){
+            //处于警戒状态
+            //TODO: 换他妈的样式
+            holder.cancel.setBackgroundColor(Color.rgb(255,97,0));
+        }
     }
 
     @Override
@@ -41,11 +50,17 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
     class ContactViewHolder extends RecyclerView.ViewHolder {
         //create the viewHolder class
 
-        protected TextView position;
+        protected TextView pos;
+        protected TextView time;
+        protected TextView type;
+        protected Button cancel;
 
         public ContactViewHolder(View itemView) {
             super(itemView);
-            position = itemView.findViewById(R.id.position);
+            pos = itemView.findViewById(R.id.position);
+            time = itemView.findViewById(R.id.time);
+            type = itemView.findViewById(R.id.type);
+            cancel = itemView.findViewById(R.id.btn_cancel);
         }
     }
 }

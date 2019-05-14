@@ -20,7 +20,8 @@ public class SignupActivity extends AppCompatActivity {
     private String userpwd = null;
     private String confirmpwd = null;
 
-    //TODO: 返回到登录界面
+    // 返回到登录界面，可以直接返回即可
+    //TODO：增加一个电话号码的选项
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
