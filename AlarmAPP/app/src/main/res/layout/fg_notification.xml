@@ -34,35 +34,34 @@
 
     <Button
         android:id="@+id/select_date_button"
-        android:layout_width="wrap_content"
+        android:background="@color/white"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="200dp"
+        android:drawableLeft="@drawable/date"
+        android:drawableRight="@drawable/ic_right"
+        android:drawableStart="@drawable/date"
+        android:drawableEnd="@drawable/ic_right"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="150dp"
         android:text="@string/set_date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <TextView
-        android:id="@+id/date_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="150dp"
-        android:text="日期："
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
+    <!--Vpager的问题，导致fragment在页面中有向上的位移-->
+    <!--当前的参数是比较合适的，如果要修改marginTop，高度也需要同时修改-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/card_list"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="440dp"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="220dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
