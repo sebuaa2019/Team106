@@ -1,27 +1,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_login"
+    android:id="@+id/activity_signup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/logoScreenBackground">
 
-    <TextView
-        android:id="@+id/login_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="@string/login"
-        android:textColor="#000"
-        android:textSize="40sp"
-        android:typeface="monospace" />
 
     <RelativeLayout
-        android:id="@+id/rl_userName"
+        android:id="@+id/rl_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/login_title"
         android:layout_marginTop="40dp"
         android:background="@drawable/rectangle_edittext">
 
@@ -45,7 +32,7 @@
             />
 
         <EditText
-            android:id="@+id/et_userName"
+            android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
@@ -53,7 +40,7 @@
             android:layout_toRightOf="@id/viewName"
             android:background="@null"
             android:ems="19"
-            android:hint="@string/username"
+            android:hint="@string/name"
             android:maxLength="20"
             android:textColorHint="@color/colorCursor"
             android:textSize="15sp" />
@@ -61,15 +48,15 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/rl_userPassword"
+        android:id="@+id/rl_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rl_userName"
+        android:layout_below="@id/rl_name"
         android:layout_marginTop="20dp"
         android:background="@drawable/rectangle_edittext">
 
         <ImageView
-            android:id="@+id/iv_userIconPwd"
+            android:id="@+id/iv_userIconPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -79,55 +66,29 @@
             android:src="@mipmap/ic_edittextupwd" />
 
         <View
-            android:id="@+id/viewPwd"
+            android:id="@+id/viewUserPhone"
             android:layout_width="1dip"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/iv_userIconPwd"
-           />
+            android:layout_toRightOf="@id/iv_userIconPhone"
+            />
 
         <EditText
-            android:id="@+id/et_password"
+            android:id="@+id/et_userphone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/viewPwd"
+            android:layout_toRightOf="@id/viewUserPhone"
             android:background="@null"
             android:drawablePadding="5dp"
             android:ems="19"
-            android:hint="@string/passwd"
+            android:hint="@string/phone"
             android:maxLength="20"
-            android:inputType="textPassword"
             android:textColorHint="@color/colorCursor"
             android:textSize="15sp" />
 
     </RelativeLayout>
-
-    <Button
-        android:id="@+id/btn_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_userPassword"
-        android:text="@string/no_account"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        />
-
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn_signup"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="@string/login"
-        android:textColor="#fff"
-        android:textSize="18sp" />
 
 </RelativeLayout>

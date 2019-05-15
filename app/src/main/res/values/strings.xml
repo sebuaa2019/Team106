@@ -10,10 +10,12 @@
     <string name="phone">联系人电话</string>
     <string name="on_button">打开</string>
     <string name="off_button">关闭</string>
-    <!--settings_page-->
+    <!--settings&notification_page-->
     <string name="set_date">设置日期</string>
     <string name="set_time">设置报警间隔</string>
     <string name="log_out">退出登录</string>
+    <string name="mod_img">修改头像</string>
+    <string name="mod_info">修改信息</string>
     <!--dialog-->
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>

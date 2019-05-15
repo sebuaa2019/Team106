@@ -7,19 +7,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.alarmapp.Utils.Tools;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText et_name;
     private EditText et_pwd;
     private Button btn_signup;
     private Button btn_login;
-    private String username = null;
-    private String passwd=null;
+    private String username = "";
+    private String passwd= "";
+    private boolean empty_state = false;
 
 
     @Override
@@ -52,10 +53,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 username = editable.toString();
-                //TODO： 加上userbname和passwd都有值按钮才能点击
-//                Toast.makeText(getApplicationContext(), "hello", Toast.LENGTH_LONG).show();
             }
         });
+
         et_pwd.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -70,9 +70,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 passwd = editable.toString();
-//                Toast.makeText(getApplicationContext(), "hello", Toast.LENGTH_LONG).show();
             }
         });
+
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,10 +101,17 @@ public class LoginActivity extends AppCompatActivity {
         //验证
         String info = "username"+ username + "passwd" + passwd;
         Toast.makeText(getApplicationContext(), info, Toast.LENGTH_LONG).show();
-        Intent intent = new Intent();
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setClass(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
+//        if(username.length() != 0 && passwd.length() != 0){
+//            String passwd_md5 = Tools.md5(passwd);
+
+            Intent intent = new Intent();
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setClass(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+//        }
+//        else{
+//            Toast.makeText(getApplicationContext(), "请完整填写信息", Toast.LENGTH_LONG).show();
+//        }
     }
 
 }
