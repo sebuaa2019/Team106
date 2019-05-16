@@ -1,5 +1,6 @@
 package com.example.alarmapp.Fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -7,20 +8,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.ToggleButton;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.alarmapp.R;
+import com.example.alarmapp.Utils.AppController;
+import com.example.alarmapp.Utils.Tools;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.example.alarmapp.Utils.URLConf.*;
 
 public class FragmentHome extends Fragment {
     private Spinner modeSpinner = null;
     private Spinner posSpinner = null;
-    private TextView name;
-    private TextView phone;
-    private ToggleButton toggleButton;
+    private ImageView iv = null;
+    private TextView tv_name = null;
+    private TextView tv_phone = null;
+    private Button btn_onoff;
     private int mode=0; //记录开启模式
     private int pos=0; //记录开启位置
+    private int state=0; //0表示关闭，1表示开启
 
     public FragmentHome(){
 
@@ -30,9 +49,14 @@ public class FragmentHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fg_home, container, false);
         Log.i("Fragment1", "Home");
+        iv = view.findViewById(R.id.user_image);
+        tv_name = view.findViewById(R.id.user_name);
+        tv_phone = view.findViewById(R.id.user_phone);
         modeSpinner = view.findViewById(R.id.h_mode_spinner);
         posSpinner = view.findViewById(R.id.h_pos_spinner);
+        btn_onoff = view.findViewById(R.id.btn_onoff);
         initEvent();
+        getUserInfo();
         return view;
     }
 
@@ -59,5 +83,111 @@ public class FragmentHome extends Fragment {
 
             }
         });
+        btn_onoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                state = state==0 ? 1: 0;
+                on_off();
+            }
+        });
+    }
+
+
+    private void getUserInfo(){
+        try {
+            //
+            SharedPreferences sp = this.getActivity().getSharedPreferences("conf", 0);
+            final String token = sp.getString("token","");
+
+            String url = USING_URL + INFOINDEX;
+            final String tag = "json_info_index";
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try{
+                                String name = response.getString("name");
+                                String phone = response.getString("phone");
+                                String img_path = response.getString("img_path");
+                                tv_name.setText("紧急联系人： "+ name);
+                                tv_phone.setText("紧急电话： "+phone);
+                                //TODO: 头像的处理
+
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e(tag, error.toString());
+                        }
+                    }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json");
+                    headers.put("token", token);
+                    return headers;
+                }
+            };
+            AppController.getInstance().addToRequestQueue(jsonObjectRequest, tag);
+
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void on_off(){
+        try {
+            //
+            SharedPreferences sp = this.getActivity().getSharedPreferences("conf", 0);
+            final String token = sp.getString("token","");
+
+            String url = USING_URL + ONOFF;
+            final String tag = "json_onoff";
+            Map<String, Integer> map = new HashMap<String, Integer>();
+            map.put("on_off", state);
+            map.put("mode", mode);
+            map.put("area", pos);
+            JSONObject params = new JSONObject(map);
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try{
+                                if(response.getInt("status") == 0){
+                                    Toast.makeText(getContext(), response.getString("msg"),
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e(tag, error.toString());
+                        }
+                    }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json");
+                    headers.put("token", token);
+                    return headers;
+                }
+            };
+            AppController.getInstance().addToRequestQueue(jsonObjectRequest, tag);
+
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

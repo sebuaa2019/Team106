@@ -1,15 +1,33 @@
 package com.example.alarmapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request.Method;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.alarmapp.Utils.AppController;
+import com.example.alarmapp.Utils.Tools;
+
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.example.alarmapp.Utils.URLConf.*;
 
 public class SignupActivity extends AppCompatActivity {
     private EditText et_name;
@@ -121,10 +139,45 @@ public class SignupActivity extends AppCompatActivity {
                 if(userpwd.length() >= 6){
                     //signup
 
-                    Intent intent = new Intent();
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setClass(SignupActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    String url = USING_URL + REGISTER;
+                    final String tag = "json_signup";
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("username", username);
+                    map.put("password", Tools.md5(userpwd));
+                    map.put("phone", userphone);
+                    JSONObject params = new JSONObject(map);
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest( Method.POST ,url, params,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Log.d(tag, response.toString());
+
+                                    Intent intent = new Intent();
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    intent.setClass(SignupActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.e(tag, error.toString());
+                                }
+                            }){
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            HashMap<String, String> headers = new HashMap<String, String>();
+                            headers.put("Content-Type", "application/json");
+                            SharedPreferences sp = getSharedPreferences("conf", 0);
+                            String token = sp.getString("token", "");
+                            headers.put("token", token);
+                            return headers;
+                        }
+                    };
+
+                    AppController.getInstance().addToRequestQueue(jsonObjectRequest, tag);
+
+
                 }
                 else{
                     String info = "密码长度不应该小于6位";

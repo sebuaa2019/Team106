@@ -48,7 +48,7 @@
 
     <!--考虑换成ImageButton，点击更换状态和background-->
     <Button
-        android:id="@+id/onoff_button"
+        android:id="@+id/btn_onoff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/on_off_button_bottom_margin"

@@ -22,6 +22,8 @@ import com.example.alarmapp.Utils.AlarmInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import static com.example.alarmapp.Utils.URLConf.*;
+
 
 public class FragmentNotification extends Fragment {
     private Button button = null;

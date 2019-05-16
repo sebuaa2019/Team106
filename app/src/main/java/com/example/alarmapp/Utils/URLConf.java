@@ -2,7 +2,6 @@ package com.example.alarmapp.Utils;
 
 public class URLConf {
 
-    private String BearerToken = "";
 
     // 本地测试地址
     private static final String TEST_BASE_URL = "http://192.168.2.141:8080/";
@@ -20,7 +19,7 @@ public class URLConf {
     public static final String LOGIN = "api/account/login/";
     public static final String LOGOUT = "api/account/logout/";
     public static final String FRESHTOKEN = "api/accout/freshtoken/";
-    public static final String INFPINDEX = "api/account/index/";
+    public static final String INFOINDEX = "api/account/index/";
     public static final String MODIMG = "api/account/img_mod/";
     public static final String MODINFO = "api/account/info_mod/";
 
@@ -30,12 +29,4 @@ public class URLConf {
     public static final String RECORD = "api/control/record/";
     public static final String CANCELALARM = "api/control/cancelalarm";
 
-
-    public String getBearerToken() {
-        return BearerToken;
-    }
-
-    public void setBearerToken(String bearerToken) {
-        BearerToken = bearerToken;
-    }
 }

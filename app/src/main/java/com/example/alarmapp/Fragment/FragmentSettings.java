@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,8 +18,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.alarmapp.LoginActivity;
-import com.example.alarmapp.MainActivity;
 import com.example.alarmapp.R;
+
+import static com.example.alarmapp.Utils.URLConf.*;
 
 public class FragmentSettings extends Fragment {
     private Button time_picker_button = null;
@@ -113,7 +113,6 @@ public class FragmentSettings extends Fragment {
     }
 
     private void logout(){
-        //TODO: getContext不一定对
         Intent intent = new Intent();
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setClass(getContext(), LoginActivity.class);
@@ -121,7 +120,7 @@ public class FragmentSettings extends Fragment {
     }
 
     private void mod_img(){
-
+        //TODO: 头像
     }
 
     private void mod_info(){
