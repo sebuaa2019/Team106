@@ -5,7 +5,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_jwt.settings import api_settings
 from rest_framework import permissions
-from Alarmpp.models import *
+from Alarmpp.models import User
+from Alarm_System import settings
 from django.contrib.auth import logout as Logout
 # Create your views here.
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
@@ -42,8 +43,12 @@ class login(ObtainJSONWebToken):
         data = request.data
         username = data.get('username')
         password = data.get('password')
+        print(username)
+
         try:
             user = User.objects.get(username=username)
+            print(username)
+            print(user.username)
             if user.password == password:
                 status = '登录成功'
                 user_id = user.id
@@ -60,11 +65,12 @@ class login(ObtainJSONWebToken):
             user_id = None
             phone = None
             token = None
+
         res = {
             'status': status,
             'user_id': user_id,
             'phone': phone,
-            'token' : token,
+            'token': token,
         }
         return Response(res)
 
@@ -75,9 +81,9 @@ class logout(APIView):
 
 
 class index(APIView):
-    def get(self, request):
+    def post(self, request):
         username = request.user.username
-        user = User.objects.get(userame=username)
+        user = User.objects.get(username=username)
         phone = user.phone
         img_path = user.img_path.url
         res = {
@@ -91,10 +97,16 @@ class index(APIView):
 class img_mod(APIView):
     def post(self, request):
         data = request.data
-        img = request.FILES.get('img'),
-        user = request.user
+        img = request.FILES.get('img')
+        username = request.user.username
+        user = User.objects.get(username=username)
         user.img_path = img
         user.save()
+        fname = settings.MEDIA_ROOT + img.name
+        with open(fname, 'wb') as pic:
+            20
+            for c in img.chunks():
+                pic.write(c)
         status = 1
         msg = '上传成功'
         res = {
@@ -105,7 +117,7 @@ class img_mod(APIView):
         return Response(res)
 
 class info_mod(APIView):
-    def post(selfself, request):
+    def post(self, request):
         data = request.data
         new_phone = data.get('new_phone')
         new_name = data.get('new_name')
@@ -121,6 +133,13 @@ class info_mod(APIView):
         }
         return Response(res)
 
+class freshtoken(APIView):
+    def post(self, request):
+        username = request.user.username
+        user = User.objects.get(username=username)
+        payload = jwt_payload_handler(user)
+        token = jwt_encode_handler(payload)
+        return Response({'token', token})
 #control
 class onoff(APIView):
     def post(self, request):
@@ -148,13 +167,6 @@ class settime(APIView):
         pass
         return Response(res)
 
-class feedback(APIView):
-    def post(self, request):
-        data = request.data
-        type = data.get('tyoe')
-        index = data.get('index')
-        date = data.get('date')
-        return Response()
 
 class record(APIView):
     def post(self, request):
