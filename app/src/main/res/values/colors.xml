@@ -14,8 +14,11 @@
     <color name="list_bg_color">#FFF4F4F4</color>
     <color name="list_focus_color">#bdbdbd</color>
     <color name="logoScreenBackground">#F7F7F7</color>
+    <color name="button_color">#3750E0</color>
+    <color name="button_pressed_color">#283BA2</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
     <drawable name="checkbox">#666666</drawable>
     <drawable name="camera_back_press">#1b1b1b</drawable>
     <drawable name="camera_back_default">#2f2f2f</drawable>

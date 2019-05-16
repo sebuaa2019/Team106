@@ -5,6 +5,7 @@
     android:id="@+id/fragment_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     >
 
     <ImageView
@@ -20,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/user_default" />
 
+
     <TextView
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
@@ -27,6 +29,10 @@
         android:layout_marginStart="@dimen/text_horizontal_margin"
         android:layout_marginLeft="@dimen/text_horizontal_margin"
         android:layout_marginTop="@dimen/user_name_vertical_margin"
+        android:drawablePadding="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:drawableLeft="@drawable/ic_icon_signal"
         android:text="@string/name"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -40,6 +46,10 @@
         android:layout_marginStart="@dimen/text_horizontal_margin"
         android:layout_marginLeft="@dimen/text_horizontal_margin"
         android:layout_marginTop="@dimen/user_phone_vertical_margin"
+        android:drawablePadding="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:drawableLeft="@drawable/ic_icon_phone"
         android:text="@string/phone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -52,6 +62,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/on_off_button_bottom_margin"
+        android:background="@drawable/btn_round_bg"
+        android:drawableLeft="@drawable/ic_off_50dp"
+        android:paddingLeft="25dp"
+        android:paddingTop="25dp"
+        android:paddingRight="25dp"
+        android:paddingBottom="25dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -2,7 +2,7 @@
     android:id="@+id/activity_signup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/logoScreenBackground">
+    android:background="@color/white">
 
 
     <RelativeLayout
@@ -10,6 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
         android:background="@drawable/rectangle_edittext">
 
         <ImageView
@@ -20,7 +22,7 @@
             android:paddingBottom="15dp"
             android:paddingLeft="30dp"
             android:paddingTop="15dp"
-            android:src="@mipmap/ic_edittextuname" />
+            android:src="@drawable/ic_icon_signal_36dp" />
 
         <View
             android:id="@+id/viewName"
@@ -44,7 +46,15 @@
             android:maxLength="20"
             android:textColorHint="@color/colorCursor"
             android:textSize="15sp" />
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/et_name"
+            android:background="@color/black"
+            />
     </RelativeLayout>
 
     <RelativeLayout
@@ -53,6 +63,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_name"
         android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
         android:background="@drawable/rectangle_edittext">
 
         <ImageView
@@ -63,7 +75,7 @@
             android:paddingBottom="15dp"
             android:paddingLeft="30dp"
             android:paddingTop="15dp"
-            android:src="@mipmap/ic_edittextupwd" />
+            android:src="@drawable/ic_icon_phone_36dp" />
 
         <View
             android:id="@+id/viewUserPhone"
@@ -88,7 +100,15 @@
             android:maxLength="20"
             android:textColorHint="@color/colorCursor"
             android:textSize="15sp" />
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/et_userphone"
+            android:background="@color/black"
+            />
     </RelativeLayout>
 
 </RelativeLayout>

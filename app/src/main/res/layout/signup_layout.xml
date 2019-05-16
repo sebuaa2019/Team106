@@ -4,7 +4,7 @@
     android:id="@+id/activity_signup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/logoScreenBackground">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/signup_title"
@@ -15,7 +15,7 @@
         android:text="@string/signup"
         android:textColor="#000"
         android:textSize="40sp"
-        android:typeface="monospace" />
+        android:typeface="monospace"/>
 
     <RelativeLayout
         android:id="@+id/srl_userName"
@@ -23,6 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/signup_title"
         android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
         android:background="@drawable/rectangle_edittext">
 
         <ImageView
@@ -33,7 +35,7 @@
             android:paddingBottom="15dp"
             android:paddingLeft="30dp"
             android:paddingTop="15dp"
-            android:src="@mipmap/ic_edittextuname" />
+            android:src="@drawable/ic_icon_signal" />
 
         <View
             android:id="@+id/sviewName"
@@ -58,6 +60,16 @@
             android:textColorHint="@color/colorCursor"
             android:textSize="15sp" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/set_userName"
+            android:background="@color/black"
+            />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -66,6 +78,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/srl_userName"
         android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
         android:background="@drawable/rectangle_edittext">
 
         <ImageView
@@ -76,7 +90,7 @@
             android:paddingBottom="15dp"
             android:paddingLeft="30dp"
             android:paddingTop="15dp"
-            android:src="@mipmap/ic_edittextupwd" />
+            android:src="@drawable/ic_icon_phone" />
 
         <View
             android:id="@+id/viewUserPhone"
@@ -102,6 +116,15 @@
             android:textColorHint="@color/colorCursor"
             android:textSize="15sp" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/et_userphone"
+            android:background="@color/black"
+            />
     </RelativeLayout>
 
     <RelativeLayout
@@ -110,6 +133,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/srl_phone"
         android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
         android:background="@drawable/rectangle_edittext">
 
         <ImageView
@@ -120,7 +145,7 @@
             android:paddingBottom="15dp"
             android:paddingLeft="30dp"
             android:paddingTop="15dp"
-            android:src="@mipmap/ic_edittextupwd" />
+            android:src="@drawable/ic_pwd" />
 
         <View
             android:id="@+id/sviewPwd"
@@ -147,6 +172,15 @@
             android:textColorHint="@color/colorCursor"
             android:textSize="15sp" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/set_password"
+            android:background="@color/black"
+            />
     </RelativeLayout>
 
     <RelativeLayout
@@ -155,6 +189,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/srl_userPassword"
         android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
         android:background="@drawable/rectangle_edittext">
 
         <ImageView
@@ -165,7 +201,7 @@
             android:paddingBottom="15dp"
             android:paddingLeft="30dp"
             android:paddingTop="15dp"
-            android:src="@mipmap/ic_edittextupwd" />
+            android:src="@drawable/ic_pwd" />
 
         <View
             android:id="@+id/viewConfirmPwd"
@@ -192,15 +228,25 @@
             android:textColorHint="@color/colorCursor"
             android:textSize="15sp" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/et_confimrpassword"
+            android:background="@color/black"
+            />
     </RelativeLayout>
 
     <Button
         android:id="@+id/btn_signup"
-        android:layout_width="340dp"
+        android:background="@drawable/btn_selector"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_confirmPassword"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="80dp"
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/signup"

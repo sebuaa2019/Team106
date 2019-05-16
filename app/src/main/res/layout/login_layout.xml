@@ -4,7 +4,7 @@
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/logoScreenBackground">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/login_title"
@@ -23,6 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/login_title"
         android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:background="@drawable/rectangle_edittext">
 
         <ImageView
@@ -32,8 +35,9 @@
             android:layout_centerVertical="true"
             android:paddingBottom="15dp"
             android:paddingLeft="30dp"
+            android:paddingStart="30dp"
             android:paddingTop="15dp"
-            android:src="@mipmap/ic_edittextuname" />
+            android:src="@drawable/ic_icon_signal" />
 
         <View
             android:id="@+id/viewName"
@@ -57,7 +61,15 @@
             android:maxLength="20"
             android:textColorHint="@color/colorCursor"
             android:textSize="15sp" />
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/et_userName"
+            android:background="@color/black"
+            />
     </RelativeLayout>
 
     <RelativeLayout
@@ -66,6 +78,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_userName"
         android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
         android:background="@drawable/rectangle_edittext">
 
         <ImageView
@@ -76,7 +90,7 @@
             android:paddingBottom="15dp"
             android:paddingLeft="30dp"
             android:paddingTop="15dp"
-            android:src="@mipmap/ic_edittextupwd" />
+            android:src="@drawable/ic_pwd" />
 
         <View
             android:id="@+id/viewPwd"
@@ -102,7 +116,15 @@
             android:inputType="textPassword"
             android:textColorHint="@color/colorCursor"
             android:textSize="15sp" />
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/et_password"
+            android:background="@color/black"
+            />
     </RelativeLayout>
 
     <Button
@@ -110,16 +132,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl_userPassword"
-        android:text="@string/no_account"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        />
+        android:background="@android:color/transparent"
+        style="?android:attr/borderlessButtonStyle"
+        android:text="@string/no_account" />
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="340dp"
+        android:background="@drawable/btn_selector"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_signup"
         android:layout_centerHorizontal="true"
