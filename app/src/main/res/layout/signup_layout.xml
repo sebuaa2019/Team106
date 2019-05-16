@@ -54,6 +54,51 @@
             android:background="@null"
             android:ems="19"
             android:hint="@string/username"
+            android:maxLength="20"
+            android:textColorHint="@color/colorCursor"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/srl_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/srl_userName"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rectangle_edittext">
+
+        <ImageView
+            android:id="@+id/iv_userIconPwdPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingBottom="15dp"
+            android:paddingLeft="30dp"
+            android:paddingTop="15dp"
+            android:src="@mipmap/ic_edittextupwd" />
+
+        <View
+            android:id="@+id/viewUserPhone"
+            android:layout_width="1dip"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_userIconPwdPhone"
+            />
+
+        <EditText
+            android:id="@+id/et_userphone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/viewUserPhone"
+            android:background="@null"
+            android:drawablePadding="5dp"
+            android:ems="19"
+            android:hint="@string/phone"
+            android:maxLength="20"
             android:textColorHint="@color/colorCursor"
             android:textSize="15sp" />
 
@@ -63,7 +108,7 @@
         android:id="@+id/srl_userPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/srl_userName"
+        android:layout_below="@id/srl_phone"
         android:layout_marginTop="20dp"
         android:background="@drawable/rectangle_edittext">
 
@@ -97,6 +142,7 @@
             android:drawablePadding="5dp"
             android:ems="19"
             android:hint="@string/passwd"
+            android:maxLength="20"
             android:inputType="textPassword"
             android:textColorHint="@color/colorCursor"
             android:textSize="15sp" />
@@ -141,6 +187,7 @@
             android:drawablePadding="5dp"
             android:ems="19"
             android:hint="@string/confirm_passwd"
+            android:maxLength="20"
             android:inputType="textPassword"
             android:textColorHint="@color/colorCursor"
             android:textSize="15sp" />
