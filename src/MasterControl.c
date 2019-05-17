@@ -4,6 +4,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <loglib.h>
+#include <sockLib.h>
+#include <netinet/in.h>
+#include <inetLib.h>
 #include <stddef.h>
 #include <time.h>
 #include <tasklib.h>
@@ -19,38 +22,26 @@ int smokeStatus = 1;            /* 0 for closed, 1 for open */
 
 int programEnd = 0;
 
+int infraredWarning = 0;        /* if the infrared is warning */
+int smokeWarning = 0;           /* if the smoke is warning */
+
 int * MasterControl()
 {
     /*create return array*/
     retThread = (int*)malloc(sizeof(int) * THREAD_NUMBER);
-
-
     Sensor();       /*init sensor*/
 
-    /*
-    if(pthread_create(pthread_infrared, NULL, infraredSensorMonitor, NULL) == -1) {
-        printf("create thread infrared failed\n");
-    }*/
     if((retThread[0] = taskSpawn("infrared", 200, 0, 100000, (FUNCPTR)infraredSensorMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
         printf("create thread infrared failed\n");
     }
 
-    /*
-    if(pthread_create(pthread_smoke, NULL, smokeSensorMonitor, NULL) == -1) {
-        printf("create thread smoke failed\n");
-    }*/
     if((retThread[1] = taskSpawn("smoke", 200, 0, 100000, (FUNCPTR)smokeSensorMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
         printf("create thread smoke failed\n");
     }
 
-    /*
-    if(pthread_create(pthread_server, NULL, serverMonitor, NULL) == -1) {
-        printf("create thread server failed\n");
-    }*/
     if((retThread[2] = taskSpawn("server", 200, 0, 100000, (FUNCPTR)serverMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
         printf("create thread server failed\n");
     }
-
 
     return retThread;
 }
@@ -65,7 +56,9 @@ void * infraredSensorMonitor()
                 ;
             }
             else if (sensorStatus == 1) {
+                infraredWarning = 1;
                 warningInfrared();
+                infraredWarning = 0;
             }
             else if (sensorStatus == -1) {
                 break;
@@ -75,7 +68,6 @@ void * infraredSensorMonitor()
     }
     return NULL;
 }
-
 
 /*
  * when start,
@@ -107,6 +99,7 @@ void * smokeSensorMonitor()
                 /*error*/
             }
             if (warningStatus == 0) {
+                smokeWarning = 0;
                 if (sensorStatus == 0) {     /*do nothing*/
                     ;   /*do nothing*/
                 } else if (sensorStatus == 1) {        /* warning status goto 1, abnotmalTime add 1 */
@@ -126,6 +119,7 @@ void * smokeSensorMonitor()
                     }
                 }
             } else if (warningStatus == 2) {
+                smokeWarning = 1;
                 if (sensorStatus == 0) {     /* if get a normal value in warningStatus 2 */
                     warningStatus = 3;              /* goto  warning status 3 */
                     normalTime++;                   /* normalTime add 1 */
@@ -163,31 +157,87 @@ void * smokeSensorMonitor()
 void * serverMonitor()
 {
     vxsleep(100);
+
+    struct sockaddr_in serAddr;
+    int len;
+    char ip[]="192.168.0.14";
+    int sockFd, rLen;
+    char buf[255] = "";
+
+    int lastInfraredWarning = 0;   /* record the value of infraredWarning when read it last time */
+    int lastSmokeWarning = 0;
+
+    len = sizeof(serAddr);
+
+    /* create socket */
+    sockFd = socket(AF_INET,SOCK_STREAM,0);
+
+    /* set the net which the socket tend to bind */
+    serAddr.sin_family=AF_INET;             /* ip protocol */
+    serAddr.sin_port=8888;                  /* port */
+    inet_aton(ip, &(serAddr.sin_addr));     /*change ip to 32 bit integer*/
+    memset(serAddr.sin_zero, 0, 8);
+
+    if (connect(sockFd, (struct sockaddr*)&serAddr, len)==OK) {
+        printf("[client]Connected\n");
+    }
+
+    memset(buf, 0, sizeof(buf));
+
     while(1) {
-        char string[100];
-        fgets(string, 99, stdin);
-        if(strcmp(string, "pi\n") == 0) {
-            infraredStatus = 0;
+        /*
+         * if the value of infrared/smoke warning change to 1, send warning message
+         * if the value of infrared/smoke warning change to 0, do nothing
+         */
+        if(infraredWarning != lastInfraredWarning) {
+            if(infraredWarning == 1) {
+                lastInfraredWarning = infraredWarning;
+                strcpy(buf, "wi");
+                write(sockFd, buf, sizeof(buf));
+            }
+            else if(infraredWarning == 0) {
+                lastInfraredWarning = infraredWarning;
+            }
         }
-        else if(strcmp(string, "ps\n") == 0) {
-            smokeStatus = 0;
+        if(smokeWarning != lastSmokeWarning) {
+            if(smokeWarning == 1) {
+                lastSmokeWarning = smokeWarning;
+                strcpy(buf, "ws");
+                write(sockFd, buf, sizeof(buf));
+            }
+            else if(smokeWarning == 0) {
+                lastSmokeWarning = smokeWarning;
+            }
         }
-        else if(strcmp(string, "ri\n") == 0) {
-            infraredStatus = 1;
+        while(1) {
+            memset(buf, 0, sizeof(buf));
+            rLen = read(sockFd, buf, sizeof(buf));
+            if(rLen == 0) {
+                break;
+            }
+            if(strcmp(buf, "pi\n") == 0) {
+                infraredStatus = 0;
+            }
+            else if(strcmp(buf, "ps\n") == 0) {
+                smokeStatus = 0;
+            }
+            else if(strcmp(buf, "ri\n") == 0) {
+                infraredStatus = 1;
+            }
+            else if(strcmp(buf, "rs\n") == 0) {
+                smokeStatus = 1;
+            }
+            else if(strcmp(buf, "q\n") == 0) {
+                programEnd = 1;
+            }
+            else {
+                printf("undefined command: %s\n", buf);
+            }
         }
-        else if(strcmp(string, "rs\n") == 0) {
-            smokeStatus = 1;
-        }
-        else if(strcmp(string, "q\n") == 0) {
-            programEnd = 1;
-        }
-        else {
-            printf("undefined command\n");
-        }
+        vxsleep(1000);
     }
     return NULL;
 }
-
 
 /*
  * warn function
