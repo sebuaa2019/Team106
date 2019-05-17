@@ -156,8 +156,6 @@ void * smokeSensorMonitor()
  */
 void * serverMonitor()
 {
-    vxsleep(100);
-
     struct sockaddr_in serAddr;
     int len;
     char ip[]="192.168.0.14";
@@ -168,6 +166,8 @@ void * serverMonitor()
     int lastSmokeWarning = 0;
 
     len = sizeof(serAddr);
+
+    vxsleep(100);
 
     /* create socket */
     sockFd = socket(AF_INET,SOCK_STREAM,0);
@@ -183,6 +183,10 @@ void * serverMonitor()
     }
 
     memset(buf, 0, sizeof(buf));
+
+    if(taskSpawn("serverRead", 200, 0, 100000, (FUNCPTR)smokeSensorMonitor, sockFd, 0, 0, 0, 0, 0, 0, 0, 0, 0) == ERROR) {
+        printf("serverRead create failed\n");
+    }
 
     while(1) {
         /*
@@ -209,34 +213,42 @@ void * serverMonitor()
                 lastSmokeWarning = smokeWarning;
             }
         }
-        while(1) {
-            memset(buf, 0, sizeof(buf));
-            rLen = read(sockFd, buf, sizeof(buf));
-            if(rLen == 0) {
-                break;
-            }
-            if(strcmp(buf, "pi\n") == 0) {
-                infraredStatus = 0;
-            }
-            else if(strcmp(buf, "ps\n") == 0) {
-                smokeStatus = 0;
-            }
-            else if(strcmp(buf, "ri\n") == 0) {
-                infraredStatus = 1;
-            }
-            else if(strcmp(buf, "rs\n") == 0) {
-                smokeStatus = 1;
-            }
-            else if(strcmp(buf, "q\n") == 0) {
-                programEnd = 1;
-            }
-            else {
-                printf("undefined command: %s\n", buf);
-            }
-        }
+
         vxsleep(1000);
     }
     return NULL;
+}
+
+void * serverRead(int sockFd)
+{
+    char buf[255];
+    int rLen;
+
+    while(1) {
+        memset(buf, 0, sizeof(buf));
+        rLen = read(sockFd, buf, sizeof(buf));
+        if(rLen == 0) {
+            break;
+        }
+        if(strcmp(buf, "pi\n") == 0) {
+            infraredStatus = 0;
+        }
+        else if(strcmp(buf, "ps\n") == 0) {
+            smokeStatus = 0;
+        }
+        else if(strcmp(buf, "ri\n") == 0) {
+            infraredStatus = 1;
+        }
+        else if(strcmp(buf, "rs\n") == 0) {
+            smokeStatus = 1;
+        }
+        else if(strcmp(buf, "q\n") == 0) {
+            programEnd = 1;
+        }
+        else {
+            printf("undefined command: %s\n", buf);
+        }
+    }
 }
 
 /*

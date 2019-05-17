@@ -27,6 +27,7 @@ int getInstrFromServer();
 void * infraredSensorMonitor();
 void * smokeSensorMonitor();
 void * serverMonitor();
+void * serverRead();
 
 void warningInfrared();
 void warningSmoke();
