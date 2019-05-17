@@ -18,6 +18,10 @@
     <color name="button_pressed_color">#283BA2</color>
     <color name="button_off_color_deep">#8D8C8C</color>
     <color name="button_off_color_light">#D8D8D8</color>
+    <color name="time_line_dot_color">#EB0000</color>
+    <color name="time_line_color">#bdbdbd</color>
+    <color name="time_line_text_color">#000000</color>
+    <color name="button_alarm_color">#F44336</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>

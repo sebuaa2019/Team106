@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="@dimen/time_line_time"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/time"
+        android:textColor="@color/time_line_text_color"
+        android:textSize="15sp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:id="@+id/tv_line_top"
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/time_line_color" />
+
+        <TextView
+            android:id="@+id/tv_dot"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/tv_line_top"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/time_line_dot" />
+
+        <TextView
+            android:id="@+id/tv_line_bottom"
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/tv_dot"
+            android:layout_centerHorizontal="true"
+            android:background="@color/time_line_color" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_left"
+        android:layout_width="@dimen/time_line_rl_left"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/position"
+            android:layout_width="@dimen/time_line_pos"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/postion"
+            android:textColor="@color/time_line_text_color"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="@dimen/time_line_type"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/type"
+            android:textColor="@color/time_line_text_color"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_right"
+        android:layout_width="@dimen/time_line_rl_right"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/cancel_alarm" />
+    </RelativeLayout>
+</LinearLayout>

@@ -25,7 +25,8 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
     public ContactViewHolder onCreateViewHolder
             (ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.card_view,parent,false);
+                //change to time line view
+                inflate(R.layout.time_line,parent,false);
         return new ContactViewHolder(itemView);
     }
 
@@ -38,7 +39,19 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
         if(ai.isIs_alarm()){
             //处于警戒状态
             //TODO: 换他妈的样式
-            holder.cancel.setBackgroundColor(Color.rgb(255,97,0));
+            //change alarm button color
+            holder.cancel.setBackgroundColor(Color.rgb(244,67,54));
+            //add time line
+            if (position == 0) {
+                //delete top line
+                holder.tv_line_top.setVisibility(View.INVISIBLE);
+            } else if (position == alarmInfoList.size() - 1) {
+                //delete bottom line
+                holder.tv_line_bottom.setVisibility(View.INVISIBLE);
+            } else {
+                //set dot
+                holder.tv_dot.setBackgroundResource(R.drawable.time_line_dot);
+            }
         }
     }
 
@@ -54,6 +67,10 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
         protected TextView time;
         protected TextView type;
         protected Button cancel;
+        private final TextView tv_line_top;
+        private final TextView tv_line_bottom;
+        private final TextView tv_dot;
+
 
         public ContactViewHolder(View itemView) {
             super(itemView);
@@ -61,6 +78,16 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
             time = itemView.findViewById(R.id.time);
             type = itemView.findViewById(R.id.type);
             cancel = itemView.findViewById(R.id.btn_cancel);
+
+            //TODO: add description for every type of alarm signal maybe
+            //tv_desc = (TextView) itemView.findViewById(R.id.tv_desc);
+            //top line vertical
+            tv_line_top = (TextView) itemView.findViewById(R.id.tv_line_top);
+            //dot
+            tv_dot = (TextView) itemView.findViewById(R.id.tv_dot);
+            //bottom line vertical
+            tv_line_bottom = (TextView) itemView.findViewById(R.id.tv_line_bottom);
+
         }
     }
 }
