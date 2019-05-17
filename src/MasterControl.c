@@ -184,7 +184,7 @@ void * serverMonitor()
 
     memset(buf, 0, sizeof(buf));
 
-    if(taskSpawn("serverRead", 200, 0, 100000, (FUNCPTR)smokeSensorMonitor, sockFd, 0, 0, 0, 0, 0, 0, 0, 0, 0) == ERROR) {
+    if(taskSpawn("serverRead", 200, 0, 100000, (FUNCPTR)serverRead, sockFd, 0, 0, 0, 0, 0, 0, 0, 0, 0) == ERROR) {
         printf("serverRead create failed\n");
     }
 
