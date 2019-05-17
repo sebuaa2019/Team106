@@ -86,7 +86,16 @@ public class FragmentHome extends Fragment {
         btn_onoff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                state = state==0 ? 1: 0;
+                switch (state){
+                    case 0:
+                        state = 1;
+                        btn_onoff.setActivated(true);
+                        break;
+                    case 1:
+                        state = 0;
+                        btn_onoff.setActivated(false);
+                        break;
+                }
                 on_off();
             }
         });

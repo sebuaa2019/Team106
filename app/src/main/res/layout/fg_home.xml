@@ -62,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/on_off_button_bottom_margin"
-        android:background="@drawable/btn_round_bg"
+        android:background="@drawable/btn_round_on_off"
         android:drawableLeft="@drawable/ic_off_50dp"
         android:paddingLeft="25dp"
         android:paddingTop="25dp"

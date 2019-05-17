@@ -16,6 +16,8 @@
     <color name="logoScreenBackground">#F7F7F7</color>
     <color name="button_color">#3750E0</color>
     <color name="button_pressed_color">#283BA2</color>
+    <color name="button_off_color_deep">#8D8C8C</color>
+    <color name="button_off_color_light">#D8D8D8</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
