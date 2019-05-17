@@ -11,9 +11,9 @@
         android:colorAccent="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="34dp"
-        android:layout_marginStart="34dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginStart="0dp"
         android:startYear="2019"
         android:minDate="5/14/2019"
         >

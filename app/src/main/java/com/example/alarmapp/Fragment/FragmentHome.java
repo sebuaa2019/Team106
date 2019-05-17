@@ -69,7 +69,7 @@ public class FragmentHome extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                mode = 0; //设置一个默认值
             }
         });
         posSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -80,7 +80,7 @@ public class FragmentHome extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                pos = 0;
             }
         });
         btn_onoff.setOnClickListener(new View.OnClickListener() {
@@ -118,8 +118,8 @@ public class FragmentHome extends Fragment {
                                 String name = response.getString("name");
                                 String phone = response.getString("phone");
                                 String img_path = response.getString("img_path");
-                                tv_name.setText("紧急联系人： "+ name);
-                                tv_phone.setText("紧急电话： "+phone);
+                                tv_name.setText(name);
+                                tv_phone.setText(phone);
                                 //TODO: 头像的处理
 
                             }catch (Exception e){
@@ -163,7 +163,7 @@ public class FragmentHome extends Fragment {
             map.put("mode", mode);
             map.put("area", pos);
             JSONObject params = new JSONObject(map);
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, params,
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {

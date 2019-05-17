@@ -1,17 +1,32 @@
 package com.example.alarmapp.Adapter;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.alarmapp.R;
 import com.example.alarmapp.Utils.AlarmInfo;
+import com.example.alarmapp.Utils.AppController;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.example.alarmapp.Utils.URLConf.*;
 
 public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.ContactViewHolder> {
 
@@ -31,14 +46,15 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
     }
 
     @Override
-    public void onBindViewHolder(ContactViewHolder holder, int position) {
+    public void onBindViewHolder(final ContactViewHolder holder, final int position) {
         AlarmInfo ai = alarmInfoList.get(position);
         holder.pos.setText("位置："+ai.getPos());
         holder.time.setText("时间："+ai.getTime());
         holder.type.setText("类别："+ai.getType());
+        Log.d("test btn_cancel", String.valueOf(ai.isIs_alarm()) + String.valueOf(position));
         if(ai.isIs_alarm()){
             //处于警戒状态
-            //TODO: 换他妈的样式
+            //TODO: 这里有个bug，不是true状态的也是红色，，不知道为什么
             //change alarm button color
             holder.cancel.setBackgroundColor(Color.rgb(244,67,54));
             //add time line
@@ -53,6 +69,57 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
                 holder.tv_dot.setBackgroundResource(R.drawable.time_line_dot);
             }
         }
+        holder.cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("btn_cancel", String.valueOf(position));
+                try {
+                    //
+                    SharedPreferences sp = holder.itemView.getContext().getSharedPreferences("conf", 0);
+                    final String token = sp.getString("token","");
+
+                    String url = USING_URL + CANCELALARM;
+                    final String tag = "json_cancel_alarm";
+                    Map<String, Integer> map = new HashMap<String, Integer>();
+                    map.put("record_id", alarmInfoList.get(position).getRecord_id());
+                    JSONObject params = new JSONObject(map);
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    try{
+                                        if(response.getInt("status") == 0){
+                                            Toast.makeText(holder.itemView.getContext(), response.getString("msg"),
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+                                    }catch (Exception e){
+                                        e.printStackTrace();
+                                    }
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.e(tag, error.toString());
+                                }
+                            }){
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            HashMap<String, String> headers = new HashMap<String, String>();
+                            headers.put("Content-Type", "application/json");
+                            headers.put("token", token);
+                            return headers;
+                        }
+                    };
+                    AppController.getInstance().addToRequestQueue(jsonObjectRequest, tag);
+
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -70,7 +137,6 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
         private final TextView tv_line_top;
         private final TextView tv_line_bottom;
         private final TextView tv_dot;
-
 
         public ContactViewHolder(View itemView) {
             super(itemView);
