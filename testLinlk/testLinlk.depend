@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1558099775 source:c:\users\chenshang\desktop\testlinlk\main.c
+	<winsock2.h>
+	<windows.h>
+	<stdio.h>
+
