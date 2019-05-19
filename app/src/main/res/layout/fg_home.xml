@@ -88,13 +88,13 @@
         />
 
     <Spinner
-        android:id="@+id/h_pos_spinner"
+        android:id="@+id/h_sensor_spinner"
         android:layout_width="@dimen/spinner_width"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/pos_spinner_horizontal_margin"
         android:layout_marginLeft="@dimen/pos_spinner_horizontal_margin"
         android:layout_marginTop="@dimen/home_spinner_vertical_margin"
-        android:entries="@array/pos_array"
+        android:entries="@array/sensor_array"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />

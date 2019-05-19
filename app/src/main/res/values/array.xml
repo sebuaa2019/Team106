@@ -13,6 +13,7 @@
     <string-array name="sensor_array">
         <item>红外传感器</item>
         <item>烟雾传感器</item>
+        <item>不限</item>
     </string-array>
 
     <string-array name="time_internal_array">

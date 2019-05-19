@@ -21,17 +21,6 @@
 
         />
 
-    <Spinner
-        android:id="@+id/n_pos_spinner"
-        android:layout_width="@dimen/spinner_width"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="240dp"
-        android:layout_marginLeft="240dp"
-        android:layout_marginTop="@dimen/notification_spinner_vertical_margin"
-        android:entries="@array/pos_array"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
 
     <Button
         android:id="@+id/select_date_button"

@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.ArrayRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,9 +30,7 @@ import com.example.alarmapp.Utils.AppController;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -45,12 +42,10 @@ import static com.example.alarmapp.Utils.URLConf.*;
 
 public class FragmentNotification extends Fragment {
     private Spinner spin_sensor = null;
-    private Spinner spin_pos = null;
     private Button btn_select_date = null;
     private DatePicker datePicker = null;
     private String date_text;
     private int sensor = 0;
-    private int pos = 0;
 
     private RecyclerView card_list;
     private MyRecycleViewAdapter myRecycleViewAdapter;
@@ -65,7 +60,6 @@ public class FragmentNotification extends Fragment {
         View view = inflater.inflate(R.layout.fg_notification, container, false);
         Log.i("Fragment2", "notification");
         spin_sensor = view.findViewById(R.id.n_sensor_spinner);
-        spin_pos = view.findViewById(R.id.n_pos_spinner);
         btn_select_date = view.findViewById(R.id.select_date_button);
         card_list = view.findViewById(R.id.card_list);
         card_list.setHasFixedSize(true);
@@ -98,17 +92,6 @@ public class FragmentNotification extends Fragment {
             }
         });
 
-        spin_pos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                pos = i;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                pos = 0;
-            }
-        });
 
         btn_select_date.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -170,7 +153,6 @@ public class FragmentNotification extends Fragment {
             final String tag = "json_query_index";
             Map<String, String> map = new HashMap<String, String>();
             map.put("sensor", String.valueOf(sensor));
-            map.put("area", String.valueOf(pos));
             map.put("date", date_text);
             JSONObject params = new JSONObject(map);
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, params,

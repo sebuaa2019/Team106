@@ -21,7 +21,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.alarmapp.R;
 import com.example.alarmapp.Utils.AppController;
-import com.example.alarmapp.Utils.Tools;
 
 import org.json.JSONObject;
 
@@ -32,14 +31,14 @@ import static com.example.alarmapp.Utils.URLConf.*;
 
 public class FragmentHome extends Fragment {
     private Spinner modeSpinner = null;
-    private Spinner posSpinner = null;
+    private Spinner sensorSpinner = null;
     private ImageView iv = null;
     private TextView tv_name = null;
     private TextView tv_phone = null;
     private Button btn_onoff;
     private int mode=0; //记录开启模式
-    private int pos=0; //记录开启位置
-    private int state=0; //0表示关闭，1表示开启
+    private int sensor=0; //记录开启传感器
+    private int state=1; //0表示关闭，1表示开启
 
     public FragmentHome(){
 
@@ -53,7 +52,7 @@ public class FragmentHome extends Fragment {
         tv_name = view.findViewById(R.id.user_name);
         tv_phone = view.findViewById(R.id.user_phone);
         modeSpinner = view.findViewById(R.id.h_mode_spinner);
-        posSpinner = view.findViewById(R.id.h_pos_spinner);
+        sensorSpinner = view.findViewById(R.id.h_sensor_spinner);
         btn_onoff = view.findViewById(R.id.btn_onoff);
         initEvent();
         getUserInfo();
@@ -72,15 +71,15 @@ public class FragmentHome extends Fragment {
                 mode = 0; //设置一个默认值
             }
         });
-        posSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        sensorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                pos = i;
+                sensor = i;
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                pos = 0;
+                sensor = 0;
             }
         });
         btn_onoff.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +160,7 @@ public class FragmentHome extends Fragment {
             Map<String, Integer> map = new HashMap<String, Integer>();
             map.put("on_off", state);
             map.put("mode", mode);
-            map.put("area", pos);
+            map.put("sensor", sensor);
             JSONObject params = new JSONObject(map);
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
                     new Response.Listener<JSONObject>() {
