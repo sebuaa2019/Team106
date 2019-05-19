@@ -176,6 +176,7 @@ public class FragmentNotification extends Fragment {
                                 }
                                 //排序，先按照is_alarm, 再按照时间
                                 sortByPriority();
+                                myRecycleViewAdapter.notifyDataSetChanged();
                                 //需要测试是否会刷新
                             }catch (Exception e){
                                 e.printStackTrace();

@@ -43,6 +43,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        SharedPreferences sp = getSharedPreferences("conf", 0);
+        if (sp.getString("token", "").equals("")){
+            Intent intent = new Intent();
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setClass(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
         setContentView(R.layout.login_layout);
 
         et_name = findViewById(R.id.et_userName);
