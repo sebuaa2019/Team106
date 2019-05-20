@@ -108,7 +108,7 @@ WSGI_APPLICATION = 'Alarm_System.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'alarm_System',
+        'NAME': 'alarm_system',
         'USER': 'root',
         'PASSWORD': '43738468',
         'HOST': '',

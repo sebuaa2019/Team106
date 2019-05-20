@@ -32,6 +32,7 @@ urlpatterns = [
     path('api/control/onoff/', views.onoff.as_view()),
     path('api/control/settime', views.settime.as_view()),
     path('api/control/record/', views.record.as_view()),
-    path('api/control/cancelalarm', views.cancelalarm.as_view()),
-    path('api/test/', views.test.as_view()),
+    path('api/control/cancelalarm/', views.cancelalarm.as_view()),
+    path('api/test/index/', views.test.as_view()),
+    path('api/test/socket/', views.testsocket.as_view()),
 ]

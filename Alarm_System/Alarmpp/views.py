@@ -12,7 +12,8 @@ from Alarmpp.my_socket import my_socket_server
 # Create your views here.
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
-board_server = my_socket_server('127.0.0.1',9000)
+
+board_server = my_socket_server('127.0.0.1', 3333)
 board_server.start()
 
 #account
@@ -155,13 +156,26 @@ class freshtoken(APIView):
         return Response({'token', token})
 #control
 class onoff(APIView):
+    on = [str('ri').encode(), str('rs').encode()]
+    off = [str('pi').encode(), str('ps').encode()]
     def post(self, request):
         data = request.data
-        on_off = data.get('on_off')
+        on_off = int(data.get('on_off'))
         mode = data.get('mode')
-        sensor = data.get('sensor')
+        sensor = int(data.get('sensor'))
         sender = board_server.getsender(request.user.username)
-        sender.send(mode)
+        if on_off == 1:
+            if sensor == 2:
+                sender.send(self.on[0])
+                sender.send(self.on[1])
+            else:
+                sender.send(self.on[sensor])
+        else:
+            if sensor == 2:
+                sender.send(self.off[0])
+                sender.send(self.off[1])
+            else:
+                sender.send(self.off[sensor])
         status = "test"
         msg = "OK"
         res = {
@@ -182,7 +196,6 @@ class settime(APIView):
         }
         pass
         return Response(res)
-
 
 class record(APIView):
     def post(self, request):
@@ -208,5 +221,16 @@ class cancelalarm(APIView):
         res = {
             'status' : status,
             'msg' : msg,
+        }
+        return Response(res)
+
+class testsocket(APIView):
+    def post(self, request):
+        sender = board_server.getsender(request.user.username)
+        data = "test success"
+        data = data.encode()
+        sender.send(data)
+        res = {
+            "msg" : "OK",
         }
         return Response(res)
