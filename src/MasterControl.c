@@ -230,19 +230,19 @@ void * serverRead(int sockFd)
         if(rLen == 0) {
             break;
         }
-        if(strcmp(buf, "pi\n") == 0) {
+        if(strcmp(buf, "pi") == 0) {
             infraredStatus = 0;
         }
-        else if(strcmp(buf, "ps\n") == 0) {
+        else if(strcmp(buf, "ps") == 0) {
             smokeStatus = 0;
         }
-        else if(strcmp(buf, "ri\n") == 0) {
+        else if(strcmp(buf, "ri") == 0) {
             infraredStatus = 1;
         }
-        else if(strcmp(buf, "rs\n") == 0) {
+        else if(strcmp(buf, "rs") == 0) {
             smokeStatus = 1;
         }
-        else if(strcmp(buf, "q\n") == 0) {
+        else if(strcmp(buf, "q") == 0) {
             programEnd = 1;
         }
         else {

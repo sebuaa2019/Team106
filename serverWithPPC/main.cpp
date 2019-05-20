@@ -5,20 +5,50 @@
 #include <string.h>
 #include <fstream>
 #include <time.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/timeb.h>
 #pragma comment(lib,"ws2_32.lib")
 using namespace std;
 
 
 ifstream cRFile("WEB2PPC.txt"); //只可读
 ofstream cWFile("PPC2WEB.txt"); //只可写
+long get_old_file_time(void)
+{
+    FILE * fp;
+    int fd;
+    struct stat buf;
+    fp=fopen("cRFile.txt","r");
+    if(NULL != fp)
+    {
+        fd=fileno(fp);
+        fstat(fd, &buf);
+        int size = buf.st_size; //get file size (byte)
+        long modify_time=buf.st_mtime; //latest modification time (seconds passed from 01/01/00:00:00 1970 UTC)
+        printf("size = %d\n",size);
+        printf("modify_time = %ld\n",modify_time);
+        fclose(fp);
+        return modify_time;
+    }
+    printf("function error\n");
+    return 0;
+}
 
+long get_cur_time(void)
+{
+    long long time_last;
+	time_last = time(NULL);
+	return time_last;
 
+}
 
 
 DWORD WINAPI serverRead(LPVOID lpParamter)
 {
     SOCKET sClient = *((SOCKET*)lpParamter); //sClient
-    whlie(1)
+    while(1)
     {
         char revData[255];
         int ret = recv(sClient, revData, 255, 0);
@@ -45,6 +75,11 @@ DWORD WINAPI serverRead(LPVOID lpParamter)
 
 int main(int argc, char* argv[])
 {
+
+    long long time_last;
+	time_last = time(NULL);
+
+	cout<<time_last<<endl;	//秒数
 	//初始化WSA
 	WORD sockVersion = MAKEWORD(2, 2);
 	WSADATA wsaData;
@@ -96,15 +131,18 @@ int main(int argc, char* argv[])
     CloseHandle(readThread);
     while(1)  //sendServer
     {
-         if(){  //读到文件修改超过0.2秒,发送指令
+         long cur_time = get_cur_time();
+         long file_old_time = get_old_file_time();
+         if(cur_time-file_old_time>1){  //读到文件修改超过1秒,发送指令
 
             char sendData[255];  //文件中的指令
+            cRFile.getline(sendData,100);
 
             send(sClient, sendData, strlen(sendData), 0);
          }
          Sleep(1000);
-      }
     }
+
     closesocket(sClient);
 	closesocket(slisten);
 	WSACleanup();

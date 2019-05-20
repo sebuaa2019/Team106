@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1558342312 source:c:\users\chenshang\desktop\serverwithppc\main.cpp
+	<winsock2.h>
+	<windows.h>
+	<stdio.h>
+	<iostream>
+	<string.h>
+	<fstream>
+	<time.h>
+	<unistd.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<sys/timeb.h>
+
