@@ -24,6 +24,7 @@
     <string name="signup">注册</string>
     <string name="username">  用户名</string>
     <string name="passwd"> 密码</string>
+    <string name="email">邮箱</string>
     <string name="confirm_passwd"> 确认密码</string>
     <string name="no_account">没有账户？</string>
     <!--card_view-->

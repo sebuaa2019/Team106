@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         SharedPreferences sp = getSharedPreferences("conf", 0);
-        if (sp.getString("token", "").equals("")){
+        if (!sp.getString("token", "").equals("")){
             Intent intent = new Intent();
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setClass(LoginActivity.this, MainActivity.class);

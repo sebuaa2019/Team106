@@ -27,6 +27,5 @@ public class URLConf {
     public static final String ONOFF = "api/control/onoff/";
     public static final String SETTIME = "api/control/settime/";
     public static final String RECORD = "api/control/record/";
-    public static final String CANCELALARM = "api/control/cancelalarm";
 
 }

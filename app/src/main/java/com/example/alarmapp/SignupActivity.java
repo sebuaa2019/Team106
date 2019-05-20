@@ -33,12 +33,12 @@ public class SignupActivity extends AppCompatActivity {
     private EditText et_name;
     private EditText et_pwd;
     private EditText et_cpwd;
-    private EditText et_phone;
+    private EditText et_email;
     private Button btn_signup;
     private String username = "";
     private String userpwd = "";
     private String confirmpwd = "";
-    private String userphone = "";
+    private String email = "";
 
     // 返回到登录界面，可以直接返回即可
     @Override
@@ -51,7 +51,7 @@ public class SignupActivity extends AppCompatActivity {
         et_name = findViewById(R.id.set_userName);
         et_pwd = findViewById(R.id.set_password);
         et_cpwd = findViewById(R.id.et_confimrpassword);
-        et_phone = findViewById(R.id.et_userphone);
+        et_email = findViewById(R.id.et_useremail);
         btn_signup = findViewById(R.id.btn_signup);
         initEvent();
     }
@@ -105,7 +105,7 @@ public class SignupActivity extends AppCompatActivity {
                 confirmpwd = editable.toString();
             }
         });
-        et_phone.addTextChangedListener(new TextWatcher() {
+        et_email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -118,7 +118,7 @@ public class SignupActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                userphone = editable.toString();
+                 email = editable.toString();
             }
         });
 
@@ -134,7 +134,7 @@ public class SignupActivity extends AppCompatActivity {
         //注册
         //密码设置为6为长度以上，用户名不多于20个字符
         if(username.length() != 0 && userpwd.length() != 0 && confirmpwd.length() != 0
-                && userphone.length() == 11){
+                && email.length() == 11){
             if(userpwd.equals(confirmpwd)){
                 if(userpwd.length() >= 6){
                     //signup
@@ -144,7 +144,7 @@ public class SignupActivity extends AppCompatActivity {
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("username", username);
                     map.put("password", Tools.md5(userpwd));
-                    map.put("phone", userphone);
+                    map.put("email", email);
                     JSONObject params = new JSONObject(map);
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest( Method.POST ,url, params,
                             new Response.Listener<JSONObject>() {

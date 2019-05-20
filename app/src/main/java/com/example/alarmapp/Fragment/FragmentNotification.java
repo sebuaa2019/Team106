@@ -169,9 +169,7 @@ public class FragmentNotification extends Fragment {
                                     String type = sensor_map.get(item.getInt("category"));
                                     //考虑将时间转换为int,精确到秒
                                     int time = item.getInt("time");
-                                    String pos = pos_map.get(item.getInt("position"));
-                                    Boolean is_alarm = item.getInt("is_alarm") == 1;
-                                    AlarmInfo ai = new AlarmInfo(record_id, pos, type, time, is_alarm);
+                                    AlarmInfo ai = new AlarmInfo(record_id, type, time);
                                     alarmInfoList.add(ai);
                                 }
                                 //排序，先按照is_alarm, 再按照时间
@@ -208,23 +206,23 @@ public class FragmentNotification extends Fragment {
 
 
     private void generate_test_data(){
-        AlarmInfo a1 = new AlarmInfo(1, "客厅", "烟感", 111, false);
+        AlarmInfo a1 = new AlarmInfo(1,  "烟感", 111);
         alarmInfoList.add(a1);
-        AlarmInfo a2 = new AlarmInfo(2, "客厅", "烟感", 222, false);
+        AlarmInfo a2 = new AlarmInfo(2,  "烟感", 222);
         alarmInfoList.add(a2);
-        AlarmInfo a3 = new AlarmInfo(3, "客厅", "烟感", 112, true);
+        AlarmInfo a3 = new AlarmInfo(3, "烟感", 112);
         alarmInfoList.add(a3);
-        AlarmInfo a4 = new AlarmInfo(4, "客厅", "烟感", 221, true);
+        AlarmInfo a4 = new AlarmInfo(4,"烟感", 221);
         alarmInfoList.add(a4);
-        AlarmInfo a5 = new AlarmInfo(5, "客厅", "烟感", 333, false);
+        AlarmInfo a5 = new AlarmInfo(5,"烟感", 333);
         alarmInfoList.add(a5);
-        AlarmInfo a6 = new AlarmInfo(6, "客厅", "烟感", 444, false);
+        AlarmInfo a6 = new AlarmInfo(6,  "烟感", 444);
         alarmInfoList.add(a6);
-        AlarmInfo a7 = new AlarmInfo(7, "客厅", "烟感", 555, true);
+        AlarmInfo a7 = new AlarmInfo(7,  "烟感", 555);
         alarmInfoList.add(a7);
-        AlarmInfo a8 = new AlarmInfo(8, "客厅", "烟感", 111, false);
+        AlarmInfo a8 = new AlarmInfo(8,  "烟感", 111);
         alarmInfoList.add(a8);
-        AlarmInfo a9 = new AlarmInfo(9, "客厅", "烟感", 233, true);
+        AlarmInfo a9 = new AlarmInfo(9, "烟感", 233);
         alarmInfoList.add(a9);
 
     }
@@ -233,19 +231,8 @@ public class FragmentNotification extends Fragment {
         /*
         * 这里的排序算法按照时间
         * */
-        ArrayList<AlarmInfo> newAlarmInfoList = new ArrayList<AlarmInfo>();
         //把报警分为紧急和已处理两类
-        ArrayList<AlarmInfo> red = new ArrayList<AlarmInfo>();
-        ArrayList<AlarmInfo> green = new ArrayList<AlarmInfo>();
-        for(int i=0; i< alarmInfoList.size(); i++){
-            if(alarmInfoList.get(i).isIs_alarm()){
-                red.add(alarmInfoList.get(i));
-            }
-            else{
-                green.add(alarmInfoList.get(i));
-            }
-        }
-        Collections.sort(red, new Comparator<AlarmInfo>() {
+        Collections.sort(alarmInfoList, new Comparator<AlarmInfo>() {
             @Override
             public int compare(AlarmInfo alarmInfo, AlarmInfo t1) {
                 Integer time = alarmInfo.getTime();
@@ -253,22 +240,9 @@ public class FragmentNotification extends Fragment {
                 return time1.compareTo(time);
             }
         });
-        Collections.sort(green, new Comparator<AlarmInfo>() {
-            @Override
-            public int compare(AlarmInfo alarmInfo, AlarmInfo t1) {
-                Integer time = alarmInfo.getTime();
-                Integer time1 = t1.getTime();
-                return time1.compareTo(time);
-            }
-        });
-        for(int i=0;i<red.size();i++){
-            Log.d("11", String.valueOf(red.get(i).isIs_alarm()) + String.valueOf(red.get(i).getTime()));
+        for(int i=0;i<alarmInfoList.size();i++){
+            Log.d("11", String.valueOf(String.valueOf(alarmInfoList.get(i).getTime())));
         }
-        for(int i=0;i<green.size();i++){
-            Log.d("11", String.valueOf(green.get(i).isIs_alarm()) + String.valueOf(green.get(i).getTime()));
-        }
-        alarmInfoList = (ArrayList<AlarmInfo>) red.clone();
-        alarmInfoList.addAll(green);
     }
 
 }
