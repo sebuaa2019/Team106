@@ -95,7 +95,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
         android:layout_marginBottom="200dp"
-        android:background="@drawable/btn_sensor"
+        android:background="@drawable/btn_sensor_on_off"
         android:drawableLeft="@drawable/ic_red"
         android:gravity="center_vertical"
         android:paddingLeft="25dp"
@@ -107,6 +107,19 @@
         app:layout_constraintHorizontal_bias="0.043"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/red_sensor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="88dp"
+        android:layout_marginTop="8dp"
+        android:drawablePadding="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/red_sensor"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/red_sensor_button" />
+
     <Button
         android:id="@+id/fog_sensor_button"
         android:layout_width="100dp"
@@ -116,7 +129,7 @@
         android:layout_marginEnd="60dp"
         android:layout_marginRight="60dp"
         android:layout_marginBottom="200dp"
-        android:background="@drawable/btn_sensor"
+        android:background="@drawable/btn_sensor_on_off"
         android:drawableLeft="@drawable/ic_fog"
         android:gravity="center_vertical"
         android:paddingLeft="25dp"
@@ -128,5 +141,17 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/fog_sensor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="258dp"
+        android:layout_marginTop="8dp"
+        android:drawablePadding="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/fog_sensor"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fog_sensor_button" />
 
 </android.support.constraint.ConstraintLayout>

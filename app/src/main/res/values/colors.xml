@@ -16,8 +16,10 @@
     <color name="logoScreenBackground">#F7F7F7</color>
     <color name="button_color">#3750E0</color>
     <color name="button_pressed_color">#283BA2</color>
-    <color name="button_off_color_deep">#8D8C8C</color>
-    <color name="button_off_color_light">#D8D8D8</color>
+    <color name="button_off_color_deep">#9bc5c3</color>
+    <color name="button_off_color_light">#616161</color>
+    <color name="button_on_color_deep">#faaca8</color>
+    <color name="button_on_color_light">#ddd6f3</color>
     <color name="time_line_dot_color">#EB0000</color>
     <color name="time_line_color">#bdbdbd</color>
     <color name="time_line_text_color">#000000</color>

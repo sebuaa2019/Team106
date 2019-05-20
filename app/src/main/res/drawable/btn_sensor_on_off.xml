@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Button on state bg -->
+    <item android:drawable="@drawable/btn_sensor" android:state_activated="false"/>
+    <!-- Button off state bg -->
+    <item android:drawable="@drawable/btn_sensor_off" android:state_activated="true"/>
+</selector>
