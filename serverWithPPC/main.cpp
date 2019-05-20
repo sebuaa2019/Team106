@@ -20,7 +20,7 @@ long get_old_file_time(void)
     FILE * fp;
     int fd;
     struct stat buf;
-    fp=fopen("cRFile.txt","r");
+    fp=fopen("WEB2PPC.txt","r");
     if(NULL != fp)
     {
         fd=fileno(fp);
@@ -62,7 +62,7 @@ DWORD WINAPI serverRead(LPVOID lpParamter)
             }
         }
 
-        Sleep(500);
+        Sleep(1000);
 
     }
 
@@ -76,10 +76,10 @@ DWORD WINAPI serverRead(LPVOID lpParamter)
 int main(int argc, char* argv[])
 {
 
-    long long time_last;
-	time_last = time(NULL);
+    //long long time_last;
+	//time_last = time(NULL);
 
-	cout<<time_last<<endl;	//秒数
+	//cout<<time_last<<endl;	//秒数
 	//初始化WSA
 	WORD sockVersion = MAKEWORD(2, 2);
 	WSADATA wsaData;
@@ -131,13 +131,15 @@ int main(int argc, char* argv[])
     CloseHandle(readThread);
     while(1)  //sendServer
     {
-         long cur_time = get_cur_time();
-         long file_old_time = get_old_file_time();
-         if(cur_time-file_old_time>1){  //读到文件修改超过1秒,发送指令
-
+         int ch = cRFile.get();
+         long time_cur = get_cur_time();
+         long time_mod = get_old_file_time();
+         if( (!(cRFile.eof()||ch==EOF)) && (time_cur!=time_mod)){  //文件非空,且未在修改
             char sendData[255];  //文件中的指令
             cRFile.getline(sendData,100);
-
+            ofstream f("WEB2PPC.txt",ios::trunc);
+            f.close();
+            f.clear();
             send(sClient, sendData, strlen(sendData), 0);
          }
          Sleep(1000);
