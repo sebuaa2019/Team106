@@ -8,11 +8,24 @@ from rest_framework import permissions
 from Alarmpp.models import User
 from Alarm_System import settings
 from django.contrib.auth import logout as Logout
+from Alarmpp.my_socket import my_socket_server
 # Create your views here.
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+board_server = my_socket_server('127.0.0.1',9000)
+board_server.start()
 
 #account
+class test(APIView):
+    permission_classes = []
+    authentication_classes = []
+
+    def get(self, reuqest):
+        res = {
+            'msg' : 'testOK',
+        }
+        return Response(res)
+
 class register(APIView):
     permission_classes = []
     authentication_classes = []
@@ -146,14 +159,17 @@ class onoff(APIView):
         data = request.data
         on_off = data.get('on_off')
         mode = data.get('mode')
-        area = data.get('area')
-        status = None
-        msg = None
+        sensor = data.get('sensor')
+        sender = board_server.getsender(request.user.username)
+        sender.send(mode)
+        status = "test"
+        msg = "OK"
         res = {
             'status': status,
             'msg': msg,
         }
         return Response(res)
+
 class settime(APIView):
     def post(self, request):
         data = request.data

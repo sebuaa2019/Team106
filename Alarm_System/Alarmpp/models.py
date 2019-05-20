@@ -39,3 +39,4 @@ class Record(models.Model):
     time    = models.DateTimeField()
     type    = models.IntegerField()
     area    = models.CharField(max_length=32)
+

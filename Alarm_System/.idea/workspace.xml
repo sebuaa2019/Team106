@@ -12,7 +12,55 @@
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Alarmpp/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="159" column="24" selection-start-line="159" selection-start-column="24" selection-end-line="159" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+                <element signature="e#596#765#0" />
+                <element signature="e#796#1423#0" />
+                <element signature="e#1462#2447#0" />
+                <element signature="e#2476#2580#0" />
+                <element signature="e#2609#2955#0" />
+                <element signature="e#2985#3542#0" />
+                <element signature="e#3573#3964#0" />
+                <element signature="e#3997#4243#0" />
+                <element signature="e#4611#4866#0" />
+                <element signature="e#4896#5266#0" />
+                <element signature="e#5300#5546#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Alarmpp/my_socket.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-19">
+              <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#16#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Alarm_System/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="347">
+              <caret line="35" column="44" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
+              <folding>
+                <element signature="e#636#668#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -33,10 +81,12 @@
       <list>
         <option value="$PROJECT_DIR$/Alarmpp/token_tool.py" />
         <option value="$PROJECT_DIR$/Alarmpp/serializers.py" />
-        <option value="$PROJECT_DIR$/Alarmpp/models.py" />
         <option value="$PROJECT_DIR$/Alarm_System/settings.py" />
-        <option value="$PROJECT_DIR$/Alarmpp/views.py" />
         <option value="$PROJECT_DIR$/Alarm_System/urls.py" />
+        <option value="$PROJECT_DIR$/Alarm_System/wsgi.py" />
+        <option value="$PROJECT_DIR$/Alarmpp/models.py" />
+        <option value="$PROJECT_DIR$/Alarmpp/my_socket.py" />
+        <option value="$PROJECT_DIR$/Alarmpp/views.py" />
       </list>
     </option>
   </component>
@@ -57,6 +107,16 @@
             <path>
               <item name="Alarm_System" type="b2602c69:ProjectViewProjectNode" />
               <item name="Alarm_System" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Alarm_System" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Alarm_System" type="462c0819:PsiDirectoryNode" />
+              <item name="Alarm_System" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Alarm_System" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Alarm_System" type="462c0819:PsiDirectoryNode" />
+              <item name="Alarmpp" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -135,16 +195,21 @@
       <workItem from="1557829936200" duration="16195000" />
       <workItem from="1557929988311" duration="3973000" />
       <workItem from="1557995705673" duration="411000" />
+      <workItem from="1558160032426" duration="92000" />
+      <workItem from="1558173248650" duration="1194000" />
+      <workItem from="1558182929293" duration="8000" />
+      <workItem from="1558186346487" duration="1459000" />
+      <workItem from="1558329900298" duration="6919000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75586000" />
+    <option name="totallyTimeSpent" value="85258000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5714286" visible="true" weight="0.17138238" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5714286" visible="true" weight="0.18350849" />
       <window_info id="Structure" order="1" sideWeight="0.42857143" side_tool="true" weight="0.16653194" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -185,9 +250,6 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Alarm_System/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Alarm_System/wsgi.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Alarmpp/admin.py">
@@ -270,29 +332,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Alarmpp/views.py">
+    <entry file="file://$PROJECT_DIR$/Alarm_System/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-113">
-          <caret line="168" selection-start-line="168" selection-end-line="168" />
+        <state relative-caret-position="209">
+          <caret line="11" column="49" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Alarmpp/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="44" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#228#237#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Alarm_System/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
+        <state relative-caret-position="1088">
           <caret line="158" column="44" selection-start-line="158" selection-start-column="44" selection-end-line="158" selection-end-column="44" />
           <folding>
             <element signature="e#313#322#0" expanded="true" />
@@ -300,12 +352,53 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Alarmpp/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Alarm_System/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+        <state relative-caret-position="347">
+          <caret line="35" column="44" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
           <folding>
             <element signature="e#636#668#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Alarmpp/my_socket.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-19">
+          <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Alarmpp/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="159" column="24" selection-start-line="159" selection-start-column="24" selection-end-line="159" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#596#765#0" />
+            <element signature="e#796#1423#0" />
+            <element signature="e#1462#2447#0" />
+            <element signature="e#2476#2580#0" />
+            <element signature="e#2609#2955#0" />
+            <element signature="e#2985#3542#0" />
+            <element signature="e#3573#3964#0" />
+            <element signature="e#3997#4243#0" />
+            <element signature="e#4611#4866#0" />
+            <element signature="e#4896#5266#0" />
+            <element signature="e#5300#5546#0" />
           </folding>
         </state>
       </provider>
