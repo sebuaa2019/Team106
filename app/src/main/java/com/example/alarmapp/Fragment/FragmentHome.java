@@ -31,14 +31,14 @@ import static com.example.alarmapp.Utils.URLConf.*;
 
 public class FragmentHome extends Fragment {
     private Spinner modeSpinner = null;
-    private Spinner sensorSpinner = null;
     private ImageView iv = null;
     private TextView tv_name = null;
     private TextView tv_phone = null;
-    private Button btn_onoff;
+    private Button btn_red_onoff;
+    private Button btn_fog_onoff;
     private int mode=0; //记录开启模式
-    private int sensor=0; //记录开启传感器
-    private int state=1; //0表示关闭，1表示开启
+    private int red_state=0; //
+    private int fog_state=0; //0表示关闭，1表示开启
 
     public FragmentHome(){
 
@@ -52,10 +52,11 @@ public class FragmentHome extends Fragment {
         tv_name = view.findViewById(R.id.user_name);
         tv_phone = view.findViewById(R.id.user_phone);
         modeSpinner = view.findViewById(R.id.h_mode_spinner);
-        sensorSpinner = view.findViewById(R.id.h_sensor_spinner);
-        btn_onoff = view.findViewById(R.id.btn_onoff);
+        btn_red_onoff = view.findViewById(R.id.red_sensor_button);
+        btn_fog_onoff = view.findViewById(R.id.fog_sensor_button);
         initEvent();
         getUserInfo();
+        getSensorState();
         return view;
     }
 
@@ -71,31 +72,38 @@ public class FragmentHome extends Fragment {
                 mode = 0; //设置一个默认值
             }
         });
-        sensorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                sensor = i;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                sensor = 0;
-            }
-        });
-        btn_onoff.setOnClickListener(new View.OnClickListener() {
+        btn_red_onoff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (state){
+                switch (red_state){
                     case 0:
-                        state = 1;
-                        btn_onoff.setActivated(true);
+                        red_state = 1;
+                        btn_red_onoff.setActivated(true);
                         break;
                     case 1:
-                        state = 0;
-                        btn_onoff.setActivated(false);
+                        red_state = 0;
+                        btn_red_onoff.setActivated(false);
                         break;
                 }
-                on_off();
+                Log.d("test_onoff", String.valueOf(red_state));
+                on_off(red_state, 0);
+            }
+        });
+        btn_fog_onoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (fog_state){
+                    case 0:
+                        fog_state = 1;
+                        btn_fog_onoff.setActivated(true);
+                        break;
+                    case 1:
+                        fog_state = 0;
+                        btn_fog_onoff.setActivated(false);
+                        break;
+                }
+                Log.d("test_onoff", String.valueOf(fog_state));
+                on_off(fog_state, 1);
             }
         });
     }
@@ -149,7 +157,7 @@ public class FragmentHome extends Fragment {
         }
     }
 
-    private void on_off(){
+    private void on_off(int state, int sensor){
         try {
             //
             SharedPreferences sp = this.getActivity().getSharedPreferences("conf", 0);
@@ -171,6 +179,49 @@ public class FragmentHome extends Fragment {
                                     Toast.makeText(getContext(), response.getString("msg"),
                                             Toast.LENGTH_LONG).show();
                                 }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e(tag, error.toString());
+                        }
+                    }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json");
+                    headers.put("token", token);
+                    return headers;
+                }
+            };
+            AppController.getInstance().addToRequestQueue(jsonObjectRequest, tag);
+
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void getSensorState(){
+        try {
+            //
+            SharedPreferences sp = this.getActivity().getSharedPreferences("conf", 0);
+            final String token = sp.getString("token","");
+
+            String url = USING_URL + GETSENSOR;
+            final String tag = "json_getsensorstate";
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try{
+                               red_state = response.getInt("red");
+                               fog_state = response.getInt("fog");
                             }catch (Exception e){
                                 e.printStackTrace();
                             }

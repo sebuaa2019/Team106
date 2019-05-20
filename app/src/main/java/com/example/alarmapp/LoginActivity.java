@@ -140,14 +140,14 @@ public class LoginActivity extends AppCompatActivity {
 //                            try{
 //                                if(response.getInt("status") == 0){
 //                                    int user_id = response.getInt("user_id");
-//                                    String phone = response.getString("phone");
+//                                    String email = response.getString("email");
 //                                    // 更新客户端token,以及id
 //                                    String token = response.getString("token");
 //                                    SharedPreferences sp = getSharedPreferences("conf", 0);
 //                                    SharedPreferences.Editor editor = sp.edit();
 //                                    editor.putString("token", token);
 //                                    editor.putInt("id", user_id);
-//                                    editor.putString("phone", phone);
+//                                    editor.putString("email", email);
 //                                    editor.apply();
 
                                     Intent intent = new Intent();

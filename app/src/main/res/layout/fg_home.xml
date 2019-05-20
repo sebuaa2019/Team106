@@ -19,7 +19,7 @@
         android:background="#6699FF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/user_default" />
+        tools:src="@mipmap/user_default" />
 
 
     <TextView
@@ -57,47 +57,76 @@
         />
 
     <!--考虑换成ImageButton，点击更换状态和background-->
-    <Button
-        android:id="@+id/btn_onoff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/on_off_button_bottom_margin"
-        android:background="@drawable/btn_round_on_off"
-        android:drawableLeft="@drawable/ic_off_50dp"
-        android:paddingLeft="25dp"
-        android:paddingTop="25dp"
-        android:paddingRight="25dp"
-        android:paddingBottom="25dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+    <!--<Button-->
+        <!--android:id="@+id/btn_onoff"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/on_off_button_bottom_margin"-->
+        <!--android:background="@drawable/btn_round_on_off"-->
+        <!--android:drawableLeft="@drawable/ic_off_50dp"-->
+        <!--android:paddingLeft="25dp"-->
+        <!--android:paddingTop="25dp"-->
+        <!--android:paddingRight="25dp"-->
+        <!--android:paddingBottom="25dp"-->
+        <!--android:visibility="visible"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.498"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
 
     <Spinner
         android:id="@+id/h_mode_spinner"
         android:layout_width="@dimen/spinner_width"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/mode_spinner_horizontal_margin"
-        android:layout_marginLeft="@dimen/mode_spinner_horizontal_margin"
-        android:layout_marginTop="@dimen/home_spinner_vertical_margin"
+        android:layout_marginStart="128dp"
+        android:layout_marginLeft="128dp"
+        android:layout_marginTop="304dp"
         android:entries="@array/mode_array"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
         />
 
-    <Spinner
-        android:id="@+id/h_sensor_spinner"
-        android:layout_width="@dimen/spinner_width"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/pos_spinner_horizontal_margin"
-        android:layout_marginLeft="@dimen/pos_spinner_horizontal_margin"
-        android:layout_marginTop="@dimen/home_spinner_vertical_margin"
-        android:entries="@array/sensor_array"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+
+    <Button
+        android:id="@+id/red_sensor_button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginBottom="200dp"
+        android:background="@drawable/btn_sensor"
+        android:drawableLeft="@drawable/ic_red"
+        android:gravity="center_vertical"
+        android:paddingLeft="25dp"
+        android:paddingTop="25dp"
+        android:paddingRight="25dp"
+        android:paddingBottom="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/fog_sensor_button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="240dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginBottom="200dp"
+        android:background="@drawable/btn_sensor"
+        android:drawableLeft="@drawable/ic_fog"
+        android:gravity="center_vertical"
+        android:paddingLeft="25dp"
+        android:paddingTop="25dp"
+        android:paddingRight="25dp"
+        android:paddingBottom="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
