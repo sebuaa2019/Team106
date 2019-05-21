@@ -1,7 +1,5 @@
 import threading
 import socket
-import time
-from rest_framework.views import APIView
 
 class my_sender(threading.Thread):
     def __init__(self, conn, addr):
@@ -19,6 +17,7 @@ class my_reciver(threading.Thread):
     def run(self):
         while(True):
             data = self.conn.recv(1024).decode()
+            print(data)
 
 
 class my_socket_server(threading.Thread):
@@ -31,18 +30,21 @@ class my_socket_server(threading.Thread):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind((host, port))
         self.server.listen(5)
+        print("waiting....")
 
     def run(self):
         while True:
             conn, addr = self.server.accept()
+            username = conn.recv(1024).decode()
+            print("connect",addr, username)
             t_recv = my_reciver(conn, addr)
             t_send = my_sender(conn, addr)
             t_recv.start()
             t_send.start()
-            self.sockets['0'] = (t_recv, t_send)
+            self.sockets[username] = (t_recv, t_send)
 
-    def getsender(self, user):
-        return self.sockets[user][0]
+    def getsender(self, username):
+        return self.sockets[username][1]
 
-    def getreciver(self, user):
-        return self.sockets[user][1]
+    def getreciver(self, username):
+        return self.sockets[username][0]

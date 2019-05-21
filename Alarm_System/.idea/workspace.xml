@@ -13,36 +13,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Alarmpp/my_socket.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="49" column="40" lean-forward="true" selection-start-line="49" selection-start-column="40" selection-end-line="49" selection-end-column="40" />
+              <folding>
+                <element signature="e#0#16#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Alarmpp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="159" column="24" selection-start-line="159" selection-start-column="24" selection-end-line="159" selection-end-column="24" />
+            <state relative-caret-position="285">
+              <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
-                <element signature="e#596#765#0" />
-                <element signature="e#796#1423#0" />
-                <element signature="e#1462#2447#0" />
-                <element signature="e#2476#2580#0" />
-                <element signature="e#2609#2955#0" />
-                <element signature="e#2985#3542#0" />
-                <element signature="e#3573#3964#0" />
-                <element signature="e#3997#4243#0" />
-                <element signature="e#4611#4866#0" />
-                <element signature="e#4896#5266#0" />
-                <element signature="e#5300#5546#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Alarmpp/my_socket.py">
+        <entry file="file://$PROJECT_DIR$/Alarmpp/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-19">
-              <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
+            <state relative-caret-position="134">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
               <folding>
-                <element signature="e#0#16#0" expanded="true" />
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Alarm_System/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="151" lean-forward="true" selection-start-line="151" selection-end-line="151" />
+              <folding>
+                <element signature="e#313#322#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -51,8 +64,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Alarm_System/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="35" column="44" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
+            <state relative-caret-position="589">
+              <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
               <folding>
                 <element signature="e#636#668#0" expanded="true" />
               </folding>
@@ -81,11 +94,11 @@
       <list>
         <option value="$PROJECT_DIR$/Alarmpp/token_tool.py" />
         <option value="$PROJECT_DIR$/Alarmpp/serializers.py" />
-        <option value="$PROJECT_DIR$/Alarm_System/settings.py" />
-        <option value="$PROJECT_DIR$/Alarm_System/urls.py" />
         <option value="$PROJECT_DIR$/Alarm_System/wsgi.py" />
-        <option value="$PROJECT_DIR$/Alarmpp/models.py" />
+        <option value="$PROJECT_DIR$/Alarm_System/urls.py" />
         <option value="$PROJECT_DIR$/Alarmpp/my_socket.py" />
+        <option value="$PROJECT_DIR$/Alarm_System/settings.py" />
+        <option value="$PROJECT_DIR$/Alarmpp/models.py" />
         <option value="$PROJECT_DIR$/Alarmpp/views.py" />
       </list>
     </option>
@@ -117,6 +130,12 @@
               <item name="Alarm_System" type="b2602c69:ProjectViewProjectNode" />
               <item name="Alarm_System" type="462c0819:PsiDirectoryNode" />
               <item name="Alarmpp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Alarm_System" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Alarm_System" type="462c0819:PsiDirectoryNode" />
+              <item name="Alarmpp" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -200,31 +219,46 @@
       <workItem from="1558182929293" duration="8000" />
       <workItem from="1558186346487" duration="1459000" />
       <workItem from="1558329900298" duration="6919000" />
+      <workItem from="1558345770471" duration="5842000" />
+      <workItem from="1558354423139" duration="673000" />
+      <workItem from="1558355125700" duration="45000" />
+      <workItem from="1558355198326" duration="456000" />
+      <workItem from="1558355815115" duration="506000" />
+      <workItem from="1558356404760" duration="859000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85258000" />
+    <option name="totallyTimeSpent" value="93639000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5714286" visible="true" weight="0.18350849" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5714286" visible="true" weight="0.20291026" />
       <window_info id="Structure" order="1" sideWeight="0.42857143" side_tool="true" weight="0.16653194" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4907033" weight="0.32978722" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4898949" weight="0.32978722" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4995958" weight="0.2393617" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4995958" weight="0.32978722" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5004042" side_tool="true" weight="0.39893618" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49474534" weight="0.32978722" />
-      <window_info anchor="bottom" id="Python Console" order="12" />
+      <window_info anchor="bottom" id="Database Changes" order="9" sideWeight="0.4987874" weight="0.32978722" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5101051" side_tool="true" visible="true" weight="0.32978722" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.48585287" weight="0.43617022" />
+      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.497979" weight="0.32978722" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -342,40 +376,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Alarm_System/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1088">
-          <caret line="158" column="44" selection-start-line="158" selection-start-column="44" selection-end-line="158" selection-end-column="44" />
-          <folding>
-            <element signature="e#313#322#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Alarmpp/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Alarm_System/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="35" column="44" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
+        <state relative-caret-position="589">
+          <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
           <folding>
             <element signature="e#636#668#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Alarmpp/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Alarm_System/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="151" lean-forward="true" selection-start-line="151" selection-end-line="151" />
+          <folding>
+            <element signature="e#313#322#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Alarmpp/my_socket.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-19">
-          <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
+        <state relative-caret-position="290">
+          <caret line="49" column="40" lean-forward="true" selection-start-line="49" selection-start-column="40" selection-end-line="49" selection-end-column="40" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
@@ -384,21 +418,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Alarmpp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="159" column="24" selection-start-line="159" selection-start-column="24" selection-end-line="159" selection-end-column="24" />
+        <state relative-caret-position="285">
+          <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#596#765#0" />
-            <element signature="e#796#1423#0" />
-            <element signature="e#1462#2447#0" />
-            <element signature="e#2476#2580#0" />
-            <element signature="e#2609#2955#0" />
-            <element signature="e#2985#3542#0" />
-            <element signature="e#3573#3964#0" />
-            <element signature="e#3997#4243#0" />
-            <element signature="e#4611#4866#0" />
-            <element signature="e#4896#5266#0" />
-            <element signature="e#5300#5546#0" />
           </folding>
         </state>
       </provider>
