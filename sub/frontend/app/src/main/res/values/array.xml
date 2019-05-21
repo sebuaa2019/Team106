@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mode_array">
+        <item>抗干扰模式</item>
+        <item>敏感模式</item>
+    </string-array>
+
+    <string-array name="pos_array">
+        <item>客厅</item>
+        <item>卧室</item>
+    </string-array>
+
+    <string-array name="sensor_array">
+        <item>红外传感器</item>
+        <item>烟雾传感器</item>
+        <item>不限</item>
+    </string-array>
+
+    <string-array name="time_internal_array">
+        <item>30s</item>
+        <item>1min</item>
+        <item>3min</item>
+        <item>5min</item>
+        <item>10min</item>
+        <item>20min</item>
+    </string-array>
+</resources>

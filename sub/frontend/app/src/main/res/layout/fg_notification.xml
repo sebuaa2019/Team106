@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_notification"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <Spinner
+        android:id="@+id/n_sensor_spinner"
+        android:layout_width="@dimen/spinner_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/notification_spinner_vertical_margin"
+        android:entries="@array/sensor_array"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <!--<Button-->
+        <!--android:id="@+id/red_sensor_button"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_marginStart="60dp"-->
+        <!--android:layout_marginLeft="60dp"-->
+        <!--android:layout_marginTop="70dp"-->
+        <!--android:background="@drawable/btn_sensor"-->
+        <!--android:drawableLeft="@drawable/ic_red"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:paddingLeft="25dp"-->
+        <!--android:paddingTop="25dp"-->
+        <!--android:paddingRight="25dp"-->
+        <!--android:paddingBottom="25dp"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/fog_sensor_button"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_marginStart="240dp"-->
+        <!--android:layout_marginLeft="40dp"-->
+        <!--android:layout_marginTop="70dp"-->
+        <!--android:layout_marginEnd="60dp"-->
+        <!--android:layout_marginRight="60dp"-->
+        <!--android:background="@drawable/btn_sensor"-->
+        <!--android:drawableLeft="@drawable/ic_fog"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:paddingLeft="25dp"-->
+        <!--android:paddingTop="25dp"-->
+        <!--android:paddingRight="25dp"-->
+        <!--android:paddingBottom="25dp"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/select_date_button"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.0"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintVertical_bias="0.0" />-->
+
+
+    <Button
+        android:id="@+id/select_date_button"
+        android:background="@drawable/btn_underline_bg"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/date"
+        android:drawableRight="@drawable/ic_right"
+        android:drawableStart="@drawable/date"
+        android:drawableEnd="@drawable/ic_right"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="180dp"
+        android:text="@string/set_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <!--Vpager的问题，导致fragment在页面中有向上的位移-->
+    <!--当前的参数height=420dp, margintop240是比较合适的，如果要修改marginTop，高度也需要同时修改-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/card_list"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:layout_marginTop="240dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
