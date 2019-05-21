@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 import sys
-
+from Alarmpp.my_socket import my_socket_server
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Alarm_System.settings')
     try:
