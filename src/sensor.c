@@ -1,5 +1,6 @@
 
 #include "sensor.h"
+#include <string.h>
 #define  infraredErrorThreshold  99
 #define  smokeErrorThreshold   86  
 int  infraredIndex = 0;
@@ -33,12 +34,100 @@ int smokeSensorStatusValue[100] = {
 };
 
 
+extern int OnSensor(int nID);
+extern void SetLight(int nState);
+extern void SetCall(char *szPhoneNum, int nType, int nZone);
+
 void Sensor()
 {
        
 }
 
 
+int getSensorStatus(int sensorNumber)
+{
+    return OnSensor(sensorNumber);
+}
+
+void turnOnLight()
+{
+    SetLight(1);
+}
+void turnOffLight()
+{
+    SetLight(0);
+}
+
+void setPhone(char buf[])
+{
+    int ptr_buf = 0;
+    char tel[20];
+    char nType[20];
+    char nZone[20];
+    int nType_int;
+    int nZone_int;
+    int i;
+
+    while(buf[ptr_buf] != ' ') {  /* jump sc */
+        ptr_buf++;
+    }
+
+    while(buf[ptr_buf] == ' ') {  /* jump space between sc and tel */
+        ptr_buf++;
+    }
+
+    i = 0;
+    while(buf[ptr_buf] != ' ') {  /* copy tel */
+        tel[i] = buf[ptr_buf];
+        i++;
+        ptr_buf++;
+    }
+    tel[i] = 0;
+
+    while(buf[ptr_buf] == ' ') {    /* jump space between tel and nType */
+        ptr_buf++;
+    }
+
+    i = 0;
+    while(buf[ptr_buf] != ' ') { /* copy nType */
+        nType[i] = buf[ptr_buf];
+        i++;
+        ptr_buf++;
+    }
+    nType[i] = 0;
+
+    while(buf[ptr_buf] == ' ') {     /* jump space between nType and nZone */
+        ptr_buf++;
+    }
+
+    i = 0;
+    while(buf[ptr_buf] != '\0') {   /* copy nZone */
+        nZone[i] = buf[ptr_buf];
+        i++;
+        ptr_buf++;
+    }
+    nZone[i] = 0;
+
+    nType_int = toInt(nType);
+    nZone_int = toInt(nZone);
+
+    SetCall(tel, nType_int, nZone_int);
+}
+
+int toInt(char string[])
+{
+    int i = 0;
+    int ret = 0;
+    int l = strlen(string);
+    while(i < l) {
+        ret *= 10;
+        ret += string[i] - '0';
+        i++;
+    }
+    return ret;
+}
+
+/*
 int getInfraredSensorStatus()
 {
     infraredIndex++;
@@ -53,3 +142,4 @@ int getSmokeSensorStatus()
     smokeIndex %= 100;
     return smokeSensorStatusValue[smokeIndex] >= smokeErrorThreshold;
 }
+*/

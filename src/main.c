@@ -15,6 +15,9 @@ int main()
             taskDelete(retThread[0]);
             taskDelete(retThread[1]);
             taskDelete(retThread[2]);
+            taskDelete(retThread[3]);
+            taskDelete(retThread[4]);
+            taskDelete(retThread[5]);
             break;
         }
     }
