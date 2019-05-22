@@ -10,6 +10,8 @@
     <string name="phone">联系人电话</string>
     <string name="on_button">打开</string>
     <string name="off_button">关闭</string>
+    <string name="red_sensor">红外传感器</string>
+    <string name="fog_sensor">烟雾传感器</string>
     <!--settings&notification_page-->
     <string name="set_date">设置日期</string>
     <string name="set_time">设置报警间隔</string>
