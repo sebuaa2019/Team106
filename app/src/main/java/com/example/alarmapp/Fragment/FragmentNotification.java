@@ -115,14 +115,13 @@ public class FragmentNotification extends Fragment {
         * */
         datePicker = view.findViewById(R.id.date_picker);
         Calendar cal = new GregorianCalendar();
+
+        dateRegulation(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
         datePicker.init(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
                 new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
-                if (i1 <= 9)
-                    date_text = i+"-0"+i1+"-"+i2;
-                else
-                    date_text = i+"-"+i1+"-"+i2 ;
+                dateRegulation(i,i1,i2);
             }
         });
 
@@ -252,4 +251,18 @@ public class FragmentNotification extends Fragment {
         }
     }
 
+
+    private void dateRegulation(int year, int month, int day){
+        //month 是从0开始计算的
+        month ++;
+        if(month <= 9)
+            date_text = year + "-0" + month;
+        else
+            date_text = year + "-"+ month;
+
+        if(day <= 9)
+            date_text += "-0"+day;
+        else
+            date_text += "-"+day;
+    }
 }
