@@ -126,12 +126,12 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), info, Toast.LENGTH_LONG).show();
 //        if(username.length() != 0 && passwd.length() != 0){
 //            String passwd_md5 = Tools.md5(passwd);
-//
+
 //            String url = USING_URL + LOGIN;
 //            final String tag = "json_login";
 //            Map<String, String> map = new HashMap<String, String>();
 //            map.put("username", username);
-//            map.put("password", passwd_md5);
+//            map.put("password", passwd);
 //            JSONObject params = new JSONObject(map);
 //            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Method.POST, url, params,
 //                    new Response.Listener<JSONObject>() {

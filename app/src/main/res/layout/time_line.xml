@@ -51,20 +51,20 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp">
 
-        <!--<TextView-->
-        <!--android:id="@+id/position"-->
-        <!--android:layout_width="@dimen/time_line_pos"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--android:text="@string/postion"-->
-        <!--android:textColor="@color/time_line_text_color"-->
-        <!--android:textSize="15sp" />-->
+        <TextView
+        android:id="@+id/position"
+        android:layout_width="@dimen/time_line_pos"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/postion"
+        android:textColor="@color/time_line_text_color"
+        android:textSize="15sp" />
 
         <TextView
             android:id="@+id/type"
             android:layout_width="@dimen/time_line_type"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:layout_marginBottom="5dp"
             android:text="@string/type"
             android:textColor="@color/time_line_text_color"

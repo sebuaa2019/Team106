@@ -141,9 +141,6 @@ public class FragmentNotification extends Fragment {
             final ArrayList<String> sensor_map = new ArrayList<String>();
             sensor_map.add("红外");
             sensor_map.add("烟感");
-            final ArrayList<String> pos_map = new ArrayList<String>();
-            pos_map.add("客厅");
-            pos_map.add("卧室");
 
             // 掉接口
             SharedPreferences sp = this.getActivity().getSharedPreferences("conf", 0);
@@ -167,9 +164,10 @@ public class FragmentNotification extends Fragment {
                                     JSONObject item = items.getJSONObject(i);
                                     int record_id = item.getInt("record_id");
                                     String type = sensor_map.get(item.getInt("category"));
+                                    String pos = item.getString("pos");
                                     //考虑将时间转换为int,精确到秒
                                     int time = item.getInt("time");
-                                    AlarmInfo ai = new AlarmInfo(record_id, type, time);
+                                    AlarmInfo ai = new AlarmInfo(record_id, type, pos, time);
                                     alarmInfoList.add(ai);
                                 }
                                 //排序，先按照is_alarm, 再按照时间
@@ -206,23 +204,23 @@ public class FragmentNotification extends Fragment {
 
 
     private void generate_test_data(){
-        AlarmInfo a1 = new AlarmInfo(1,  "烟感", 111);
+        AlarmInfo a1 = new AlarmInfo(1,  "烟感", "客厅",111);
         alarmInfoList.add(a1);
-        AlarmInfo a2 = new AlarmInfo(2,  "烟感", 222);
+        AlarmInfo a2 = new AlarmInfo(2,  "烟感", "客厅",222);
         alarmInfoList.add(a2);
-        AlarmInfo a3 = new AlarmInfo(3, "烟感", 112);
+        AlarmInfo a3 = new AlarmInfo(3, "烟感", "客厅",112);
         alarmInfoList.add(a3);
-        AlarmInfo a4 = new AlarmInfo(4,"烟感", 221);
+        AlarmInfo a4 = new AlarmInfo(4,"烟感", "客厅",221);
         alarmInfoList.add(a4);
-        AlarmInfo a5 = new AlarmInfo(5,"烟感", 333);
+        AlarmInfo a5 = new AlarmInfo(5,"烟感", "客厅",333);
         alarmInfoList.add(a5);
-        AlarmInfo a6 = new AlarmInfo(6,  "烟感", 444);
+        AlarmInfo a6 = new AlarmInfo(6,  "烟感", "客厅",444);
         alarmInfoList.add(a6);
-        AlarmInfo a7 = new AlarmInfo(7,  "烟感", 555);
+        AlarmInfo a7 = new AlarmInfo(7,  "烟感", "客厅",555);
         alarmInfoList.add(a7);
-        AlarmInfo a8 = new AlarmInfo(8,  "烟感", 111);
+        AlarmInfo a8 = new AlarmInfo(8,  "烟感", "客厅",111);
         alarmInfoList.add(a8);
-        AlarmInfo a9 = new AlarmInfo(9, "烟感", 233);
+        AlarmInfo a9 = new AlarmInfo(9, "烟感", "客厅",233);
         alarmInfoList.add(a9);
 
     }

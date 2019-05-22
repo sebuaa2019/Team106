@@ -8,27 +8,6 @@
     >
 
     <Button
-        android:id="@+id/btn_modimg"
-        android:background="@drawable/btn_underline_bg"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_icon_signal_36dp"
-        android:drawableRight="@drawable/ic_right"
-        android:drawableStart="@drawable/ic_icon_signal_36dp"
-        android:drawableEnd="@drawable/ic_right"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:drawablePadding="20dp"
-        android:gravity="center_vertical"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="80dp"
-        android:text="@string/mod_img"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <Button
         android:id="@+id/btn_modinfo"
         android:background="@drawable/btn_underline_bg"
         android:layout_width="fill_parent"
@@ -43,29 +22,8 @@
         android:gravity="center_vertical"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="120dp"
         android:text="@string/mod_info"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <Button
-        android:id="@+id/select_time_button"
-        android:background="@drawable/btn_underline_bg"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_clock_36dp"
-        android:drawableRight="@drawable/ic_right"
-        android:drawableStart="@drawable/ic_clock_36dp"
-        android:drawableEnd="@drawable/ic_right"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:drawablePadding="20dp"
-        android:gravity="center_vertical"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="240dp"
-        android:text="@string/set_time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -85,7 +43,7 @@
         android:gravity="center_vertical"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="240dp"
         android:text="@string/log_out"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

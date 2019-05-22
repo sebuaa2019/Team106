@@ -50,6 +50,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
         AlarmInfo ai = alarmInfoList.get(position);
         holder.time.setText("时间："+ai.getTime());
         holder.type.setText("类别："+ai.getType());
+        holder.pos.setText("位置: "+ai.getPos());
     }
 
     @Override
@@ -62,6 +63,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
 
         protected TextView time;
         protected TextView type;
+        protected TextView pos;
         private final TextView tv_line_top;
         private final TextView tv_line_bottom;
         private final TextView tv_dot;
@@ -70,7 +72,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
             super(itemView);
             time = itemView.findViewById(R.id.time);
             type = itemView.findViewById(R.id.type);
-
+            pos = itemView.findViewById(R.id.position);
             //TODO: add description for every type of alarm signal maybe
             //tv_desc = (TextView) itemView.findViewById(R.id.tv_desc);
             //top line vertical
