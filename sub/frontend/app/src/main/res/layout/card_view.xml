@@ -27,16 +27,6 @@
             android:textColor="#000000"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/position"
-            android:background="#eceff1"
-            android:paddingLeft="120dp"
-            android:text="@string/time"
-            android:textColor="#000000"
-            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/type"
@@ -51,14 +41,13 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/btn_cancel"
+            android:id="@+id/btn_on"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/time"
             android:layout_marginLeft="200dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/type"
-            android:text="@string/cancel_alarm" />
+            android:text="@string/on_off" />
 
     </RelativeLayout>
 

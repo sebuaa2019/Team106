@@ -30,9 +30,12 @@ import com.example.alarmapp.Utils.AppController;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +47,7 @@ public class FragmentNotification extends Fragment {
     private Spinner spin_sensor = null;
     private Button btn_select_date = null;
     private DatePicker datePicker = null;
-    private String date_text;
+    private String date_text="";
     private int sensor = 0;
 
     private RecyclerView card_list;
@@ -83,7 +86,7 @@ public class FragmentNotification extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 sensor = i;
-
+                queryIndex();
             }
 
             @Override
@@ -111,10 +114,14 @@ public class FragmentNotification extends Fragment {
         * 否则会出现NullPointerException
         * */
         datePicker = view.findViewById(R.id.date_picker);
-        datePicker.init(2019, 5, 9, new DatePicker.OnDateChangedListener() {
+        Calendar cal = new GregorianCalendar();
+
+        dateRegulation(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+        datePicker.init(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
+                new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
-                date_text = i+"-"+i1+"-"+i2 ;
+                dateRegulation(i,i1,i2);
             }
         });
 
@@ -123,6 +130,7 @@ public class FragmentNotification extends Fragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 //设置时间
                 Toast.makeText(getContext(), date_text, Toast.LENGTH_LONG).show();
+                queryIndex();
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -141,9 +149,6 @@ public class FragmentNotification extends Fragment {
             final ArrayList<String> sensor_map = new ArrayList<String>();
             sensor_map.add("红外");
             sensor_map.add("烟感");
-            final ArrayList<String> pos_map = new ArrayList<String>();
-            pos_map.add("客厅");
-            pos_map.add("卧室");
 
             // 掉接口
             SharedPreferences sp = this.getActivity().getSharedPreferences("conf", 0);
@@ -167,9 +172,10 @@ public class FragmentNotification extends Fragment {
                                     JSONObject item = items.getJSONObject(i);
                                     int record_id = item.getInt("record_id");
                                     String type = sensor_map.get(item.getInt("category"));
+                                    String pos = item.getString("pos");
                                     //考虑将时间转换为int,精确到秒
-                                    int time = item.getInt("time");
-                                    AlarmInfo ai = new AlarmInfo(record_id, type, time);
+                                    long time = item.getLong("time");
+                                    AlarmInfo ai = new AlarmInfo(record_id, type, pos, time);
                                     alarmInfoList.add(ai);
                                 }
                                 //排序，先按照is_alarm, 再按照时间
@@ -206,23 +212,23 @@ public class FragmentNotification extends Fragment {
 
 
     private void generate_test_data(){
-        AlarmInfo a1 = new AlarmInfo(1,  "烟感", 111);
+        AlarmInfo a1 = new AlarmInfo(1,  "烟感", "客厅",1111111);
         alarmInfoList.add(a1);
-        AlarmInfo a2 = new AlarmInfo(2,  "烟感", 222);
+        AlarmInfo a2 = new AlarmInfo(2,  "烟感", "客厅",22211111);
         alarmInfoList.add(a2);
-        AlarmInfo a3 = new AlarmInfo(3, "烟感", 112);
+        AlarmInfo a3 = new AlarmInfo(3, "烟感", "客厅",112111111);
         alarmInfoList.add(a3);
-        AlarmInfo a4 = new AlarmInfo(4,"烟感", 221);
+        AlarmInfo a4 = new AlarmInfo(4,"烟感", "客厅",221111111);
         alarmInfoList.add(a4);
-        AlarmInfo a5 = new AlarmInfo(5,"烟感", 333);
+        AlarmInfo a5 = new AlarmInfo(5,"烟感", "客厅",33311111);
         alarmInfoList.add(a5);
-        AlarmInfo a6 = new AlarmInfo(6,  "烟感", 444);
+        AlarmInfo a6 = new AlarmInfo(6,  "烟感", "客厅",444111111);
         alarmInfoList.add(a6);
-        AlarmInfo a7 = new AlarmInfo(7,  "烟感", 555);
+        AlarmInfo a7 = new AlarmInfo(7,  "烟感", "客厅",55511111);
         alarmInfoList.add(a7);
-        AlarmInfo a8 = new AlarmInfo(8,  "烟感", 111);
+        AlarmInfo a8 = new AlarmInfo(8,  "烟感", "客厅",11111111);
         alarmInfoList.add(a8);
-        AlarmInfo a9 = new AlarmInfo(9, "烟感", 233);
+        AlarmInfo a9 = new AlarmInfo(9, "烟感", "客厅",23311111);
         alarmInfoList.add(a9);
 
     }
@@ -235,8 +241,8 @@ public class FragmentNotification extends Fragment {
         Collections.sort(alarmInfoList, new Comparator<AlarmInfo>() {
             @Override
             public int compare(AlarmInfo alarmInfo, AlarmInfo t1) {
-                Integer time = alarmInfo.getTime();
-                Integer time1 = t1.getTime();
+                Long time = alarmInfo.getTime();
+                Long time1 = t1.getTime();
                 return time1.compareTo(time);
             }
         });
@@ -245,4 +251,18 @@ public class FragmentNotification extends Fragment {
         }
     }
 
+
+    private void dateRegulation(int year, int month, int day){
+        //month 是从0开始计算的
+        month ++;
+        if(month <= 9)
+            date_text = year + "-0" + month;
+        else
+            date_text = year + "-"+ month;
+
+        if(day <= 9)
+            date_text += "-0"+day;
+        else
+            date_text += "-"+day;
+    }
 }

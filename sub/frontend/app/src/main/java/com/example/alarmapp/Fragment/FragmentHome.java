@@ -3,13 +3,13 @@ package com.example.alarmapp.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,11 +19,15 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.alarmapp.Adapter.MySensorRecycleViewAdapter;
 import com.example.alarmapp.R;
 import com.example.alarmapp.Utils.AppController;
+import com.example.alarmapp.Utils.SensorInfo;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,14 +35,16 @@ import static com.example.alarmapp.Utils.URLConf.*;
 
 public class FragmentHome extends Fragment {
     private Spinner modeSpinner = null;
-    private ImageView iv = null;
+    private Spinner sensorSpinner = null;
     private TextView tv_name = null;
     private TextView tv_phone = null;
-    private Button btn_red_onoff;
-    private Button btn_fog_onoff;
     private int mode=0; //记录开启模式
-    private int red_state=0; //
-    private int fog_state=0; //0表示关闭，1表示开启
+    private int sensor=0;
+
+    private RecyclerView card_list;
+    private MySensorRecycleViewAdapter mySensorRecycleViewAdapter;
+    private ArrayList<SensorInfo> sensorInfoArrayList = new ArrayList<>();
+
 
     public FragmentHome(){
 
@@ -48,12 +54,20 @@ public class FragmentHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fg_home, container, false);
         Log.i("Fragment1", "Home");
-        iv = view.findViewById(R.id.user_image);
         tv_name = view.findViewById(R.id.user_name);
         tv_phone = view.findViewById(R.id.user_phone);
         modeSpinner = view.findViewById(R.id.h_mode_spinner);
-        btn_red_onoff = view.findViewById(R.id.red_sensor_button);
-        btn_fog_onoff = view.findViewById(R.id.fog_sensor_button);
+        sensorSpinner = view.findViewById(R.id.h_sensor_spinner);
+
+        card_list = view.findViewById(R.id.sensor_list);
+        card_list.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        card_list.setLayoutManager(layoutManager);
+
+        mySensorRecycleViewAdapter = new MySensorRecycleViewAdapter(sensorInfoArrayList);
+        card_list.setAdapter(mySensorRecycleViewAdapter);
+
         initEvent();
         getUserInfo();
         getSensorState();
@@ -72,40 +86,19 @@ public class FragmentHome extends Fragment {
                 mode = 0; //设置一个默认值
             }
         });
-        btn_red_onoff.setOnClickListener(new View.OnClickListener() {
+        sensorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                switch (red_state){
-                    case 0:
-                        red_state = 1;
-                        btn_red_onoff.setActivated(true);
-                        break;
-                    case 1:
-                        red_state = 0;
-                        btn_red_onoff.setActivated(false);
-                        break;
-                }
-                Log.d("test_onoff", String.valueOf(red_state));
-                on_off(red_state, 0);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                sensor = i;
+                getSensorState();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                sensor = 0;
             }
         });
-        btn_fog_onoff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (fog_state){
-                    case 0:
-                        fog_state = 1;
-                        btn_fog_onoff.setActivated(true);
-                        break;
-                    case 1:
-                        fog_state = 0;
-                        btn_fog_onoff.setActivated(false);
-                        break;
-                }
-                Log.d("test_onoff", String.valueOf(fog_state));
-                on_off(fog_state, 1);
-            }
-        });
+        generate_test_data();
     }
 
 
@@ -124,11 +117,8 @@ public class FragmentHome extends Fragment {
                             try{
                                 String name = response.getString("name");
                                 String phone = response.getString("phone");
-                                String img_path = response.getString("img_path");
                                 tv_name.setText(name);
                                 tv_phone.setText(phone);
-                                //TODO: 头像的处理
-
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
@@ -157,55 +147,7 @@ public class FragmentHome extends Fragment {
         }
     }
 
-    private void on_off(int state, int sensor){
-        try {
-            //
-            SharedPreferences sp = this.getActivity().getSharedPreferences("conf", 0);
-            final String token = sp.getString("token","");
 
-            String url = USING_URL + ONOFF;
-            final String tag = "json_onoff";
-            Map<String, Integer> map = new HashMap<String, Integer>();
-            map.put("on_off", state);
-            map.put("mode", mode);
-            map.put("sensor", sensor);
-            JSONObject params = new JSONObject(map);
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try{
-                                if(response.getInt("status") == 0){
-                                    Toast.makeText(getContext(), response.getString("msg"),
-                                            Toast.LENGTH_LONG).show();
-                                }
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.e(tag, error.toString());
-                        }
-                    }){
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("Content-Type", "application/json");
-                    headers.put("token", token);
-                    return headers;
-                }
-            };
-            AppController.getInstance().addToRequestQueue(jsonObjectRequest, tag);
-
-        }catch (NullPointerException e){
-            e.printStackTrace();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
     private void getSensorState(){
         try {
@@ -215,13 +157,27 @@ public class FragmentHome extends Fragment {
 
             String url = USING_URL + GETSENSOR;
             final String tag = "json_getsensorstate";
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+            Map<String, Integer> map = new HashMap<String, Integer>();
+            map.put("type", sensor);
+            JSONObject params = new JSONObject(map);
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             try{
-                               red_state = response.getInt("red");
-                               fog_state = response.getInt("fog");
+                                int total = response.getInt("count");
+                                JSONArray items = response.getJSONArray("sensor_list");
+                                sensorInfoArrayList.clear();
+                                for (int i=0; i < items.length(); i++){
+                                    JSONObject item = items.getJSONObject(i);
+                                    int sensor_id = item.getInt("sensor_id");
+                                    int type = item.getInt("type");
+                                    String position = item.getString("pos");
+                                    boolean on = item.getInt("status") == 1;
+                                    SensorInfo si = new SensorInfo(sensor_id, type, position, on);
+                                    sensorInfoArrayList.add(si);
+                                }
+                                mySensorRecycleViewAdapter.notifyDataSetChanged();
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
@@ -249,4 +205,18 @@ public class FragmentHome extends Fragment {
             e.printStackTrace();
         }
     }
+
+    private void generate_test_data(){
+        SensorInfo si1 = new SensorInfo(0, 0, "大门", true);
+        sensorInfoArrayList.add(si1);
+        SensorInfo si2 = new SensorInfo(1, 1, "厨房", false);
+        sensorInfoArrayList.add(si2);
+        SensorInfo si3 = new SensorInfo(2, 2, "卧室", false);
+        sensorInfoArrayList.add(si3);
+        SensorInfo si4 = new SensorInfo(3, 3, "书房", true);
+        sensorInfoArrayList.add(si4);
+        SensorInfo si5 = new SensorInfo(4, 4, "厨房", true);
+        sensorInfoArrayList.add(si5);
+    }
+
 }

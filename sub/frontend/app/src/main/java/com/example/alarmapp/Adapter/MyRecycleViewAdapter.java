@@ -1,32 +1,16 @@
 package com.example.alarmapp.Adapter;
 
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.alarmapp.R;
 import com.example.alarmapp.Utils.AlarmInfo;
-import com.example.alarmapp.Utils.AppController;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Map;
-
-import static com.example.alarmapp.Utils.URLConf.*;
+import java.util.Date;
 
 public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.ContactViewHolder> {
 
@@ -48,8 +32,11 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
     @Override
     public void onBindViewHolder(final ContactViewHolder holder, final int position) {
         AlarmInfo ai = alarmInfoList.get(position);
-        holder.time.setText("时间："+ai.getTime());
+        Date date = new Date(ai.getTime());
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        holder.time.setText("时间："+ft.format(date));
         holder.type.setText("类别："+ai.getType());
+        holder.pos.setText("位置: "+ai.getPos());
     }
 
     @Override
@@ -62,6 +49,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
 
         protected TextView time;
         protected TextView type;
+        protected TextView pos;
         private final TextView tv_line_top;
         private final TextView tv_line_bottom;
         private final TextView tv_dot;
@@ -70,7 +58,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
             super(itemView);
             time = itemView.findViewById(R.id.time);
             type = itemView.findViewById(R.id.type);
-
+            pos = itemView.findViewById(R.id.position);
             //TODO: add description for every type of alarm signal maybe
             //tv_desc = (TextView) itemView.findViewById(R.id.tv_desc);
             //top line vertical

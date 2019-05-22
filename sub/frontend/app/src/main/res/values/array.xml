@@ -11,8 +11,11 @@
     </string-array>
 
     <string-array name="sensor_array">
+        <item>门磁传感器</item>
+        <item>水浸传感器</item>
         <item>红外传感器</item>
         <item>烟雾传感器</item>
+        <item>温度传感器</item>
         <item>不限</item>
     </string-array>
 

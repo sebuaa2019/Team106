@@ -33,6 +33,6 @@
     <string name="postion">位置：</string>
     <string name="type">类型：</string>
     <string name="time">时间：</string>
-    <string name="cancel_alarm">解除警报</string>
+    <string name="on_off">开关</string>
 
 </resources>
