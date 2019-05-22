@@ -19,12 +19,10 @@ public class URLConf {
     public static final String LOGIN = "api/account/login/";
     public static final String FRESHTOKEN = "api/accout/freshtoken/";
     public static final String INFOINDEX = "api/account/index/";
-    public static final String MODIMG = "api/account/img_mod/";
     public static final String MODINFO = "api/account/info_mod/";
 
     //Control
     public static final String ONOFF = "api/control/onoff/";
-    public static final String SETTIME = "api/control/settime/";
     public static final String RECORD = "api/control/record/";
     public static final String GETSENSOR = "api/control/getsensor/";
 

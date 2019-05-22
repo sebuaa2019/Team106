@@ -3,10 +3,10 @@ package com.example.alarmapp.Utils;
 public class AlarmInfo{
     private int record_id;
     private String type;
-    private int time;
+    private long time;
     private String pos;
 
-    public AlarmInfo(int record_id, String type, String pos, int time){
+    public AlarmInfo(int record_id, String type, String pos, long time){
         this.record_id = record_id;
         this.type = type;
         this.time = time;
@@ -18,7 +18,7 @@ public class AlarmInfo{
         return type;
     }
 
-    public int getTime() {
+    public long getTime() {
         return time;
     }
 
