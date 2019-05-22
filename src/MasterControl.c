@@ -87,6 +87,7 @@ void unlock()
 {
     while(1) {
         if(isArm()) {
+            printf("Armed\n");
             break;
         }
         else {
@@ -755,13 +756,15 @@ void * armMonitor()
             waterStatus = 1;            /* 0 for off, 1 for on */
             smokeStatus = 1;            /* 0 for off, 1 for on */
             temperatureStatus = 1;      /* 0 for off, 1 for on */
+            printf("Armed\n");
         }
         else if (isDisArm()) {
-                doorStatus = 0;             /* 0 for off, 1 for on */
-                infraredStatus = 0;         /* 0 for off, 1 for on */
-                waterStatus = 0;            /* 0 for off, 1 for on */
-                smokeStatus = 0;            /* 0 for off, 1 for on */
-                temperatureStatus = 0;      /* 0 for off, 1 for on */
+            doorStatus = 0;             /* 0 for off, 1 for on */
+            infraredStatus = 0;         /* 0 for off, 1 for on */
+            waterStatus = 0;            /* 0 for off, 1 for on */
+            smokeStatus = 0;            /* 0 for off, 1 for on */
+            temperatureStatus = 0;      /* 0 for off, 1 for on */
+            printf("DisArmed\n");
         }
         vxsleep(100);
     }
