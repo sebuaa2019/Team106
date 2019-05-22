@@ -499,7 +499,7 @@ void * serverMonitor()
             if(doorWarning1 == 1) {
                 lastDoorWarning1 = doorWarning1;
                 doorWarning1 = 0;
-                strcpy(buf, "wd1");
+                strcpy(buf, "0");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(doorWarning1 == 0) {
@@ -510,7 +510,7 @@ void * serverMonitor()
             if(doorWarning2 == 1) {
                 lastDoorWarning2 = doorWarning2;
                 doorWarning2 = 0;
-                strcpy(buf, "wd2");
+                strcpy(buf, "1");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(doorWarning2 == 0) {
@@ -522,7 +522,7 @@ void * serverMonitor()
             if(infraredWarning1 == 1) {
                 lastInfraredWarning1 = infraredWarning1;
                 infraredWarning1 = 0;
-                strcpy(buf, "wi1");
+                strcpy(buf, "3");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(infraredWarning1 == 0) {
@@ -533,7 +533,7 @@ void * serverMonitor()
             if(infraredWarning2 == 1) {
                 lastInfraredWarning2 = infraredWarning2;
                 infraredWarning2 = 0;
-                strcpy(buf, "wi2");
+                strcpy(buf, "4");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(infraredWarning2 == 0) {
@@ -545,7 +545,7 @@ void * serverMonitor()
             if(waterWarning1 == 1) {
                 lastWaterWarning1 = waterWarning1;
                 waterWarning1 = 0;
-                strcpy(buf, "ww1");
+                strcpy(buf, "6");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(waterWarning1 == 0) {
@@ -556,7 +556,7 @@ void * serverMonitor()
             if(waterWarning2 == 1) {
                 lastWaterWarning2 = waterWarning2;
                 waterWarning2 = 0;
-                strcpy(buf, "ww2");
+                strcpy(buf, "7");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(waterWarning2 == 0) {
@@ -568,7 +568,7 @@ void * serverMonitor()
             if(smokeWarning1 == 1) {
                 lastSmokeWarning1 = smokeWarning1;
                 smokeWarning1 = 0;
-                strcpy(buf, "ws1");
+                strcpy(buf, "9");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(smokeWarning1 == 0) {
@@ -579,7 +579,7 @@ void * serverMonitor()
             if(smokeWarning2 == 1) {
                 lastSmokeWarning2 = smokeWarning2;
                 smokeWarning2 = 0;
-                strcpy(buf, "ws2");
+                strcpy(buf, "10");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(smokeWarning2 == 0) {
@@ -591,7 +591,7 @@ void * serverMonitor()
             if(temperatureWarning1 == 1) {
                 lastTemperatureWarning1 = temperatureWarning1;
                 temperatureWarning1 = 0;
-                strcpy(buf, "wt1");
+                strcpy(buf, "12");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(temperatureWarning1 == 0) {
@@ -602,7 +602,7 @@ void * serverMonitor()
             if(temperatureWarning2 == 1) {
                 lastTemperatureWarning2 = temperatureWarning2;
                 temperatureWarning2 = 0;
-                strcpy(buf, "wt2");
+                strcpy(buf, "13");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(temperatureWarning2 == 0) {
