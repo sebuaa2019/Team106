@@ -55,6 +55,11 @@ int isArm()
     return OnArm();
 }
 
+int isDisArm()
+{
+    return OnDisarm();
+}
+
 void setPhone(char buf[])
 {
     int ptr_buf = 0;

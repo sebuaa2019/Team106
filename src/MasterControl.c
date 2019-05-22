@@ -87,13 +87,9 @@ void unlock()
 {
     while(1) {
         if(isArm()) {
-            setLed(0, 0);
-            setLed(1, 1);
             break;
         }
         else {
-            setLed(0, 0);
-            setLed(1, 0);
         }
         vxsleep(100);
     }
@@ -101,8 +97,6 @@ void unlock()
     while(1) {
         if(checkSecret()) {
             printf("password right\n");
-            setLed(0, 1);
-            setLed(1, 0);
             break;
         }
         else {
@@ -748,49 +742,26 @@ void * serverRead(int sockFd)
         else {
             printf("undefined command: %s\n", buf);
         }
-
-        if(doorStatus == 0 &&
-           infraredStatus == 0 &&
-           waterStatus == 0 &&
-           smokeStatus == 0 &&
-           temperatureStatus == 0) {
-            setLed(0, 0);
-            setLed(1, 0);
-        }
-        else {
-            setLed(0, 1);
-            setLed(1, 0);
-        }
     }
 }
 
 /* the monitor of arm/disarm button */
 void * armMonitor()
 {
-    int lastArm = 1;
     while(1) {
-        if(lastArm != isArm()) {
-            if (isArm()) {
-                doorStatus = 1;             /* 0 for off, 1 for on */
-                infraredStatus = 1;         /* 0 for off, 1 for on */
-                waterStatus = 1;            /* 0 for off, 1 for on */
-                smokeStatus = 1;            /* 0 for off, 1 for on */
-                temperatureStatus = 1;      /* 0 for off, 1 for on */
-                setLed(0, 1);
-                setLed(1, 0);
-            }
-            else if (!isArm()) {
+        if(isArm()) {
+            doorStatus = 1;             /* 0 for off, 1 for on */
+            infraredStatus = 1;         /* 0 for off, 1 for on */
+            waterStatus = 1;            /* 0 for off, 1 for on */
+            smokeStatus = 1;            /* 0 for off, 1 for on */
+            temperatureStatus = 1;      /* 0 for off, 1 for on */
+        }
+        else if (isDisArm()) {
                 doorStatus = 0;             /* 0 for off, 1 for on */
                 infraredStatus = 0;         /* 0 for off, 1 for on */
                 waterStatus = 0;            /* 0 for off, 1 for on */
                 smokeStatus = 0;            /* 0 for off, 1 for on */
                 temperatureStatus = 0;      /* 0 for off, 1 for on */
-                setLed(0, 0);
-                setLed(1, 0);
-            }
-            else {
-                break;
-            }
         }
         vxsleep(100);
     }

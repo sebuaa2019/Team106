@@ -13,6 +13,7 @@ void turnOnLight();
 void turnOffLight();
 void setPhone(char buf[]);
 int isArm();
+int isDisArm();
 void setLed(int nID, int nState);
 int getKey(char  *cKey);
 
