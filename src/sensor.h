@@ -12,7 +12,9 @@ int getSensorStatus(int sensorNumber);
 void turnOnLight();
 void turnOffLight();
 void setPhone(char buf[]);
-
+int isArm();
+void setLed(int nID, int nState);
+int getKey(char  *cKey);
 
 int toInt(char string[]);               /* string to int */
 

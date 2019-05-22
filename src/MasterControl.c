@@ -42,9 +42,12 @@ int temperatureWarning2 = 0;
 /* the main function of MasterControl */
 int * MasterControl()
 {
+
     /*create return array*/
     retThread = (int*)malloc(sizeof(int) * THREAD_NUMBER);
     Sensor();       /*init sensor*/
+
+    unlock();
     
     if((retThread[0] = taskSpawn("door", 200, 0, 100000, (FUNCPTR)doorSensorMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
         printf("create thread door failed\n");
@@ -61,16 +64,87 @@ int * MasterControl()
     if((retThread[3] = taskSpawn("smoke", 200, 0, 100000, (FUNCPTR)smokeSensorMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
         printf("create thread smoke failed\n");
     }
-    
+
+    /*
     if((retThread[4] = taskSpawn("temperature", 200, 0, 100000, (FUNCPTR)temperatureSensorMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
         printf("create thread temperature failed\n");
     }
+     */
 
     if((retThread[5] = taskSpawn("server", 200, 0, 100000, (FUNCPTR)serverMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
         printf("create thread server failed\n");
     }
 
+    if((retThread[6] = taskSpawn("arm", 200, 0, 100000, (FUNCPTR)armMonitor, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) == ERROR) {
+        printf("create thread arm failed\n");
+    }
+
     return retThread;
+}
+
+/* the unlock function called when startup */
+void unlock()
+{
+    while(1) {
+        if(isArm()) {
+            setLed(0, 0);
+            setLed(1, 1);
+            break;
+        }
+        else {
+            setLed(0, 0);
+            setLed(1, 0);
+        }
+        vxsleep(100);
+    }
+
+    while(1) {
+        if(checkSecret()) {
+            printf("password right\n");
+            setLed(0, 1);
+            setLed(1, 0);
+            break;
+        }
+        else {
+            printf("password wrong. please input again\n");
+        }
+    }
+}
+
+/* return if the secret input is right.  //  */
+int checkSecret()
+{
+    char cKey;
+    char secret[10] = "123456";
+    char input[10];
+    int inputIndex = 0;
+    while(1){
+        if(getKey(&cKey))
+        {
+            printf("%c\n",cKey);
+            if(cKey == '*')   /*confirm*/
+            {
+                input[inputIndex] = '\0';
+                break;
+            }
+            else if(cKey == '#')  /*clear*/
+            {
+                memset(input,0,sizeof(input));
+                inputIndex = 0;
+            }
+            else{ /*'0' - '9'*/
+                input[inputIndex++] = cKey;
+            }
+
+        }
+        vxsleep(10);
+    }
+
+    if(strcmp(input,secret)==0){
+        return 1;
+    }
+    return 0;
+
 }
 
 /* the monitor of door sensor */
@@ -336,7 +410,8 @@ void * temperatureSensorMonitor()
 
     while(1) {
         if(temperatureStatus == 1) {
-            int sensorStatus = getSensorStatus(9);
+            int sensorStatus = getSensorStatus(12);
+
             if (sensorStatus == -1) {
                 break;
                 /*error*/
@@ -345,7 +420,7 @@ void * temperatureSensorMonitor()
                 temperatureWarning1 = 0;
                 if (sensorStatus == 0) {     /*do nothing*/
                     ;   /*do nothing*/
-                } else if (sensorStatus == 1) {        /* warning status goto 1, abnotmalTime add 1 */
+                } else if (sensorStatus == 1) {        /* warning status goto 1, abnormalTime add 1 */
                     warningStatus1 = 1;
                     abnormalTime1++;
                 }
@@ -386,7 +461,7 @@ void * temperatureSensorMonitor()
             }
 
 
-            sensorStatus = getSensorStatus(10);
+            sensorStatus = getSensorStatus(13);
             if (sensorStatus == -1) {
                 break;
                 /*error*/
@@ -658,10 +733,10 @@ void * serverRead(int sockFd)
         else if(strcmp(buf, "rt") == 0) {
             temperatureStatus = 1;
         }
-        else if(strcmp(buf, "lon") == 0) {
+        else if(strcmp(buf, "lon") == 0) {      /* light on */
             turnOnLight();
         }
-        else if(strcmp(buf, "loff") == 0) {
+        else if(strcmp(buf, "loff") == 0) {     /* light off */
             turnOffLight();
         }
         else if(buf[0] == 's' && buf[1] == 'c') {       /* setCall */ /* sc 12345678901 nType nZone */
@@ -673,9 +748,54 @@ void * serverRead(int sockFd)
         else {
             printf("undefined command: %s\n", buf);
         }
+
+        if(doorStatus == 0 &&
+           infraredStatus == 0 &&
+           waterStatus == 0 &&
+           smokeStatus == 0 &&
+           temperatureStatus == 0) {
+            setLed(0, 0);
+            setLed(1, 0);
+        }
+        else {
+            setLed(0, 1);
+            setLed(1, 0);
+        }
     }
 }
 
+/* the monitor of arm/disarm button */
+void * armMonitor()
+{
+    int lastArm = 1;
+    while(1) {
+        if(lastArm != isArm()) {
+            if (isArm()) {
+                doorStatus = 1;             /* 0 for off, 1 for on */
+                infraredStatus = 1;         /* 0 for off, 1 for on */
+                waterStatus = 1;            /* 0 for off, 1 for on */
+                smokeStatus = 1;            /* 0 for off, 1 for on */
+                temperatureStatus = 1;      /* 0 for off, 1 for on */
+                setLed(0, 1);
+                setLed(1, 0);
+            }
+            else if (!isArm()) {
+                doorStatus = 0;             /* 0 for off, 1 for on */
+                infraredStatus = 0;         /* 0 for off, 1 for on */
+                waterStatus = 0;            /* 0 for off, 1 for on */
+                smokeStatus = 0;            /* 0 for off, 1 for on */
+                temperatureStatus = 0;      /* 0 for off, 1 for on */
+                setLed(0, 0);
+                setLed(1, 0);
+            }
+            else {
+                break;
+            }
+        }
+        vxsleep(100);
+    }
+    return NULL;
+}
 
 
 

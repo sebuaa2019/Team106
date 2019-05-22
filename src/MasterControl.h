@@ -7,7 +7,7 @@
 #include <pthread.h>
 
 
-#define THREAD_NUMBER 6
+#define THREAD_NUMBER 7
 
 #define ALARM_INTERVAL 1000        /* 10^3 msec       //Alarm interval */
 #define DOOR_READ_INTERVAL 1000
@@ -22,7 +22,7 @@
 #define MAX_TEMPERATURE_NORMAL_VALUE_CONTINUOUS_TIME 8
 
 
-
+void unlock();
 
 /* monitors */
 void * doorSensorMonitor();
@@ -32,6 +32,9 @@ void * smokeSensorMonitor();
 void * temperatureSensorMonitor();
 void * serverMonitor();
 void * serverRead();
+void * armMonitor();
+
+int checkSecret();
 
 /* warning functions */
 void warningDoor(int i);
