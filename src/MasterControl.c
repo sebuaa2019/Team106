@@ -498,6 +498,7 @@ void * serverMonitor()
         if(doorWarning1 != lastDoorWarning1) {
             if(doorWarning1 == 1) {
                 lastDoorWarning1 = doorWarning1;
+                doorWarning1 = 0;
                 strcpy(buf, "wd1");
                 write(sockFd, buf, sizeof(buf));
             }
@@ -508,6 +509,7 @@ void * serverMonitor()
         if(doorWarning2 != lastDoorWarning2) {
             if(doorWarning2 == 1) {
                 lastDoorWarning2 = doorWarning2;
+                doorWarning2 = 0;
                 strcpy(buf, "wd2");
                 write(sockFd, buf, sizeof(buf));
             }
@@ -519,6 +521,7 @@ void * serverMonitor()
         if(infraredWarning1 != lastInfraredWarning1) {
             if(infraredWarning1 == 1) {
                 lastInfraredWarning1 = infraredWarning1;
+                infraredWarning1 = 0;
                 strcpy(buf, "wi1");
                 write(sockFd, buf, sizeof(buf));
             }
@@ -529,6 +532,7 @@ void * serverMonitor()
         if(infraredWarning2 != lastInfraredWarning2) {
             if(infraredWarning2 == 1) {
                 lastInfraredWarning2 = infraredWarning2;
+                infraredWarning2 = 0;
                 strcpy(buf, "wi2");
                 write(sockFd, buf, sizeof(buf));
             }
@@ -540,6 +544,7 @@ void * serverMonitor()
         if(waterWarning1 != lastWaterWarning1) {
             if(waterWarning1 == 1) {
                 lastWaterWarning1 = waterWarning1;
+                waterWarning1 = 0;
                 strcpy(buf, "ww1");
                 write(sockFd, buf, sizeof(buf));
             }
@@ -550,6 +555,7 @@ void * serverMonitor()
         if(waterWarning2 != lastWaterWarning2) {
             if(waterWarning2 == 1) {
                 lastWaterWarning2 = waterWarning2;
+                waterWarning2 = 0;
                 strcpy(buf, "ww2");
                 write(sockFd, buf, sizeof(buf));
             }
@@ -561,6 +567,7 @@ void * serverMonitor()
         if(smokeWarning1 != lastSmokeWarning1) {
             if(smokeWarning1 == 1) {
                 lastSmokeWarning1 = smokeWarning1;
+                smokeWarning1 = 0;
                 strcpy(buf, "ws1");
                 write(sockFd, buf, sizeof(buf));
             }
@@ -571,6 +578,7 @@ void * serverMonitor()
         if(smokeWarning2 != lastSmokeWarning2) {
             if(smokeWarning2 == 1) {
                 lastSmokeWarning2 = smokeWarning2;
+                smokeWarning2 = 0;
                 strcpy(buf, "ws2");
                 write(sockFd, buf, sizeof(buf));
             }
@@ -582,6 +590,7 @@ void * serverMonitor()
         if(temperatureWarning1 != lastTemperatureWarning1) {
             if(temperatureWarning1 == 1) {
                 lastTemperatureWarning1 = temperatureWarning1;
+                temperatureWarning1 = 0;
                 strcpy(buf, "wt1");
                 write(sockFd, buf, sizeof(buf));
             }
@@ -592,6 +601,7 @@ void * serverMonitor()
         if(temperatureWarning2 != lastTemperatureWarning2) {
             if(temperatureWarning2 == 1) {
                 lastTemperatureWarning2 = temperatureWarning2;
+                temperatureWarning2 = 0;
                 strcpy(buf, "wt2");
                 write(sockFd, buf, sizeof(buf));
             }
@@ -600,7 +610,7 @@ void * serverMonitor()
             }
         }
 
-        vxsleep(1000);
+        vxsleep(100);
     }
     return NULL;
 }
@@ -672,119 +682,19 @@ void * serverRead(int sockFd)
 /* called when the door sensor warns */
 void warningDoor(int i)
 {
-    if(i == 1) {
-        if(taskSpawn("wd1", 200, 0, 100000, (FUNCPTR)warningDoorThread, i, 0, 0, 0, 0, 0, 0, 0, 0, 0) == ERROR) {
-            printf("create thread warning door 1 failed\n");
-        }
-    }
-    else if(i == 2) {
-        if(taskSpawn("wd2", 200, 0, 100000, (FUNCPTR)warningDoorThread, i, 0, 0, 0, 0, 0, 0, 0, 0, 0) == ERROR) {
-            printf("create thread warning door 2 failed\n");
-        }
-    }
-}
-
-/* the thread created in warningDoor() */
-void * warningDoorThread(int i)
-{
-    if(i == 1) {
-        int j = 0;
-        while(j<10) {
-            printf("warning door 1\n");
-            vxsleep(ALARM_INTERVAL);
-            j++;
-        }
-        doorWarning1 = 0;
-    }
-    else if(i == 2) {
-        int j = 0;
-        while(j<10) {
-            printf("warning door 2\n");
-            vxsleep(ALARM_INTERVAL);
-            j++;
-        }
-        doorWarning2 = 0;
-    }
-    return NULL;
+    printf("warning door %d\n", i);
 }
 
 /* called when the infrared sensor warns */
 void warningInfrared(int i)
 {
-    if(i == 1) {
-        if(taskSpawn("wi1", 200, 0, 100000, (FUNCPTR)warningInfraredThread, i, 0, 0, 0, 0, 0, 0, 0, 0, 0) == ERROR) {
-            printf("create thread warning infrared 1 failed\n");
-        }
-    }
-    else if (i == 2) {
-        if(taskSpawn("wi2", 200, 0, 100000, (FUNCPTR)warningInfraredThread, i, 0, 0, 0, 0, 0, 0, 0, 0, 0) == ERROR) {
-            printf("create thread warning infrared 2 failed\n");
-        }
-    }
-
-}
-
-/* the thread created in warningInfrared() */
-void * warningInfraredThread(int i)
-{
-    if(i == 1) {
-        int j = 0;
-        while(j<10) {
-            printf("\twarning infrared 1\n");
-            vxsleep(ALARM_INTERVAL);
-            j++;
-        }
-        infraredWarning1 = 0;
-    }
-    else if(i == 2) {
-        int j = 0;
-        while(j<10) {
-            printf("\twarning infrared 2\n");
-            vxsleep(ALARM_INTERVAL);
-            j++;
-        }
-        infraredWarning2 = 0;
-    }
-    return NULL;
+    printf("warning infrared %d\n", i);
 }
 
 /* called when the water sensor warns */
 void warningWater(int i)
 {
-    if(i == 1) {
-        if(taskSpawn("wd1", 200, 0, 100000, (FUNCPTR)warningWaterThread, i, 0, 0, 0, 0, 0, 0, 0, 0, 0) == ERROR) {
-            printf("create thread warning water 1 failed\n");
-        }
-    }
-    else if(i == 2) {
-        if(taskSpawn("wd2", 200, 0, 100000, (FUNCPTR)warningWaterThread, i, 0, 0, 0, 0, 0, 0, 0, 0, 0) == ERROR) {
-            printf("create thread warning water 2 failed\n");
-        }
-    }
-}
-
-/* the thread created in warningWater() */
-void * warningWaterThread(int i)
-{
-    if(i == 1) {
-        int j = 0;
-        while(j<10) {
-            printf("\t\twarning water 1\n");
-            vxsleep(ALARM_INTERVAL);
-            j++;
-        }
-        waterWarning1 = 0;
-    }
-    else if(i == 2) {
-        int j = 0;
-        while(j<10) {
-            printf("\t\twarning water 2\n");
-            vxsleep(ALARM_INTERVAL);
-            j++;
-        }
-        waterWarning2 = 0;
-    }
-    return NULL;
+    printf("warning water %d\n", i);
 }
 
 /* called when the smoke sensor warns */
