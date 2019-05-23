@@ -1,17 +1,23 @@
 from django.shortcuts import render
-from django.shortcuts import HttpResponse
+from django.contrib.auth import logout as Logout
 from rest_framework_jwt.views import ObtainJSONWebToken
+from rest_framework_jwt.settings import api_settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework_jwt.settings import api_settings
 from rest_framework import permissions
-from Alarmpp.models import User, Record
 from Alarm_System import settings
-from django.contrib.auth import logout as Logout
+from Alarmpp.models import User, Record, Sensor
 from Alarmpp.my_socket import my_socket_server
+from Alarmpp.my_enum import Sensortype, Status, Onoff
+
 # Create your views here.
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+__runserver = False
+if not __runserver:
+    board_server = my_socket_server("127.0.0.1", 9000)
+    board_server.start()
+    __runserver = board_server
 class runserver(APIView):
     run = False
     def get(self, request):
@@ -20,7 +26,7 @@ class runserver(APIView):
             board_server = my_socket_server("127.0.0.1", 9000)
             board_server.start()
         res = {
-            "msg" : self.run
+            "msg" : "runserver"
         }
         return Response(res)
 #account
@@ -45,11 +51,11 @@ class register(APIView):
         email    = data.get('email')
         try:
             user = User.objects.get(username=username)
-            status = 1
+            status = Status.Fail
             msg = '用户名已存在'
         except:
             User.objects.create(username=username,password=passwprd,email=email)
-            status = 0
+            status = Status.Success
             msg = '注册成功'
         res = {
             'status': status,
@@ -66,26 +72,26 @@ class login(ObtainJSONWebToken):
         try:
             user = User.objects.get(username=username)
             if user.password == password:
-                status = 0
+                status = Status.Success
                 user_id = user.id
                 email = user.email
                 payload = jwt_payload_handler(user)
                 token = jwt_encode_handler(payload)
             else:
-                status = 1
+                status = Status.Fail
                 user_id = None
                 email = None
                 token = None
         except:
-            status = '用户不存在'
+            status = Status.Fail
             user_id = None
-            phone = None
+            email = None
             token = None
 
         res = {
             'status': status,
             'user_id': user_id,
-            'phone': phone,
+            'email': email,
             'token': token,
         }
         return Response(res)
@@ -96,7 +102,7 @@ class logout(APIView):
         return Response({'name': request.user.username})
 
 class index(APIView):
-    def post(self, request):
+    def get(self, request):
         username = request.user.username
         user = User.objects.get(username=username)
         phone = user.phone
@@ -119,10 +125,10 @@ class info_mod(APIView):
             user.name = new_name
             user.email = new_email
             user.save()
-            status = 1
+            status = Status.Success
             msg = '修改成功'
         except:
-            status = 0
+            status = Status.Fail
             msg = '修改失败'
         res = {
             'status' : status,
@@ -145,18 +151,22 @@ class onoff(APIView):
             data = request.data
             on_off = int(data.get('on_off'))
             sensor_id = data.get('sensor_id')
-            if on_off == 1:
-                on_off = "r"
+            if on_off == Onoff.On:
+                switch = "r"
                 msg = "开启"
             else:
-                on_off = "p"
+                switch = "p"
                 msg = "关闭"
-            data = str(on_off+sensor_id).encode()
+            data = str(switch+sensor_id).encode()
             sender = board_server.getsender(request.user.username)
             sender.send(data)
-            status = 0
+            status = Status.Success
+            sensor = Sensor.objects.get(sensor_id=sensor_id)
+            sensor.switch = on_off
+            sensor.save()
+            msg = msg+"成功"
         except:
-            status = 1
+            status = Status.Fail
             msg = msg+"失败"
         res = {
             'status': status,
@@ -169,9 +179,9 @@ class record(APIView):
         info_list = []
         try:
             data = request.data
-            sensor_type = int(data.get('sensor'))
+            sensor_type = int(data.get('sensor_type'))
             date = data.get('date')
-            records = Record.objects.get(date=date)
+            records = Record.objects.get(date=date, sensor_type=sensor_type)
             for record in records:
                 r = {
                     "record_id" : record.sensor_id,

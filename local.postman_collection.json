@@ -1,0 +1,254 @@
+{
+	"info": {
+		"_postman_id": "46ac6ab6-5d56-492c-8cb7-d3fbff481ca9",
+		"name": "local",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "lipu",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "935718936@qq.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/account/register/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"account",
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "lipu",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/account/login/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"account",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "index",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "info_mod",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImxpcHUiLCJleHAiOjE1NTg4MzgzNDMsImVtYWlsIjoiIn0.H3vxNCxTN1X0a_gE7p0Kj1OuUqECOvFpqQ61urIL-hc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "new_name",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "new_email",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "new_phone",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "onoff",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImxpcHUiLCJleHAiOjE1NTg4MzgzNDMsImVtYWlsIjoiIn0.H3vxNCxTN1X0a_gE7p0Kj1OuUqECOvFpqQ61urIL-hc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "on_off",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "sensor_id",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "record",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImxpcHUiLCJleHAiOjE1NTg4MzgzNDMsImVtYWlsIjoiIn0.H3vxNCxTN1X0a_gE7p0Kj1OuUqECOvFpqQ61urIL-hc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sensor_type",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "date",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/control/record/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"control",
+						"record",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "socketserver",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8000/api/server/board/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"server",
+						"board",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,10 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-# Create your models here.
 
+# Create your models here.
 class User(AbstractUser):
-    phone = models.CharField(max_length=20, default="null")
-    name = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20, default='anonymous')
+    name = models.CharField(max_length=20, default='anonymous')
 
 class Sensor(models.Model):
     sensor_id = models.IntegerField(primary_key=True)
@@ -23,6 +23,6 @@ class Load(models.Model):
 class Record(models.Model):
     record_id = models.AutoField(primary_key=True)
     sensor_id = models.IntegerField()
-    date      = models.DateTimeField()
+    date      = models.DateField()
     time      = models.IntegerField()
     type      = models.IntegerField()

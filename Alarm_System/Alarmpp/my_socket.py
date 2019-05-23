@@ -26,12 +26,14 @@ class my_reciver(threading.Thread):
         type = str(sensor.type)
         text = "报警"
         text = area+type+text
+        return text
     def run(self):
         while(True):
             try:
                 data = self.conn.recv(1024).decode()
                 sensor_id = int(data)
                 date = datetime.date.today()
+                print(date)
                 time = int(Time.time())
                 sensor = Sensor.objects.get(sensor_id= sensor_id)
                 type   = sensor.type
@@ -39,8 +41,8 @@ class my_reciver(threading.Thread):
                 title = "震惊！你不家的时候竟然发生..."
                 text = self.sensor_id2text(sensor_id)
                 sender = settings.EMAIL_FROM
-                reciver = user = User.objects.get(username=self.username)
-                send_mail(title, text, sender, reciver)
+                reciver = [User.objects.get(username=self.username).email]
+                res = send_mail(title, text, sender, reciver)
             except:
                 pass
 
