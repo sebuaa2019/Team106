@@ -15,6 +15,13 @@ class my_sender(threading.Thread):
         self.conn.send(str)
 
 class my_reciver(threading.Thread):
+    alarm = {
+        0 : "门磁",
+        1 : "红外",
+        2 : "水浸",
+        3 : "烟感",
+        4 : "温感"
+    }
     def __init__(self, conn, addr, username):
         threading.Thread.__init__(self)
         self.conn = conn
@@ -23,7 +30,7 @@ class my_reciver(threading.Thread):
     def sensor_id2text(self, sensor_id):
         sensor = Sensor.objects.get(sensor_id=sensor_id)
         area = sensor.area
-        type = str(sensor.type)
+        type = self. alarm[sensor.type]
         text = "报警"
         text = area+type+text
         return text
@@ -33,7 +40,6 @@ class my_reciver(threading.Thread):
                 data = self.conn.recv(1024).decode()
                 sensor_id = int(data)
                 date = datetime.date.today()
-                print(date)
                 time = int(Time.time())
                 sensor = Sensor.objects.get(sensor_id= sensor_id)
                 type   = sensor.type
