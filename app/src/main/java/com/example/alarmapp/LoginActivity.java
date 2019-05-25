@@ -124,64 +124,64 @@ public class LoginActivity extends AppCompatActivity {
         //验证
         String info = "username"+ username + "passwd" + passwd;
         Toast.makeText(getApplicationContext(), info, Toast.LENGTH_LONG).show();
-//        if(username.length() != 0 && passwd.length() != 0){
-//            String passwd_md5 = Tools.md5(passwd);
+        if(username.length() != 0 && passwd.length() != 0){
+            String passwd_md5 = Tools.md5(passwd);
 
-//            String url = USING_URL + LOGIN;
-//            final String tag = "json_login";
-//            Map<String, String> map = new HashMap<String, String>();
-//            map.put("username", username);
-//            map.put("password", passwd);
-//            JSONObject params = new JSONObject(map);
-//            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Method.POST, url, params,
-//                    new Response.Listener<JSONObject>() {
-//                        @Override
-//                        public void onResponse(JSONObject response) {
-//                            try{
-//                                if(response.getInt("status") == 0){
-//                                    int user_id = response.getInt("user_id");
-//                                    String email = response.getString("email");
-//                                    // 更新客户端token,以及id
-//                                    String token = response.getString("token");
-//                                    SharedPreferences sp = getSharedPreferences("conf", 0);
-//                                    SharedPreferences.Editor editor = sp.edit();
-//                                    editor.putString("token", token);
-//                                    editor.putInt("id", user_id);
-//                                    editor.putString("email", email);
-//                                    editor.apply();
+            String url = USING_URL + LOGIN;
+            final String tag = "json_login";
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("username", username);
+            map.put("password", passwd);
+            JSONObject params = new JSONObject(map);
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Method.POST, url, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try{
+                                if(response.getInt("status") == 0){
+                                    int user_id = response.getInt("user_id");
+                                    String email = response.getString("email");
+                                    // 更新客户端token,以及id
+                                    String token = response.getString("token");
+                                    SharedPreferences sp = getSharedPreferences("conf", 0);
+                                    SharedPreferences.Editor editor = sp.edit();
+                                    editor.putString("token", token);
+                                    editor.putInt("id", user_id);
+                                    editor.putString("email", email);
+                                    editor.apply();
 
                                     Intent intent = new Intent();
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                                     intent.setClass(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
-//                                }
-//                            }catch (Exception e){
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    },
-//                    new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//                            Log.e(tag, error.toString());
-//                        }
-//                    }){
-//                @Override
-//                public Map<String, String> getHeaders() throws AuthFailureError {
-//                    HashMap<String, String> headers = new HashMap<String, String>();
-//                    headers.put("Content-Type", "application/json");
-//                    SharedPreferences sp = getSharedPreferences("conf", 0);
-//                    String token = sp.getString("token", "");
-//                    headers.put("token", token);
-//                    return headers;
-//                }
-//            };
-//            AppController.getInstance().addToRequestQueue(jsonObjectRequest, tag);
-//
-//        }
-//        else{
-//            Toast.makeText(getApplicationContext(), "请完整填写信息", Toast.LENGTH_LONG).show();
-//        }
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e(tag, error.toString());
+                        }
+                    }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json");
+                    SharedPreferences sp = getSharedPreferences("conf", 0);
+                    String token = sp.getString("token", "");
+                    headers.put("Authorization", "Bearer "+token);
+                    return headers;
+                }
+            };
+            AppController.getInstance().addToRequestQueue(jsonObjectRequest, tag);
+
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "请完整填写信息", Toast.LENGTH_LONG).show();
+        }
     }
 
 }

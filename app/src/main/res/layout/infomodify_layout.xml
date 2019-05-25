@@ -111,4 +111,59 @@
             />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/srl_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_phone"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/rectangle_edittext">
+
+        <ImageView
+            android:id="@+id/iv_userIconEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingBottom="15dp"
+            android:paddingLeft="30dp"
+            android:paddingTop="15dp"
+            android:src="@drawable/ic_icon_dmail" />
+
+        <View
+            android:id="@+id/viewUserEmail"
+            android:layout_width="1dip"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_userIconEmail"
+            />
+
+        <EditText
+            android:id="@+id/et_useremail"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/viewUserEmail"
+            android:background="@null"
+            android:drawablePadding="5dp"
+            android:ems="19"
+            android:hint="@string/email"
+            android:maxLength="20"
+            android:textColorHint="@color/colorCursor"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/et_useremail"
+            android:background="@color/black"
+            />
+    </RelativeLayout>
+
 </RelativeLayout>

@@ -134,7 +134,7 @@ public class FragmentHome extends Fragment {
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
                     headers.put("Content-Type", "application/json");
-                    headers.put("token", token);
+                    headers.put("Authorization", "Bearer "+token);
                     return headers;
                 }
             };
@@ -193,12 +193,11 @@ public class FragmentHome extends Fragment {
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
                     headers.put("Content-Type", "application/json");
-                    headers.put("token", token);
+                    headers.put("Authorization", "Bearer "+token);
                     return headers;
                 }
             };
             AppController.getInstance().addToRequestQueue(jsonObjectRequest, tag);
-
         }catch (NullPointerException e){
             e.printStackTrace();
         }catch (Exception e){

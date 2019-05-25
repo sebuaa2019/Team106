@@ -153,8 +153,11 @@ public class FragmentNotification extends Fragment {
         try {
             //构建位置，传感器的映射
             final ArrayList<String> sensor_map = new ArrayList<String>();
+            sensor_map.add("门磁");
+            sensor_map.add("水浸");
             sensor_map.add("红外");
-            sensor_map.add("烟感");
+            sensor_map.add("烟雾");
+            sensor_map.add("温度");
 
             // 掉接口
             SharedPreferences sp = this.getActivity().getSharedPreferences("conf", 0);
@@ -166,7 +169,7 @@ public class FragmentNotification extends Fragment {
             map.put("sensor", String.valueOf(sensor));
             map.put("date", date_text);
             JSONObject params = new JSONObject(map);
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, params,
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -203,7 +206,7 @@ public class FragmentNotification extends Fragment {
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
                     headers.put("Content-Type", "application/json");
-                    headers.put("token", token);
+                    headers.put("Authorization", "Bearer "+token);
                     return headers;
                 }
             };

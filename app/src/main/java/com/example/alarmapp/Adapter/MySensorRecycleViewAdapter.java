@@ -96,7 +96,7 @@ public class MySensorRecycleViewAdapter extends RecyclerView.Adapter<MySensorRec
                         public Map<String, String> getHeaders() throws AuthFailureError {
                             HashMap<String, String> headers = new HashMap<String, String>();
                             headers.put("Content-Type", "application/json");
-                            headers.put("token", token);
+                            headers.put("Authorization", "Bearer "+token);
                             return headers;
                         }
                     };

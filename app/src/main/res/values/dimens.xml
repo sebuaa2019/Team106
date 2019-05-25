@@ -13,7 +13,7 @@
     <dimen name="mode_spinner_horizontal_margin">40dp</dimen>
     <dimen name="home_spinner_vertical_margin">300dp</dimen>
     <dimen name="pos_spinner_horizontal_margin">240dp</dimen>
-    <dimen name="long_spinner_width">match_parent</dimen>
+    <dimen name="long_spinner_width">380dp</dimen>
     <dimen name="spinnerpop_listitem_padding">10dp</dimen>
     <dimen name="spinnerpop_height">42dp</dimen>
     <dimen name="spinnerpop_confirm_margin">15dp</dimen>

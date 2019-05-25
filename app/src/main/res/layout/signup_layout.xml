@@ -90,7 +90,7 @@
             android:paddingBottom="15dp"
             android:paddingLeft="30dp"
             android:paddingTop="15dp"
-            android:src="@drawable/ic_icon_phone" />
+            android:src="@drawable/ic_icon_dmail" />
 
         <View
             android:id="@+id/viewUserEmail"
