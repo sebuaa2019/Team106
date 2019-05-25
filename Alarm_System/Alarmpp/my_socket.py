@@ -15,6 +15,13 @@ class my_sender(threading.Thread):
         self.conn.send(str)
 
 class my_reciver(threading.Thread):
+    alarm = {
+        0 : "门磁",
+        1 : "红外",
+        2 : "水浸",
+        3 : "烟感",
+        4 : "温感"
+    }
     def __init__(self, conn, addr, username):
         threading.Thread.__init__(self)
         self.conn = conn
@@ -23,9 +30,10 @@ class my_reciver(threading.Thread):
     def sensor_id2text(self, sensor_id):
         sensor = Sensor.objects.get(sensor_id=sensor_id)
         area = sensor.area
-        type = str(sensor.type)
+        type = self. alarm[sensor.type]
         text = "报警"
         text = area+type+text
+        return text
     def run(self):
         while(True):
             try:
@@ -39,8 +47,8 @@ class my_reciver(threading.Thread):
                 title = "震惊！你不家的时候竟然发生..."
                 text = self.sensor_id2text(sensor_id)
                 sender = settings.EMAIL_FROM
-                reciver = user = User.objects.get(username=self.username)
-                send_mail(title, text, sender, reciver)
+                reciver = [User.objects.get(username=self.username).email]
+                res = send_mail(title, text, sender, reciver)
             except:
                 pass
 
