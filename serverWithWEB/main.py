@@ -16,7 +16,9 @@ def tcplinkrec(conn, addr,s2):
     while True:
         #conn.send(b"What's your name?")
         data = conn.recv(1024).decode()
-        print('from PPC:'+data+'\n')
+        print('from PPC:'+ data+'ohhh')
+        if data == "0":
+            print("yes")
         s2.send(data.encode())
         #if data == "exit":
           #  conn.send(b"Good bye!\n")
@@ -27,6 +29,7 @@ def tcplinkrec(conn, addr,s2):
 
 
 def tcplinksend(conn,addr,s2):
+    data = ""
     while True:
         data = s2.recv(1024).decode()
         print('from WEB:'+data+'\n')
@@ -116,6 +119,16 @@ def sendClient(s): #send line
                 s.send(line.encode())
         time.sleep(1)
 def client():
+
+    #s2 with WEB
+    s2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s2.connect(("114.115.160.42", 9000))
+    data = "lipu"
+    data = data.encode()
+    s2.send(data)
+    data = "0"
+    data = data.encode()
+    s2.send(data)
     #s1 with PPC
     s1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = socket.gethostname()
@@ -126,7 +139,7 @@ def client():
     # host = input('please host:')
     # port = int(input('please port:'))
     print('stat...', s1)
-    s1.bind(("192.168.0.14", 8888))
+    s1.bind(("192.168.0.14", 3333))
     if s1:
         print('ok')
     else:
@@ -135,13 +148,6 @@ def client():
     print("Waiting for connection...")
 
     conn, addr = s1.accept()
-
-    #s2 with WEB
-    s2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s2.connect(("114.115.160.42", 9000))
-    data = "lipu"
-    data = data.encode()
-    s2.send(data)
 
     t1 = threading.Thread(target=tcplinkrec, args=(conn, addr,s2,))
     t1.start()
@@ -165,7 +171,7 @@ def client():
     #         wtf.write("rs" + '\n')
     #     wtf.close()
     #     time.sleep(1)
-    s.close()
+    #s.close()
 
 if __name__=="__main__":
     client()
