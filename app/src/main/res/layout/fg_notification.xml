@@ -10,11 +10,15 @@
 
     <Spinner
         android:id="@+id/n_sensor_spinner"
-        android:layout_width="@dimen/spinner_width"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
+        android:spinnerMode="dropdown"
+        style="@style/SpinnerTheme"
+        android:layout_width="@dimen/long_spinner_width"
+        android:layout_height="@dimen/spinnerpop_height"
+        android:layout_marginLeft="@dimen/spinnerpop_confirm_margin"
+        android:layout_marginRight="@dimen/spinnerpop_confirm_margin"
         android:layout_marginTop="@dimen/notification_spinner_vertical_margin"
+        android:padding="@dimen/spinnerpop_listitem_padding"
+        android:dropDownWidth="@dimen/long_spinner_width"
         android:entries="@array/sensor_array"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -77,7 +81,7 @@
         android:gravity="center_vertical"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="140dp"
         android:text="@string/set_date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -88,7 +92,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/card_list"
         android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:layout_height="460dp"
         android:layout_marginTop="240dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

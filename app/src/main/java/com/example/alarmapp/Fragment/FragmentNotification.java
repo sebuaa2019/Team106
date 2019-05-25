@@ -1,5 +1,6 @@
 package com.example.alarmapp.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -40,6 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.alarmapp.R.color;
 import static com.example.alarmapp.Utils.URLConf.*;
 
 
@@ -83,8 +86,11 @@ public class FragmentNotification extends Fragment {
 
     private void initEvent(){
         spin_sensor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                TextView tv=(TextView)view;
+                tv.setTextColor(R.color.colorPrimary);
                 sensor = i;
                 queryIndex();
             }
