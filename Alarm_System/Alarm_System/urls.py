@@ -29,6 +29,7 @@ urlpatterns = [
     #control
     path('api/control/onoff/', views.onoff.as_view()),
     path('api/control/record/', views.record.as_view()),
+    path('api/control/getsensor/',views.getsensor.as_view()),
     #test
     path('api/test/connect/', views.test.as_view()),
     #server

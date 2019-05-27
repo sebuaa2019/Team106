@@ -6,18 +6,18 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions
 from Alarm_System import settings
-from Alarmpp.models import User, Record, Sensor
+from Alarmpp.models import User, Record, Sensor, Control, Load
 from Alarmpp.my_socket import my_socket_server
 from Alarmpp.my_enum import Sensortype, Status, Onoff
 
 # Create your views here.
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
-__runserver = False
-if not __runserver:
-    board_server = my_socket_server("127.0.0.1", 9000)
-    board_server.start()
-    __runserver = board_server
+# __runserver = False
+# if not __runserver:
+#     board_server = my_socket_server("127.0.0.1", 9000)
+#     board_server.start()
+#     __runserver = board_server
 class runserver(APIView):
     run = False
     def get(self, request):
@@ -45,18 +45,24 @@ class register(APIView):
     authentication_classes = []
 
     def post(self, request):
-        data = request.data
-        username = data.get('username')
-        passwprd = data.get('password')
-        email    = data.get('email')
+        status = ""
+        msg = ""
         try:
-            user = User.objects.get(username=username)
-            status = Status.Fail
-            msg = '用户名已存在'
+            data = request.data
+            username = data.get('username')
+            passwprd = data.get('password')
+            email    = data.get('email')
+
+            user_count = User.objects.filter(username=username).count()
+            if user_count is not 0:
+                status = Status.Fail
+                msg = '用户名已存在'
+            else:
+                User.objects.create(username=username,password=passwprd,email=email)
+                status = Status.Success
+                msg = '注册成功'
         except:
-            User.objects.create(username=username,password=passwprd,email=email)
-            status = Status.Success
-            msg = '注册成功'
+            pass
         res = {
             'status': status,
             'msg': msg,
@@ -65,11 +71,11 @@ class register(APIView):
 
 class login(ObtainJSONWebToken):
     def post(self, request, *args, **kwargs):
-        data = request.data
-        username = data.get('username')
-        password = data.get('password')
-        print(username)
         try:
+            data = request.data
+            username = data.get('username')
+            password = data.get('password')
+            print(username)
             user = User.objects.get(username=username)
             if user.password == password:
                 status = Status.Success
@@ -103,10 +109,15 @@ class logout(APIView):
 
 class index(APIView):
     def get(self, request):
-        username = request.user.username
-        user = User.objects.get(username=username)
-        phone = user.phone
-        name  = user.name
+        name = ""
+        phone = ""
+        try:
+            username = request.user.username
+            user = User.objects.get(username=username)
+            phone = user.phone
+            name  = user.name
+        except:
+            pass
         res = {
             'name' : name,
             'phone' : phone,
@@ -181,7 +192,11 @@ class record(APIView):
             data = request.data
             sensor_type = int(data.get('sensor_type'))
             date = data.get('date')
-            records = Record.objects.get(date=date, sensor_type=sensor_type)
+            username = request.user.username
+            user_id = User.objects.get(username=username).id
+            PPC_id  = Control.objects.get(user_id=user_id).PPC_id
+            sensor_ids = Load.objects.filter(PPC_id=PPC_id).values("sensor_id")
+            records = Record.objects.filter(sensor_id__in=sensor_ids, date=date, type=sensor_type)
             for record in records:
                 r = {
                     "record_id" : record.sensor_id,
@@ -195,5 +210,34 @@ class record(APIView):
         res = {
             'info_list' : info_list,
             'count' : count
+        }
+        return Response(res)
+
+class getsensor(APIView):
+    def post(self, request):
+        sensor_list = []
+        try:
+            type = int(request.data.get("type"))
+            username = request.user.username
+            user_id = User.objects.get(username=username).id
+            PPC_id   = Control.objects.get(user_id=user_id).PPC_id
+            sensor_ids = Load.objects.filter(PPC_id=PPC_id).values("sensor_id")
+            if type == 5:
+                sensors = Sensor.objects.filter(sensor_id__in=sensor_ids)
+            else:
+                sensors = Sensor.objects.filter(sensor_id__in=sensor_ids, type=type)
+            for sensor in sensors:
+                s = {
+                    "sensor_id" : sensor.sensor_id,
+                    "type" : sensor.type,
+                    "pos": sensor.area,
+                    "status": sensor.switch,
+                }
+                sensor_list.append(s)
+        except:
+            pass
+        res = {
+            "sensor_list" : sensor_list,
+            "count" : len(sensor_list),
         }
         return Response(res)

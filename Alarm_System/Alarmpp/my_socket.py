@@ -6,9 +6,8 @@ import time as Time
 from django.core.mail import send_mail
 from django.conf import settings
 
-class my_sender(threading.Thread):
+class my_sender():
     def __init__(self, conn, addr):
-        threading.Thread.__init__(self)
         self.conn = conn
         self.addr = addr
     def send(self, str):
@@ -72,7 +71,6 @@ class my_socket_server(threading.Thread):
             t_recv = my_reciver(conn, addr, username)
             t_send = my_sender(conn, addr)
             t_recv.start()
-            t_send.start()
             self.sockets[username] = (t_recv, t_send)
 
     def getsender(self, username):
