@@ -153,11 +153,12 @@ REST_FRAMEWORK = {
 #发送邮件
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.qq.com'
-EMAIL_PORT = 25
+EMAIL_PORT = 587
 EMAIL_HOST_USER = '935718936@qq.com'
 #在邮箱中设置的客户端授权密码
 EMAIL_HOST_PASSWORD = 'geeuonndgxnhbdbj'
 #收件人看到的发件人
 EMAIL_FROM = '935718936@qq.com'
+EMAIL_USE_TLS = True
 
 AUTH_USER_MODEL = 'Alarmpp.User'
