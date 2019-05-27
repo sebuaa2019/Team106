@@ -87,7 +87,6 @@ void unlock()
 {
     while(1) {
         if(isArm()) {
-            printf("Armed\n");
             break;
         }
         else {
@@ -308,6 +307,7 @@ void * smokeSensorMonitor()
                     warningSmoke(1);     /* warning */
                 }
             } else if (warningStatus1 == 3) {
+		smokeWarning1 = 1;
                 if (sensorStatus == 0) {
                     normalTime1++;
                     if (normalTime1 >= MAX_SMOKE_NORMAL_VALUE_CONTINUOUS_TIME) {  /* if get enough normal value */
@@ -329,7 +329,7 @@ void * smokeSensorMonitor()
                 /*error*/
             }
             if (warningStatus2 == 0) {
-                smokeWarning1 = 0;
+                smokeWarning2 = 0;
                 if (sensorStatus == 0) {     /*do nothing*/
                     ;   /*do nothing*/
                 } else if (sensorStatus == 1) {        /* warning status goto 1, abnotmalTime add 1 */
@@ -349,7 +349,7 @@ void * smokeSensorMonitor()
                     }
                 }
             } else if (warningStatus2 == 2) {
-                smokeWarning1 = 1;
+                smokeWarning2 = 1;
                 if (sensorStatus == 0) {     /* if get a normal value in warningStatus 2 */
                     warningStatus2 = 3;              /* goto  warning status 3 */
                     normalTime2++;                   /* normalTime add 1 */
@@ -358,6 +358,7 @@ void * smokeSensorMonitor()
                     warningSmoke(2);     /* warning */
                 }
             } else if (warningStatus2 == 3) {
+		smokeWarning2 = 1;
                 if (sensorStatus == 0) {
                     normalTime2++;
                     if (normalTime2 >= MAX_SMOKE_NORMAL_VALUE_CONTINUOUS_TIME) {  /* if get enough normal value */
@@ -441,6 +442,7 @@ void * temperatureSensorMonitor()
                     warningTemperature(1);     /* warning */
                 }
             } else if (warningStatus1 == 3) {
+		temperatureWarning1 = 1;
                 if (sensorStatus == 0) {
                     normalTime1++;
                     if (normalTime1 >= MAX_TEMPERATURE_NORMAL_VALUE_CONTINUOUS_TIME) {  /* if get enough normal value */
@@ -462,7 +464,7 @@ void * temperatureSensorMonitor()
                 /*error*/
             }
             if (warningStatus2 == 0) {
-                temperatureWarning1 = 0;
+                temperatureWarning2 = 0;
                 if (sensorStatus == 0) {     /*do nothing*/
                     ;   /*do nothing*/
                 } else if (sensorStatus == 1) {        /* warning status goto 1, abnotmalTime add 1 */
@@ -482,7 +484,7 @@ void * temperatureSensorMonitor()
                     }
                 }
             } else if (warningStatus2 == 2) {
-                temperatureWarning1 = 1;
+                temperatureWarning2 = 1;
                 if (sensorStatus == 0) {     /* if get a normal value in warningStatus 2 */
                     warningStatus2 = 3;              /* goto  warning status 3 */
                     normalTime2++;                   /* normalTime add 1 */
@@ -491,6 +493,7 @@ void * temperatureSensorMonitor()
                     warningTemperature(2);     /* warning */
                 }
             } else if (warningStatus2 == 3) {
+		temperatureWarning2 = 1;
                 if (sensorStatus == 0) {
                     normalTime2++;
                     if (normalTime2 >= MAX_TEMPERATURE_NORMAL_VALUE_CONTINUOUS_TIME) {  /* if get enough normal value */
@@ -540,13 +543,13 @@ void * serverMonitor()
     len = sizeof(serAddr);
 
     vxsleep(100);
-
+    printf("server start!\n");
     /* create socket */
     sockFd = socket(AF_INET,SOCK_STREAM,0);
 
     /* set the net which the socket tend to bind */
     serAddr.sin_family=AF_INET;             /* ip protocol */
-    serAddr.sin_port=8888;                  /* port */
+    serAddr.sin_port=3333;                  /* port */
     inet_aton(ip, &(serAddr.sin_addr));     /*change ip to 32 bit integer*/
     memset(serAddr.sin_zero, 0, 8);
 
@@ -592,7 +595,7 @@ void * serverMonitor()
             if(infraredWarning1 == 1) {
                 lastInfraredWarning1 = infraredWarning1;
                 infraredWarning1 = 0;
-                strcpy(buf, "3");
+                strcpy(buf, "2");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(infraredWarning1 == 0) {
@@ -603,7 +606,7 @@ void * serverMonitor()
             if(infraredWarning2 == 1) {
                 lastInfraredWarning2 = infraredWarning2;
                 infraredWarning2 = 0;
-                strcpy(buf, "4");
+                strcpy(buf, "3");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(infraredWarning2 == 0) {
@@ -615,7 +618,7 @@ void * serverMonitor()
             if(waterWarning1 == 1) {
                 lastWaterWarning1 = waterWarning1;
                 waterWarning1 = 0;
-                strcpy(buf, "6");
+                strcpy(buf, "4");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(waterWarning1 == 0) {
@@ -626,7 +629,7 @@ void * serverMonitor()
             if(waterWarning2 == 1) {
                 lastWaterWarning2 = waterWarning2;
                 waterWarning2 = 0;
-                strcpy(buf, "7");
+                strcpy(buf, "5");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(waterWarning2 == 0) {
@@ -634,11 +637,12 @@ void * serverMonitor()
             }
         }
 
+
         if(smokeWarning1 != lastSmokeWarning1) {
             if(smokeWarning1 == 1) {
                 lastSmokeWarning1 = smokeWarning1;
                 smokeWarning1 = 0;
-                strcpy(buf, "9");
+                strcpy(buf, "6");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(smokeWarning1 == 0) {
@@ -649,7 +653,7 @@ void * serverMonitor()
             if(smokeWarning2 == 1) {
                 lastSmokeWarning2 = smokeWarning2;
                 smokeWarning2 = 0;
-                strcpy(buf, "10");
+                strcpy(buf, "7");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(smokeWarning2 == 0) {
@@ -661,7 +665,7 @@ void * serverMonitor()
             if(temperatureWarning1 == 1) {
                 lastTemperatureWarning1 = temperatureWarning1;
                 temperatureWarning1 = 0;
-                strcpy(buf, "12");
+                strcpy(buf, "8");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(temperatureWarning1 == 0) {
@@ -672,7 +676,7 @@ void * serverMonitor()
             if(temperatureWarning2 == 1) {
                 lastTemperatureWarning2 = temperatureWarning2;
                 temperatureWarning2 = 0;
-                strcpy(buf, "13");
+                strcpy(buf, "9");
                 write(sockFd, buf, sizeof(buf));
             }
             else if(temperatureWarning2 == 0) {
@@ -756,15 +760,13 @@ void * armMonitor()
             waterStatus = 1;            /* 0 for off, 1 for on */
             smokeStatus = 1;            /* 0 for off, 1 for on */
             temperatureStatus = 1;      /* 0 for off, 1 for on */
-            printf("Armed\n");
         }
         else if (isDisArm()) {
-            doorStatus = 0;             /* 0 for off, 1 for on */
-            infraredStatus = 0;         /* 0 for off, 1 for on */
-            waterStatus = 0;            /* 0 for off, 1 for on */
-            smokeStatus = 0;            /* 0 for off, 1 for on */
-            temperatureStatus = 0;      /* 0 for off, 1 for on */
-            printf("DisArmed\n");
+                doorStatus = 0;             /* 0 for off, 1 for on */
+                infraredStatus = 0;         /* 0 for off, 1 for on */
+                waterStatus = 0;            /* 0 for off, 1 for on */
+                smokeStatus = 0;            /* 0 for off, 1 for on */
+                temperatureStatus = 0;      /* 0 for off, 1 for on */
         }
         vxsleep(100);
     }
