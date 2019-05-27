@@ -1,6 +1,7 @@
 package com.example.alarmapp.Adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,8 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
     @Override
     public void onBindViewHolder(final ContactViewHolder holder, final int position) {
         AlarmInfo ai = alarmInfoList.get(position);
-        Date date = new Date(ai.getTime());
+        Log.d("test", String.valueOf(ai.getTime()));
+        Date date = new Date(ai.getTime()*1000);
         SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         holder.time.setText("时间："+ft.format(date));
         holder.type.setText("类别："+ai.getType());

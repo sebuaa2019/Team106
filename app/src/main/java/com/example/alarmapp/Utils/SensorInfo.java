@@ -28,7 +28,7 @@ public class SensorInfo {
     }
 
     public String getCategory() {
-        String [] sensor_list = {"门磁","水浸","红外","烟感","温感"};
+        String [] sensor_list = {"门磁","红外", "水浸", "烟感","温感"};
         return sensor_list[category];
     }
     public int getCategoryId(){
