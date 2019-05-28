@@ -7,10 +7,58 @@ import time
 import threading
 import datetime
 import  os
+import socket
 
 
-rdpath = 'C://Users//chenshang//Desktop//serverWithPPC//PPC2WEB.txt'
-wtpath = 'C://Users//chenshang//Desktop//serverWithPPC//WEB2PPC.txt'
+def tcplinkrec(conn, addr,s2):
+    print("Accept new connection from %s:%s" % addr)
+    #conn.send(b"Welcome!\n")
+    while True:
+        #conn.send(b"What's your name?")
+        data = conn.recv(1024).decode()
+        print('from PPC:'+ data+'ohhh')
+        if data == "0":
+            print("yes")
+        s2.send(data.encode())
+        #if data == "exit":
+          #  conn.send(b"Good bye!\n")
+        #    break
+        #conn.send(b"Hello %s!\n" % data.encode())
+    conn.close()
+    print("Connection from %s:%s is closed" % addr)
+
+
+def tcplinksend(conn,addr,s2):
+    data = ""
+    while True:
+        data = s2.recv(1024).decode()
+        print('from WEB:'+data+'\n')
+        if data=='p0' or data=='p1':
+            data = 'pd'
+        elif data =='p2' or data =='p3':
+            data = 'pi'
+        elif data == 'p4' or data =='p5':
+            data = 'pw'
+        elif data == 'p6' or data =='p7':
+            data = 'ps'
+        elif data == 'p8' or data == 'p9':
+            data = 'pt'
+        elif data=='r0' or data=='r1':
+            data = 'rd'
+        elif data =='r2' or data =='r3':
+            data = 'ri'
+        elif data == 'r4' or data =='r5':
+            data = 'rw'
+        elif data == 'r6' or data =='r7':
+            data = 'rs'
+        elif data == 'r8' or data == 'r9':
+            data = 'rt'
+        conn.send(data.encode())
+    s2.close()
+
+
+#rdpath = 'C://Users//chenshang//Desktop//serverWithPPC//PPC2WEB.txt'
+#wtpath = 'C://Users//chenshang//Desktop//serverWithPPC//WEB2PPC.txt'
 
 #时间戳到时间
 def TimeStampToTime(timestamp):
@@ -55,7 +103,7 @@ def get_FileModifyTime(filePath):
 # print('客户端接收数据=', s.recv(1024).decode('utf-8'))
 # s.close()
 
-def sendClient(): #send line
+def sendClient(s): #send line
     while(1):
         if os.path.getsize(rdpath): #文件非空
             time_mod = get_FileModifyTime(rdpath)
@@ -67,46 +115,63 @@ def sendClient(): #send line
                 rdf = open(rdpath,"w")
                 rdf.truncate()
                 rdf.close()
-                line = line[:-1]
                 print(line)
                 s.send(line.encode())
         time.sleep(1)
 def client():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    print(socket.gethostname())
-    #print(get_FileModifyTime('C://Users//chenshang//Desktop//testPipes//test.txt'))
-    s.connect(("114.115.160.42", 3333))
-    print(s.recv(1024).decode())
-    data = "PPC106"
+
+    #s2 with WEB
+    s2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s2.connect(("114.115.160.42", 9000))
+    data = "lipu"
     data = data.encode()
-    s.send(data)
-    t = threading.Thread(target=sendClient,args=(s,))
-    t.start()
+    s2.send(data)
+    data = "0"
+    data = data.encode()
+    s2.send(data)
+    #s1 with PPC
+    s1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    host = socket.gethostname()
+    print(host)
+    # addr = ['100.125.1.250', '100.125.21.250', '192.168.0.1', '192.168.15.254', '192.168.8.3', "114.116.48.152"]
+    # for i in addr:
+    # time.sleep(0.2)
+    # host = input('please host:')
+    # port = int(input('please port:'))
+    print('stat...', s1)
+    s1.bind(("192.168.0.14", 3333))
+    if s1:
+        print('ok')
+    else:
+        print('ng')
+    s1.listen(5)
+    print("Waiting for connection...")
 
-    #data = "client"
-    while True:   #receive line
-        data = s.recv(1024).decode()
-        print(data)
-        wtf = open(wtpath, "w")
-        if data=="pi":
-            wtf.write("pi" + '\n')
-        elif data=="ps":
-            wtf.write("ps" + '\n')
-        elif data=="ri":
-            wtf.write("ri" + '\n')
-        elif data=="rs":
-            wtf.write("rs" + '\n')
-        wtf.close()
-        time.sleep(1)
-        #if data: print(s.recv(1024).decode())
+    conn, addr = s1.accept()
 
-        #data = input("Please input your name: ")
-        #if not data: continue
-        #s.send(data.encode())
+    t1 = threading.Thread(target=tcplinkrec, args=(conn, addr,s2,))
+    t1.start()
+    t2 = threading.Thread(target=tcplinksend, args=(conn, addr,s2,))
+    t2.start()
 
-        #print(s.recv(1024).decode())
-        #if data == "exit": break
-    s.close()
+    # t = threading.Thread(target=sendClient,args=(s,))
+    # t.start()
+
+    # while True:   #receive line
+    #     data = s.recv(1024).decode()
+    #     print(data)
+    #     wtf = open(wtpath, "w")
+    #     if data=="pi":
+    #         wtf.write("pi" + '\n')
+    #     elif data=="ps":
+    #         wtf.write("ps" + '\n')
+    #     elif data=="ri":
+    #         wtf.write("ri" + '\n')
+    #     elif data=="rs":
+    #         wtf.write("rs" + '\n')
+    #     wtf.close()
+    #     time.sleep(1)
+    #s.close()
 
 if __name__=="__main__":
     client()

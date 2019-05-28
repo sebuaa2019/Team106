@@ -7,9 +7,17 @@
 
 
 void Sensor();
-int getInfraredSensorStatus();
-int getSmokeSensorStatus();
+int getSensorStatus(int sensorNumber);
 
+void turnOnLight();
+void turnOffLight();
+void setPhone(char buf[]);
+int isArm();
+int isDisArm();
+void setLed(int nID, int nState);
+int getKey(char  *cKey);
+
+int toInt(char string[]);               /* string to int */
 
 
 #endif /*SOFTWARE_ENGINEERING_SENSOR_H*/
