@@ -8,4 +8,32 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SpinnerTheme" parent="@android:style/Theme.Dialog">
+        <!-- Customize your theme here. -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:background">@drawable/cardview</item>
+
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+    </style>
+
+    <style name="SpinnerSmallTheme" parent="@android:style/Theme.Dialog">
+        <!-- Customize your theme here. -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:background">@drawable/cardview_small</item>
+
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+    </style>
+
+    <style name="CardViewText">
+    <!-- Customize your theme here. -->
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="CardViewButton">
+        <!-- Customize your theme here. -->
+        <item name="android:background">@color/button_off_color</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

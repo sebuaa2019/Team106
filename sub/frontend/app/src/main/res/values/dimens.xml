@@ -13,6 +13,10 @@
     <dimen name="mode_spinner_horizontal_margin">40dp</dimen>
     <dimen name="home_spinner_vertical_margin">300dp</dimen>
     <dimen name="pos_spinner_horizontal_margin">240dp</dimen>
+    <dimen name="long_spinner_width">380dp</dimen>
+    <dimen name="spinnerpop_listitem_padding">10dp</dimen>
+    <dimen name="spinnerpop_height">42dp</dimen>
+    <dimen name="spinnerpop_confirm_margin">15dp</dimen>
     <dimen name="spinner_width">150dp</dimen>
     <dimen name="time_line_time">80dp</dimen>
     <dimen name="time_line_rl_left">120dp</dimen>
@@ -20,6 +24,7 @@
     <dimen name="time_line_type">110dp</dimen>
     <dimen name="time_line_rl_right">100dp</dimen>
     <dimen name="time_line_rl_center">120dp</dimen>
+    <dimen name="cardview_top_height">30dp</dimen>
     <!--fg_notification中的dimen-->
     <dimen name="notification_spinner_vertical_margin">80dp</dimen>
 </resources>

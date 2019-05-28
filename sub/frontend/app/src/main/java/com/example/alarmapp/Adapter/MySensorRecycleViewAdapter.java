@@ -54,6 +54,9 @@ public class MySensorRecycleViewAdapter extends RecyclerView.Adapter<MySensorRec
         if(si.isOn()){
             holder.btn_on.setBackgroundColor(Color.rgb(244,67,54));
         }
+        else{
+            holder.btn_on.setBackgroundColor(Color.rgb(96,96,96));
+        }
 
         holder.btn_on.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +83,12 @@ public class MySensorRecycleViewAdapter extends RecyclerView.Adapter<MySensorRec
                                         if(response.getInt("status") == 0){
                                             Toast.makeText(holder.itemView.getContext(), response.getString("msg"),
                                                     Toast.LENGTH_LONG).show();
+
+                                            // 将替换掉的传感器信息重新设置
+                                            SensorInfo changeState = sensorInfoList.get(position);
+                                            changeState.setOn();
+                                            sensorInfoList.set(position, changeState);
+                                            notifyDataSetChanged();
                                         }
                                     }catch (Exception e){
                                         e.printStackTrace();
@@ -96,17 +105,12 @@ public class MySensorRecycleViewAdapter extends RecyclerView.Adapter<MySensorRec
                         public Map<String, String> getHeaders() throws AuthFailureError {
                             HashMap<String, String> headers = new HashMap<String, String>();
                             headers.put("Content-Type", "application/json");
-                            headers.put("token", token);
+                            headers.put("Authorization", "Bearer "+token);
                             return headers;
                         }
                     };
                     AppController.getInstance().addToRequestQueue(jsonObjectRequest, tag);
 
-                    // 将替换掉的传感器信息重新设置
-                    SensorInfo changeState = sensorInfoList.get(position);
-                    changeState.setOn();
-                    sensorInfoList.set(position, changeState);
-                    notifyDataSetChanged();
 
                 }catch (NullPointerException e){
                     e.printStackTrace();

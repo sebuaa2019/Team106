@@ -170,7 +170,7 @@ public class SignupActivity extends AppCompatActivity {
                             headers.put("Content-Type", "application/json");
                             SharedPreferences sp = getSharedPreferences("conf", 0);
                             String token = sp.getString("token", "");
-                            headers.put("token", token);
+                            headers.put("Authorization", "Bearer "+token);
                             return headers;
                         }
                     };

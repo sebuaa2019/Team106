@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 矩形的圆角弧度 -->
+    <corners android:topLeftRadius="5dp"
+        android:topRightRadius="5dp"/>
+    <!-- 矩形的填充色 -->
+    <size android:height="@dimen/cardview_top_height"/>
+
+    <solid android:color="@color/cardview_top_color" />
+
+
+</shape>
